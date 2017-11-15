@@ -4,7 +4,8 @@ import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import CreateAccount from './components/CreateAccount';
-import LogIn from './components/LogIn';
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 
 class App extends Component {
   render() {
@@ -13,7 +14,8 @@ class App extends Component {
         <div className="App">
           <Route exact path="/" component={LandingPage} />
           <Route path="/createaccount" component={CreateAccount} />
-          <Route path="/login" component={LogIn} />
+          <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
           <footer>Curious Rose™</footer>
         </div>
       </BrowserRouter>
