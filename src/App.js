@@ -18,8 +18,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/writeentry" component={WriteEntry} />
-          <Route path="/readentry" component={ReadEntry} />
-          
+          <Route path="/readentry/:id" component={ReadEntry} />
           <footer>Curious Rose™</footer>
         </div>
       </BrowserRouter>

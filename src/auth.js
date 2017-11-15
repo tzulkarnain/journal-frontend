@@ -11,13 +11,13 @@ export default {
         }
         else {
             return api.createAccount(firstName, lastName, email, password)
-                .then(resp => 
+                .then(resp =>
                     localStorage.userObject = JSON.stringify(resp.body))
         }
-    // if there's a token, then you shouldnt be able to sign up;
-    // check if token, throw error, else, call api.signup
-    // need to put user object from database that includes user id into local storage,
-    
+        // if there's a token, then you shouldnt be able to sign up;
+        // check if token, throw error, else, call api.signup
+        // need to put user object from database that includes user id into local storage,
+
 
     },
 
@@ -37,7 +37,7 @@ export default {
 
     getUser() {
         //localStorage.userObject ?
-        return JSON.parse(localStorage.userObject) 
+        return JSON.parse(localStorage.userObject)
         // : null
 
         // return local storage. user
@@ -46,7 +46,16 @@ export default {
     },
 
     logOut(token) {
-        return localStorage.token = null;
+        api.requestLogout(token)
+            .then(() => {
+                delete localStorage.token;
+                delete localStorage.userObject
+            })
+            .catch((err) => {
+                delete localStorage.token;
+                delete localStorage.userObject
+            })
+
         //removes token / user form local storage
         // call to the server to do something, probably delete
         // delete / set
