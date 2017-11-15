@@ -15,6 +15,10 @@ could also make our own api of quotes so they're relevant
 can experiment more when we have backend to populate
 
 todo: state only has contents that user put into create account
+todo: remove history props from nav bar
+
+fix dashboard if logged out situation!!! 
+on component did mount or render or will mount to check if user is logged in and reroutes
 */
 
 
@@ -29,8 +33,8 @@ class Dashboard extends Component {
   componentDidMount() {
     api.requestEntries(auth.getToken())
     .then(reply => this.setState({ entries: reply.body.entries } ));
-
     const userObj = auth.getUser();
+    console.log('userobj', userObj)
     this.setState({userObj})
 
   }
@@ -45,7 +49,7 @@ class Dashboard extends Component {
     console.log('the state: ', this.state)
     return (
       <div className="dashboard">
-        <NavBar />
+        <NavBar hist={this.props.history} />
         <div className="topWrapper">
           <h1>Hey {this.state.userObj.firstName} </h1>
           <p>Quote</p>

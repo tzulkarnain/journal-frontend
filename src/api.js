@@ -15,6 +15,12 @@ class Api {
 
     }
 
+    getUser = (token) => {
+        return superagent
+        .get(`${apiHost}/api/auth/me`)
+        .set('authorisation', token)
+    }
+
     requestLogin = (email, password) => {
        return superagent
         .post(`${apiHost}/api/auth/login`)
@@ -30,8 +36,7 @@ class Api {
     requestEntries = (token) => {
         return superagent
         .get(`${apiHost}/api/entries`)
-        .set('authorisation', token)
-       
+        .set('authorisation', token) 
     }
 
     requestSingleEntry = (id) => {

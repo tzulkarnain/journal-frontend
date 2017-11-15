@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import auth from '../auth.js';
+
 
 /*
 logic:
@@ -10,11 +12,20 @@ logic:
 */
 
 class NavBar extends Component {
+  handleLogOut = (event) => {
+    auth.logOut(auth.getToken())
+    .then(() => { console.log('navbar this ', this)
+     this.props.hist.push("/");
+    }
+    
+    )
+} 
+  
   render() {
     return (
       <div className="navbar">
         <Link to="/dashboard" className="navButton">Dashboard</Link>
-        <button className="log-out">Log Out</button>
+        <button onClick={this.handleLogOut} className="log-out">Log Out</button>
       </div>
     );
   }

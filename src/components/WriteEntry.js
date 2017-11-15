@@ -7,7 +7,7 @@ import auth from '../auth'
 
 /*
 Logic:
-onSubmit triggers function to send database to storage 
+
 Stretch goal: rotate through different questions depending on day / random / mood
 (shouldn't be too hard tbh)
 
