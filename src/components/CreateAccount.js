@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+/*
+logic: 
+1. createNewUser needs to be a function that takes as its arguements this.highlightInp1.value, 
+
+*/
+
 class CreateAccount extends Component {
 
   render() {
@@ -9,16 +15,16 @@ class CreateAccount extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="inputFields">
             <div>
-              <input type='text' placeholder="First Name" ref={r => this.highlightInp1 = r} />
-              <input type='text' placeholder="Last Name" ref={r => this.highlightInp2 = r} />
+              <input type='text' placeholder="First Name" ref={r => this.firstInput = r} />
+              <input type='text' placeholder="Last Name" ref={r => this.lastInput = r} />
             </div>
             <div>
-              <input type='text' placeholder="Email" ref={r => this.highlightInp3 = r} />
-              <input type='text' placeholder="Confirm Email" ref={r => this.highlightInp4 = r} />
+              <input type='text' placeholder="Email" ref={r => this.emailInput = r} />
+              <input type='text' placeholder="Confirm Email" ref={r => this.emailCheckInput= r} />
             </div>
             <div>
-              <input type='text' placeholder="Password" ref={r => this.highlightInp5 = r} />
-              <input type='text' placeholder="Confirm Password" ref={r => this.highlightInp6 = r} />
+              <input type='text' placeholder="Password" ref={r => this.passwordInput = r} />
+              <input type='text' placeholder="Confirm Password" ref={r => this.passwordCheckInput = r} />
             </div>
             <button>Create</button>
           </div>
