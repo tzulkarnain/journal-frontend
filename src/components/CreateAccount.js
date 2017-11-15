@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import auth from '../auth.js';
 
 /*
 logic: 
@@ -14,6 +15,17 @@ matched or renders a warning to the user if they dont match.
 */
 
 class CreateAccount extends Component {
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    auth.createAccount(this.firstInput.value, this.lastInput.value, this.emailInput.value, this.passwordInput.value)
+      .then(response => console.log('login reply: ', response))
+      .then(() => this.props.history.push("/login"))
+      .catch(err => {
+        console.log('error ', err);
+        this.props.history.push("/dashboard")
+      })
+  }
 
   render() {
     return (

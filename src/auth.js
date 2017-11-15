@@ -3,8 +3,17 @@ import api from './api.js'
 // auth is for adding logic
 //toDO: pass an object into signUp instead of var
 
+
 export default {
-    signUp(firstName, lastName, email, password) {
+    createAccount(firstName, lastName, email, password) {
+        if (localStorage.token) {
+            throw new Error('already logged in')
+        }
+        else {
+            return api.createAccount(firstName, lastName, email, password)
+                .then(resp => 
+                    localStorage.userObject = JSON.stringify(resp.body))
+        }
     // if there's a token, then you shouldnt be able to sign up;
     // check if token, throw error, else, call api.signup
 

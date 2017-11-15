@@ -8,6 +8,13 @@ need: requestLogout(), requestSignUp(), requestSingleEntry(id);
 
 class Api {
 
+    createAccount = (firstName, lastName, email, password) => {
+        return superagent
+        .post(`${apiHost}/api/auth/create-account`)
+        .send({ firstName, lastName, email, password })
+
+    }
+
     requestLogin = (email, password) => {
        return superagent
         .post(`${apiHost}/api/auth/login`)
