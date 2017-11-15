@@ -9,7 +9,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="landingPage">
-        <img className="landingImg" src={blueBeige}/>
+        <img className="landingImg" src={blueBeige} alt="abstract-painting"/>
         <div className="landingTextWrapper">
           <h1>Welcome to Noctjournal</h1>
           <div>

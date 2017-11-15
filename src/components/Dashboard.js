@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import EntryPreview from './EntryPreview';
+import NavBar from './NavBar'
+
+/*
+logic:
+1. NavBar may need props to specify that we want 'log out'
+2. carosal of entries 
+*/
+
 
 class Dashboard extends Component {
   render() {
