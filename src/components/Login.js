@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+/*
+logic:
+handleSubmit: runs backend function that checks database for email and password, and 
+if successful reroutes user to dashboard, else renders that the user name or pasword is incorrect
+
+*/
+
 class Login extends Component {
   render() {
     return (

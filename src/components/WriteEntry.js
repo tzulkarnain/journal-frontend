@@ -3,6 +3,14 @@ import NavBar from './NavBar'
 import Slider from './Slider'
 // import PictureUpload from './PictureUpload'
 
+/*
+Logic:
+onSubmit triggers function to send database to storage 
+Stretch goal: rotate through different questions depending on day / random / mood
+(shouldn't be too hard tbh)
+*/
+
+
 
 class WriteEntry extends Component {
     render() {

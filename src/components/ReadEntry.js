@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
 /*
-Question: how will the content be displayed?
+Logic:
+takes data from storage and displays it...
 */
 
 class ReadEntry extends Component {

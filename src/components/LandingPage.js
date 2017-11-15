@@ -3,7 +3,10 @@ import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
 import styles from '../temp-css/landingPage.css'
 
+/*
+just need ot make sure that navbar doesnt display here... 
 
+*/
 class LandingPage extends Component {
   
   render() {

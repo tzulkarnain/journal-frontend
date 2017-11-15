@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 /*
 logic:
 1. Arrow links to that entry's ReadEntry
-2. Date = date of that entry
+2. Date = date of that entry, needs to pull date from database. 
 3. Delete = deletes entry
+4. carosaul that shows 2 entries and an arrow on either side. not sure how to do this??
 */
 
 class EntryPreview extends Component {
   render() {
     return (
         <div>
-          <Link to="/readentry">Arrow</Link>
-          <span>Date</span>
+          <Link to="/readentry"><h4>^</h4></Link>
+          <h4>Date</h4>
           <button>Delete</button>
         </div>
     );

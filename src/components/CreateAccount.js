@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 
 /*
 logic: 
-1. createNewUser needs to be a function that takes as its arguements this.highlightInp1.value, 
+1. createNewUser needs to be a function that takes as its arguements first name, 
+last night, email, and password and sends them to the database to 1) make sure they don't exist and then 2) store them
+
+2. checkThatMatches needs to be a function that takes two inputs and checks that they match and returns the input if 
+matched or renders a warning to the user if they dont match. 
+
+3. there should be a check on both pw and email, and then another one also createNewUser should only run if both pw and email pass their checks
+
 
 */
 
