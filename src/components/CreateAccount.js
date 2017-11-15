@@ -42,8 +42,8 @@ class CreateAccount extends Component {
               <input type='text' placeholder="Confirm Email" ref={r => this.emailCheckInput= r} />
             </div>
             <div>
-              <input type='text' placeholder="Password" ref={r => this.passwordInput = r} />
-              <input type='text' placeholder="Confirm Password" ref={r => this.passwordCheckInput = r} />
+              <input type='password' placeholder="Password" ref={r => this.passwordInput = r} />
+              <input type='password' placeholder="Confirm Password" ref={r => this.passwordCheckInput = r} />
             </div>
             <button>Create</button>
           </div>

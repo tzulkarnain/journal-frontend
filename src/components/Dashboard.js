@@ -5,6 +5,7 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 
+
 /*
 logic:
 1. h1 needs to display the user's name by fetching that data from the database
@@ -12,21 +13,41 @@ logic:
 could also make our own api of quotes so they're relevant 
 3. fairly certain the carosal type thing will be in Entry Preview not Dashboard. 
 can experiment more when we have backend to populate
+
+todo: state only has contents that user put into create account
 */
 
 
 class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {userObj: {},
+                  entries: [],                  
+  }
+  }
 
   componentDidMount() {
-    api.requestEntries(auth.getToken());
+    api.requestEntries(auth.getToken())
+    .then(reply => this.setState({ entries: reply.body.entries } ));
+
+    const userObj = auth.getUser();
+    this.setState({userObj})
+
+  }
+
+  displayEntryPreviews = (entryObj) => {
+    return (
+      <EntryPreview data={entryObj} key={entryObj.id} />
+    )
   }
   
   render() {
+    console.log('the state: ', this.state)
     return (
       <div className="dashboard">
         <NavBar />
         <div className="topWrapper">
-          <h1>Hey Lily</h1>
+          <h1>Hey {this.state.userObj.firstName} </h1>
           <p>Quote</p>
           <Link to="/writeentry"><button>+</button></Link>
         </div>
@@ -35,10 +56,7 @@ class Dashboard extends Component {
             <h3>Your entries</h3>
           </div>
           <div className="entriesWrapperB">
-            <EntryPreview />
-          </div>
-          <div className="entriesWrapperC">
-            <EntryPreview />
+          {this.state.entries.map(this.displayEntryPreviews)}
           </div>
           <div className="entriesWrapperD">
             <div>next-arrow</div>

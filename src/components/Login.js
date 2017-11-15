@@ -28,7 +28,7 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit}>
           <div>
             <input type='text' placeholder="Email" ref={r => this.emailInput = r} />
-            <input type='text' placeholder="Password" ref={r => this.passwordInput = r} />
+            <input type='password' placeholder="Password" ref={r => this.passwordInput = r} />
           </div>
           <button>Log In</button>
         </form>

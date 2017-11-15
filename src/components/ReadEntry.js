@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
+import api from '../api.js'
+import auth from '../auth.js';
 /*
 Logic:
 takes data from storage and displays it...
 */
 
 class ReadEntry extends Component {
+  componentDidMount() {
+    const userObj = auth.getUser();
+    api.requestSingleEntry(userObj.id)
+    // don't know what the 'id' property will be called yet
+
+  }
+
   render() {
     return (
       <div>

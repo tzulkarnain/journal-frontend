@@ -3,7 +3,7 @@ import superagent from 'superagent';
 
 /*
 
-need: requestLogout(), requestSignUp(), requestSingleEntry(id);
+need: requestLogout(), ;
 */
 
 class Api {
@@ -31,8 +31,14 @@ class Api {
         return superagent
         .get(`${apiHost}/api/entries`)
         .set('authorisation', token)
-        .then(reply => console.log('replyEntrlies ', reply.body ))
+       
+    }
 
+    requestSingleEntry = (id) => {
+        return superagent
+        .get(`${apiHost}/api/entries/:id`)
+        .set('authorisation', id)
+       // .then(reply => console.log('reply single ', reply.body))
     }
 
 }

@@ -16,6 +16,8 @@ export default {
         }
     // if there's a token, then you shouldnt be able to sign up;
     // check if token, throw error, else, call api.signup
+    // need to put user object from database that includes user id into local storage,
+    
 
     },
 
@@ -34,13 +36,17 @@ export default {
     },
 
     getUser() {
-        // if localstorage user  
-        // once you log in, make request for full user 
-        //to store user in local storage 
+        //localStorage.userObject ?
+        return JSON.parse(localStorage.userObject) 
+        // : null
+
         // return local storage. user
+
+        //to do: instead of pulling from loo
     },
 
     logOut(token) {
+        return localStorage.token = null;
         //removes token / user form local storage
         // call to the server to do something, probably delete
         // delete / set
