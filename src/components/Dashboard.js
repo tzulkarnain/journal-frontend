@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import EntryPreview from './EntryPreview';
 import NavBar from './NavBar'
+import api from '../api.js'
+import auth from '../auth.js';
 
 /*
 logic:
@@ -14,6 +16,11 @@ can experiment more when we have backend to populate
 
 
 class Dashboard extends Component {
+
+  componentDidMount() {
+    api.requestEntries(auth.getToken());
+  }
+  
   render() {
     return (
       <div className="dashboard">
