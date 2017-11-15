@@ -20,7 +20,7 @@ class CreateAccount extends Component {
               <input type='text' placeholder="Password" ref={r => this.highlightInp5 = r} />
               <input type='text' placeholder="Confirm Password" ref={r => this.highlightInp6 = r} />
             </div>
-            <button>Create Account</button>
+            <button>Create</button>
           </div>
         </form>
 
