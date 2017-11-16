@@ -15,7 +15,7 @@ class Api {
 
     }
 
-    getUser = (token) => {
+    requestUserObject = (token) => {
         return superagent
         .get(`${apiHost}/api/auth/me`)
         .set('authorisation', token)

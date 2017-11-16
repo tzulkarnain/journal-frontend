@@ -28,7 +28,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       userObj: {},
-      entries: [],
+      entries: [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}],
     }
   }
 
@@ -43,7 +43,7 @@ class Dashboard extends Component {
 
   displayEntryPreviews = (entryObj) => {
     return (
-      <div><EntryPreview data={entryObj} key={entryObj.id} /></div>
+      <div style={{display:'inline-block', margin: '2em 2em'}}><EntryPreview data={entryObj} key={entryObj.id} /></div>
     )
   }
 
@@ -75,9 +75,11 @@ class Dashboard extends Component {
               <Segment >Your entries</Segment>
             </Grid.Column>
             <Grid.Column width={9}>
-              <Segment padded>
+                <div style={{width:'100%', display:'flex', flexDirection:'row', overflowX:'scroll'}}>
+
                   {this.state.entries.map(this.displayEntryPreviews)}
-              </Segment>
+                </div>
+
             </Grid.Column>
           </Grid.Row>
 

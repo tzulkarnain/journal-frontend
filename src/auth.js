@@ -28,7 +28,7 @@ export default {
         else {
             return api.requestLogin(email, password)
                 .then(resp => localStorage.token = resp.body.token)
-                .then(resp => api.getUser(this.getToken()))
+                .then(resp => api.requestUserObject(this.getToken()))
                 .then(resp => localStorage.userObject = JSON.stringify(resp.body))
                 
                 // .to do make an api call to /api/auth/me (get) that returns

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Grid, Card, Icon, Image } from 'semantic-ui-react'
+import puppyPic from '../images/puppy.png';
 
 /*
 logic:
@@ -13,13 +15,35 @@ logic:
 class EntryPreview extends Component {
   render() {
     return (
-        <div>
-          <Link to={`/readentry/${this.props.data.id}`}>
+      <Grid.Column>
+        <Card>
+          <Image src={puppyPic} />
+          <Card.Content>
+            <Card.Header>
+              An excellent day
+      </Card.Header>
+            <Card.Meta>
+              <span className='date'>
+                Aug 30 2017
+        </span>
+            </Card.Meta>
+            <Card.Description>
+              It was my birthday, afterall.
+      </Card.Description>
+          </Card.Content>
+
+        </Card>
+
+      </Grid.Column>
+
+
+      /* <div>
+        <Link to={`/readentry/${this.props.data.id}`}>
           <h4>^</h4>
-          </Link>
-          <h4>{this.props.data.createdAt}</h4>
-          <button>Delete</button>
-        </div>
+        </Link>
+        <h4>{this.props.data.createdAt}</h4>
+        <button>Delete</button>
+      </div> */
     );
   }
 }
