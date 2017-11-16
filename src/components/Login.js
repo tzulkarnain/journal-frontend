@@ -6,6 +6,7 @@ logic:
 handleSubmit: runs backend function that checks database for email and password, and 
 if successful reroutes user to dashboard, else renders that the user name or pasword is incorrect
 do you have a token set up?
+testing this out
 */
 
 class Login extends Component {
