@@ -46,11 +46,11 @@ class Api {
     //    .then(reply => console.log('reply single ', reply.body))
     }
 
-    createSingleEntry = (mood, contents, token) => {
+    createSingleEntry = (entryDataObj, token) => {
         return superagent
         .post(`${apiHost}/api/entries`)
         .set('authorisation', token)
-        .send({ mood, contents })
+        .send(entryDataObj)
     }
 
     requestLogout = (token) => {
