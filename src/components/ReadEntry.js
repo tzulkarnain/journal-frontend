@@ -19,15 +19,16 @@ class ReadEntry extends Component {
   componentDidMount() {
     const userObj = auth.getUser();
     console.log('readEntry', this.props.match.params.id)
-    api.requestSingleEntry(this.props.match.params.id)
-      .then(reply => this.setState(
+    api.requestSingleEntry(this.props.match.params.id, auth.getToken())
+      .then(reply => {console.log(reply.body)
+        this.setState(
+
         {
           singleEntry: reply.body,
           loaded: true
         }
-      ))
+        )})
     // don't know what the 'id' property will be called yet
-
   }
 
   render() {
@@ -38,22 +39,22 @@ class ReadEntry extends Component {
 
           <div className="content-wrapper">
             <img alt="unsplash-or-chosen" />
-            <h3>Title</h3>
+            <h3>Title{this.state.singleEntry.title}</h3>
             <h4>Date</h4>
             <div className="content">
-              <h5>Rating:number or icon</h5>
-              <h5>Highlights:</h5>
+              <h5>Rating: {this.state.singleEntry.mood}</h5>
+              <h5>Highlights: </h5>
               <ul>
-                <li>first highlight</li>
-                <li>second highlight</li>
-                <li>third highlight</li>
+                <li>{this.state.singleEntry.q1a1}</li>
+                <li>{this.state.singleEntry.q1a2}</li>
+                <li>{this.state.singleEntry.q1a3}</li>
               </ul>
               <h5>Could have done better:</h5>
-              <p>I could have...</p>
+              <p>{this.state.singleEntry.q2}</p>
               <h5>Always wanted to:</h5>
-              <p>I've always wanted to...</p>
+              <p>{this.state.singleEntry.q3}</p>
               <h5>Today's notes</h5>
-              <p>Today I...</p>
+              <p>{this.state.singleEntry.q4}</p>
             </div>
           </div>
         }

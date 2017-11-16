@@ -20,15 +20,17 @@ class WriteEntry extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const mood = this.moodInp.value;
-        const contents = {
-            q0: this.q0a1Input.value,
-            q1: [this.q1a1Input.value, this.q1a2Input.value, this.q1a3Input.value],
+               const entryDataObj = {
+            title: this.q0a1Input.value,
+            mood:this.moodInp.value,
+            q1a1:this.q1a1Input.value, 
+            q1a2:this.q1a2Input.value,
+            q1a3:this.q1a3Input.value,
             q2: this.q2a1Input.value,
             q3: this.q3a1Input.value,
             q4: this.q4a1Input.value
         }
-        api.createSingleEntry(mood, contents, auth.getToken() )
+        api.createSingleEntry(entryDataObj, auth.getToken() )
         .then(() => this.props.history.push("/dashboard"))
     }
 
