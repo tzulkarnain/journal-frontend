@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
+import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 /*
 logic:
@@ -9,11 +10,32 @@ do you have a token set up?
 testing this out
 */
 
+// class TextInput extends Component {
+//   constructor() {
+//     super()
+//     this.state = {}
+//   }
+//   render() {
+//     return <div>
+//       <div>hello: {this.state.value}</div>
+
+//       <Input value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} />
+//     </div>
+//   }
+// }
+
 class Login extends Component {
+  constructor() {
+    super()
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    auth.login(this.emailInput.value, this.passwordInput.value)
+    auth.login(this.state.email, this.state.password)
       .then(response => console.log('login reply: ', response))
       .then(() => this.props.history.push("/dashboard"))
       .catch(err => {
@@ -24,17 +46,31 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="logIn" >
-        <h1>Log In</h1>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input type='text' placeholder="Email" ref={r => this.emailInput = r} />
-            <input type='password' placeholder="Password" ref={r => this.passwordInput = r} />
-          </div>
-          <button>Log In</button>
-        </form>
+      <div className='login-form'>
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as="h2" textAlign="center">Log In</Header>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Input icon='user' iconPosition='left' type='text' placeholder="Email" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })} 
+                />
+              <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} 
+                />
+              <Button fluid size='large'>Log In</Button>
+            </Form>
+          </Grid.Column>
+        </Grid>
+
       </div>
-    );
+
+    )
   }
 }
 

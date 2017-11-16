@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
-
+import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 /*
 logic: 
 1. createNewUser needs to be a function that takes as its arguements first name, 
@@ -15,10 +15,19 @@ matched or renders a warning to the user if they dont match.
 */
 
 class CreateAccount extends Component {
+  constructor() {
+    super()
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    }
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    auth.createAccount(this.firstInput.value, this.lastInput.value, this.emailInput.value, this.passwordInput.value)
+    auth.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
       .then(response => console.log('login reply: ', response))
       .then(() => this.props.history.push("/login"))
       .catch(err => {
@@ -29,25 +38,28 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div className="createAccount">
-        <h1>Create Account</h1>
-        <form onSubmit={this.handleSubmit}>
-          <div className="inputFields">
-            <div>
-              <input type='text' placeholder="First Name" ref={r => this.firstInput = r} />
-              <input type='text' placeholder="Last Name" ref={r => this.lastInput = r} />
-            </div>
-            <div>
-              <input type='text' placeholder="Email" ref={r => this.emailInput = r} />
-              <input type='text' placeholder="Confirm Email" ref={r => this.emailCheckInput= r} />
-            </div>
-            <div>
-              <input type='password' placeholder="Password" ref={r => this.passwordInput = r} />
-              <input type='password' placeholder="Confirm Password" ref={r => this.passwordCheckInput = r} />
-            </div>
-            <button>Create</button>
-          </div>
-        </form>
+      <div className='login-form'>
+        <style>{`
+        body > div,
+        body > div > div,
+        body > div > div > div.login-form {
+          height: 100%;
+        }
+      `}</style>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as="h1" textAlign="center">Create Account</Header>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Input type='text' placeholder="First Name" value={this.state.firstName} onChange={(e) => this.setState({firstName: e.target.value})} />
+              <Form.Input type='text' placeholder="Last Name" value={this.state.lastName} onChange={(e) => this.setState({lastName: e.target.value})} />
+              <Form.Input type='text' placeholder="Email"      value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
+              {/* <Form.Input type='text' placeholder="Confirm Email" /> */}
+              <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}  />
+              {/* <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Confirm Password"  /> */}
+              <Button>Create</Button>
+            </Form>
+          </Grid.Column>
+        </Grid>
 
       </div>
     );

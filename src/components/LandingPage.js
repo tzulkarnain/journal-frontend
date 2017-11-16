@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
-import styles from '../temp-css/landingPage.css'
+import { Button, Header, Image } from 'semantic-ui-react'
+
+// import styles from '../temp-css/landingPage.css'
 
 /*
 just need ot make sure that navbar doesnt display here... 
+put image with content
 
 */
 class LandingPage extends Component {
@@ -12,12 +15,12 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="landingPage">
-        <img className="landingImg" src={blueBeige} alt="abstract-painting"/>
+        <Image className="landingImg" src={blueBeige} alt="abstract-painting"/>
         <div className="landingTextWrapper">
-          <h1>Welcome to Noctjournal</h1>
+          <Header as ='h1'>Welcome to Noctjournal</Header>
           <div>
-          <Link to="/createaccount"><button>Create Account</button></Link>
-          <Link to="/login"><button>Log In</button></Link>
+          <Link to="/createaccount"><Button>Create Account</Button></Link>
+          <Link to="/login"><Button>Log In</Button></Link>
           </div>
         </div>
       </div>
