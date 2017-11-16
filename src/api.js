@@ -39,11 +39,11 @@ class Api {
         .set('authorisation', token) 
     }
 
-    requestSingleEntry = (id) => {
+    requestSingleEntry = (id, token) => {
         return superagent
-        .get(`${apiHost}/api/entries/:id`)
-        .set('authorisation', id)
-       // .then(reply => console.log('reply single ', reply.body))
+        .get(`${apiHost}/api/entries/${id}`)
+        .set('authorisation', token)
+    //    .then(reply => console.log('reply single ', reply.body))
     }
 
     createSingleEntry = (mood, contents, token) => {
