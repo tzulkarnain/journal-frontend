@@ -6,14 +6,11 @@ import api from './api.js'
 
 export default {
     createAccount(firstName, lastName, email, password) {
-        if (localStorage.token) {
-            throw new Error('already logged in')
-        }
-        else {
+        
             return api.createAccount(firstName, lastName, email, password)
                 // .then(resp =>
                 //     localStorage.userObject = JSON.stringify(resp.body))
-        }
+    
         // if there's a token, then you shouldnt be able to sign up;
         // check if token, throw error, else, call api.signup
         // need to put user object from database that includes user id into local storage,
@@ -22,10 +19,6 @@ export default {
     },
 
     login(email, password) {
-        if (localStorage.token) {
-            throw new Error('already logged in')
-        }
-        else {
             return api.requestLogin(email, password)
                 .then(resp => localStorage.token = resp.body.token)
                 .then(resp => api.requestUserObject(this.getToken()))
@@ -33,7 +26,7 @@ export default {
                 
                 // .to do make an api call to /api/auth/me (get) that returns
                 // full user object, with that response save into local storage userobject
-        }
+        
     },
 
     getToken() {

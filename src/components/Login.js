@@ -30,6 +30,7 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      error: null
     }
   }
 
@@ -40,7 +41,7 @@ class Login extends Component {
       .then(() => this.props.history.push("/dashboard"))
       .catch(err => {
         console.log('error ', err);
-        this.props.history.push("/dashboard")
+        this.setState( { error: 'Oops, something went wrong.' })
       })
   }
 
@@ -63,6 +64,7 @@ class Login extends Component {
                 />
               <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} 
                 />
+                {this.state.error && (<p>{this.state.error}</p>) }
               <Button fluid size='large'>Log In</Button>
             </Form>
           </Grid.Column>

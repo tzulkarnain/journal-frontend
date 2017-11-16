@@ -20,6 +20,7 @@ todo: remove history props from nav bar
 
 fix dashboard if logged out situation!!! 
 on component did mount or render or will mount to check if user is logged in and reroutes
+{this.state.userObj.firstName}
 */
 
 
@@ -28,13 +29,15 @@ class Dashboard extends Component {
     super();
     this.state = {
       userObj: {},
-      entries: [{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8}],
+      entries: [],
     }
   }
 
   componentDidMount() {
     api.requestEntries(auth.getToken())
-      .then(reply => this.setState({ entries: reply.body.entries }));
+      .then(reply => 
+        this.setState({ entries: reply.body })
+    );
     const userObj = auth.getUser();
     console.log('userobj', userObj)
     this.setState({ userObj })
@@ -57,7 +60,7 @@ class Dashboard extends Component {
         <Grid columns="equal" padded>]
           <Grid.Row>
             <Grid.Column>
-              <Segment size="massive">Hey {this.state.userObj.firstName} </Segment>
+              <Segment size="massive">Hey  </Segment>
             </Grid.Column>
 
             <Grid.Column width={8}>
@@ -77,7 +80,9 @@ class Dashboard extends Component {
             <Grid.Column width={9}>
                 <div style={{width:'100%', display:'flex', flexDirection:'row', overflowX:'scroll'}}>
 
-                  {this.state.entries.map(this.displayEntryPreviews)}
+                 {this.state.entries.length ? this.state.entries.map(this.displayEntryPreviews) :
+                  (<div>You haven't written anything yet. Click the + button to add a new entry.</div>)
+                 } 
                 </div>
 
             </Grid.Column>
