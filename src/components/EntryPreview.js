@@ -13,6 +13,23 @@ logic:
 */
 
 class EntryPreview extends Component {
+
+  displayDate = timeStamp => {
+  let newDateArray = timeStamp.split('T');
+  let justDate = newDateArray[0];
+  return justDate;
+  }
+
+  setMoodDescription = (rating) => {
+    let entryMood = 
+    rating >=9 ? "Super amazing!" : 
+    rating >=7 ? "Pretty great" : 
+    rating >= 5 ? "Perfectly okay" : 
+    rating >= 3 ? 'Not so great' : 
+    rating >= 0 ? "Just terrible" : "Another day";
+    return entryMood;
+  }
+
   render() {
     return (
       <Grid.Column>
@@ -20,16 +37,22 @@ class EntryPreview extends Component {
           <Image src={puppyPic} />
           <Card.Content>
             <Card.Header>
-              An excellent day
-      </Card.Header>
+              {this.props.data.title}
+            </Card.Header>
             <Card.Meta>
               <span className='date'>
-                Aug 30 2017
-        </span>
+              {this.displayDate(this.props.data.createdAt)}
+              </span>
             </Card.Meta>
             <Card.Description>
-              It was my birthday, afterall.
-      </Card.Description>
+              {this.setMoodDescription(this.props.data.mood)}
+              {' '} <Link to={`/readentry/${this.props.data.id}`}>
+              <Icon size="large" name="external"/>
+                </Link>
+            </Card.Description>
+            <Card.Content extra >
+            
+            </Card.Content>
           </Card.Content>
 
         </Card>
