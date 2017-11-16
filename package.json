@@ -6,7 +6,9 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-scripts": "1.0.17",
+    "react-slick": "^0.15.4",
     "semantic-ui-react": "^0.76.0",
+    "slick-carousel": "^1.8.1",
     "superagent": "^3.8.1"
   },
   "scripts": {

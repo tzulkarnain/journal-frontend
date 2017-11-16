@@ -4,6 +4,7 @@ import EntryPreview from './EntryPreview';
 import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
+import { Grid, Segment, Button } from 'semantic-ui-react'
 
 
 /*
@@ -25,49 +26,81 @@ on component did mount or render or will mount to check if user is logged in and
 class Dashboard extends Component {
   constructor() {
     super();
-    this.state = {userObj: {},
-                  entries: [],                  
-  }
+    this.state = {
+      userObj: {},
+      entries: [],
+    }
   }
 
   componentDidMount() {
     api.requestEntries(auth.getToken())
-    .then(reply => this.setState({ entries: reply.body.entries } ));
+      .then(reply => this.setState({ entries: reply.body.entries }));
     const userObj = auth.getUser();
     console.log('userobj', userObj)
-    this.setState({userObj})
+    this.setState({ userObj })
 
   }
 
   displayEntryPreviews = (entryObj) => {
     return (
-      <EntryPreview data={entryObj} key={entryObj.id} />
+      <div><EntryPreview data={entryObj} key={entryObj.id} /></div>
     )
   }
-  
+
+
   render() {
     console.log('the state: ', this.state)
+
     return (
       <div className="dashboard">
         <NavBar hist={this.props.history} />
-        <div className="topWrapper">
-          <h1>Hey {this.state.userObj.firstName} </h1>
-          <p>Quote</p>
-          <Link to="/writeentry"><button>+</button></Link>
-        </div>
-        <div className="entriesWrapper">
+        <Grid columns="equal" padded>]
+          <Grid.Row>
+            <Grid.Column>
+              <Segment size="massive">Hey {this.state.userObj.firstName} </Segment>
+            </Grid.Column>
+
+            <Grid.Column width={8}>
+              <Segment size="big">We write to taste life twice, in the moment and in retrospect - Anais Nin</Segment>
+            </Grid.Column>
+
+            <Grid.Column>
+              <Button size="massive" as={Link} to='/writeentry' width={2}> + </Button>
+              {/* <Link to="/writeentry"><Button>+</Button></Link> as={Link} to='/writeentry'*/}
+            </Grid.Column>
+
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Grid.Column verticalAlign="middle" width={3}>
+              <Segment >Your entries</Segment>
+            </Grid.Column>
+            <Grid.Column width={9}>
+              <Segment padded>
+                  {this.state.entries.map(this.displayEntryPreviews)}
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+
+
+        </Grid >
+
+        {/* <div className="entriesWrapper">
           <div className="entriesWrapperA">
             <h3>Your entries</h3>
           </div>
+
           <div className="entriesWrapperB">
-          {this.state.entries.map(this.displayEntryPreviews)}
+            
           </div>
+
           <div className="entriesWrapperD">
             <div>next-arrow</div>
             <div>the past</div>
           </div>
-        </div>
-      </div>
+
+        </div> */}
+
+      </div >
     );
   }
 }

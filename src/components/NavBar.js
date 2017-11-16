@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../auth.js';
+import { Menu } from 'semantic-ui-react'
 
 
 /*
@@ -12,21 +13,44 @@ logic:
 */
 
 class NavBar extends Component {
+
   handleLogOut = (event) => {
     auth.logOut(auth.getToken())
-    .then(() => { console.log('navbar this ', this)
-     this.props.hist.push("/");
-    }
-    
-    )
-} 
-  
+      .then(() => {
+        console.log('navbar this ', this)
+        this.props.hist.push("/");
+      }
+
+      )
+  }
+
+  handleRedirectToDashboard = (event) => {
+    this.props.hist.push("/dashboard")
+  }
+
   render() {
     return (
-      <div className="navbar">
-        <Link to="/dashboard" className="navButton">Dashboard</Link>
-        <button onClick={this.handleLogOut} className="log-out">Log Out</button>
-      </div>
+      <Menu stackable position="right">
+        <Menu.Menu position="right">
+        <Menu.Item
+          name='dashboard'
+          onClick={this.handleRedirectToDashboard} 
+        >
+          Dashboard
+      </Menu.Item>
+        <Menu.Item
+          name='logOut'
+          onClick={this.handleLogOut}
+        >
+          Log out
+      </Menu.Item>
+        </Menu.Menu>
+       
+      </Menu>
+      // {/* <div className="navbar">
+      //   <Link to="/dashboard" className="navButton">Dashboard</Link>
+      //   <button onClick={this.handleLogOut} className="log-out">Log Out</button>
+      // </div> */}
     );
   }
 }
