@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../auth.js';
-import { Menu } from 'semantic-ui-react'
+import { Menu, Image, Icon } from 'semantic-ui-react';
+import logo from '../images/NCTJRNL.png'
 
 
 /*
@@ -31,6 +32,9 @@ class NavBar extends Component {
   render() {
     return (
       <Menu stackable position="right">
+      <Menu.Item>
+       <Icon name='moon' size="big" />
+        </Menu.Item>
         <Menu.Menu position="right">
         <Menu.Item
           name='dashboard'

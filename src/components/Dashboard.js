@@ -64,7 +64,7 @@ class Dashboard extends Component {
             </Grid.Column>
 
             <Grid.Column width={8}>
-              <Segment size="big">We write to taste life twice, in the moment and in retrospect - Anais Nin</Segment>
+              <Segment size="big">We write to taste life twice, in the moment and in retrospect <br/> Anais Nin</Segment>
             </Grid.Column>
 
             <Grid.Column>
