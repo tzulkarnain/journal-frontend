@@ -31,10 +31,20 @@ constructor() {
         q4: ''
     }
 }    
-
+setSearchQuery = (rating) => {
+    let searchQuery = 
+    rating >=9 ? "yellow" : 
+    rating >=7 ? "red" : 
+    rating >= 5 ? "gray" : 
+    rating >= 3 ? 'blue' : 
+    rating >= 0 ? "black" : "walrus";
+    return searchQuery;
+  }
 handleSubmit = (event) => {
         event.preventDefault();
-        api.getUnsplashImage().then(response =>
+        
+
+        api.getUnsplashImage(this.setSearchQuery(this.state.mood)).then(response =>
         //fixing this in a sec
         {
             console.log(response);

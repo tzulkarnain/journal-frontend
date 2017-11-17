@@ -52,9 +52,10 @@ class Api {
         .set('authorisation', token)
         .send(entryDataObj)
     }
-    getUnsplashImage = () =>{
+    getUnsplashImage = (searchQuery) =>{
+        console.log("searching for images with query:",searchQuery)
         return superagent
-        .get(`${unsplashHost}/photos/random/?client_id=7f92d3ebf06a461e3f677efbacab2e65ea790ac68f8eac6c7d46794de6da3bcf`)
+        .get(`${unsplashHost}/photos/random/?client_id=7f92d3ebf06a461e3f677efbacab2e65ea790ac68f8eac6c7d46794de6da3bcf&orientation=squarish`)
     }
     requestLogout = (token) => {
         return superagent
