@@ -29,10 +29,24 @@ class Api {
         // });
     }
 
-    requestEntries = (token) => {
+    requestEntries = (token,numberOfEntries) => {
+        //could do this url-encoded but right now it's in the header instead, just like the token
+        //returns an array of entries belonging to the user, limited to the amount specified
         return superagent
         .get(`${apiHost}/api/entries`)
-        .set('authorisation', token) 
+        .set({'authorisation': token,
+            'amount':numberOfEntries
+        })
+         
+    }
+    requestGeotaggedEntries = (token,numberOfEntries) =>{
+        // works just like requestEntries, except
+        // only includes entries which are geotagged
+        return superagent
+        .get(`${apiHost}/api/geotags`)
+        .set({'authorisation': token,
+            'amount':numberOfEntries
+        })
     }
 
     requestSingleEntry = (id, token) => {

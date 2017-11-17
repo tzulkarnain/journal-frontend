@@ -34,7 +34,8 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    api.requestEntries(auth.getToken())
+    //requestEntries takes two arguments - the token, and the number of posts to return.
+    api.requestEntries(auth.getToken(),10)
       .then(reply => 
         this.setState({ entries: reply.body })
     );
