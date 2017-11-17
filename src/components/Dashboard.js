@@ -60,7 +60,7 @@ class Dashboard extends Component {
         <Grid columns="equal" padded>]
           <Grid.Row>
             <Grid.Column>
-              <Segment size="massive">Hey  </Segment>
+              <Segment size="massive">Hey {this.state.userObj.firstName}</Segment>
             </Grid.Column>
 
             <Grid.Column width={8}>
