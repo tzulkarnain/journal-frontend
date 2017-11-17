@@ -62,6 +62,12 @@ class Api {
         .set('authorisation', token)
     }
 
+    requestDeleteEntry = (id, token) => {
+        return superagent
+        .delete(`${apiHost}/api/entries/${id}` )
+        .set('authorisation', token)
+        .then (reply => console.log('working', reply) )
+    }
 }
 
 export default new Api();

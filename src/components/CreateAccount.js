@@ -22,19 +22,26 @@ class CreateAccount extends Component {
       lastName: '',
       email: '',
       password: '',
+      missingInput: false
     }
   }
 
   handleSubmit = (event) => {
     event.preventDefault();
-    auth.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
+    if(this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
+      auth.createAccount(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
       .then(response => console.log('login reply: ', response))
       .then(() => this.props.history.push("/login"))
       .catch(err => {
         console.log('error ', err);
         this.props.history.push("/dashboard")
       })
-  }
+    }
+    else {this.setState( {missingInput: true})
+
+    }
+      }
+  
 
   render() {
     return (
@@ -52,10 +59,11 @@ class CreateAccount extends Component {
             <Form onSubmit={this.handleSubmit}>
               <Form.Input type='text' placeholder="First Name" value={this.state.firstName} onChange={(e) => this.setState({firstName: e.target.value})} />
               <Form.Input type='text' placeholder="Last Name" value={this.state.lastName} onChange={(e) => this.setState({lastName: e.target.value})} />
-              <Form.Input type='text' placeholder="Email"      value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
+              <Form.Input type='email' placeholder="Email"      value={this.state.email} onChange={(e) => this.setState({email: e.target.value})} />
               {/* <Form.Input type='text' placeholder="Confirm Email" /> */}
               <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({password: e.target.value})}  />
               {/* <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Confirm Password"  /> */}
+               {this.state.missingInput && (<Header as="h5" color="red" textAlign="center">Looks like you forgot something</Header>)}
               <Button>Create</Button>
             </Form>
           </Grid.Column>
