@@ -17,27 +17,34 @@ gather data and put it into json and then api sends it to server OMG
 
 
 class WriteEntry extends Component {
-
     handleSubmit = (event) => {
         event.preventDefault();
-               const entryDataObj = {
-            title: this.q0a1Input.value,
-            mood:this.moodInp.value,
-            q1a1:this.q1a1Input.value, 
-            q1a2:this.q1a2Input.value,
-            q1a3:this.q1a3Input.value,
-            q2: this.q2a1Input.value,
-            q3: this.q3a1Input.value,
-            q4: this.q4a1Input.value
-        }
-        api.createSingleEntry(entryDataObj, auth.getToken() )
-        .then(() => this.props.history.push("/dashboard"))
+        api.getUnsplashImage().then(response =>
+        //fixing this in a sec
+        {
+            console.log(response);
+            let entryDataObj = {
+                title: this.q0a1Input.value,
+                mood: this.moodInp.value,
+                q1a1: this.q1a1Input.value,
+                q1a2: this.q1a2Input.value,
+                q1a3: this.q1a3Input.value,
+                q2: this.q2a1Input.value,
+                q3: this.q3a1Input.value,
+                q4: this.q4a1Input.value,
+                full_image_url: response.body.urls.regular,
+                thumbnail_image_url:response.body.urls.thumb
+            }
+            return entryDataObj;
+        }).then(entryDataObj =>
+            api.createSingleEntry(entryDataObj, auth.getToken())
+                .then(() => this.props.history.push("/dashboard")))
     }
 
     render() {
         return (
             <div className="write-entry">
-                <NavBar />
+                <NavBar hist={this.props.history} />
                 <form onSubmit={this.handleSubmit}>
                     <div className="q0">
                         <input ref={r => this.q0a1Input = r} placeholder="enter a title here" />

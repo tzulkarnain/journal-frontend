@@ -34,7 +34,7 @@ class EntryPreview extends Component {
     return (
       <Grid.Column>
         <Card>
-          <Image src={puppyPic} />
+          <Image src={this.props.data.thumbnail_image_url} />
           <Card.Content>
             <Card.Header>
               {this.props.data.title}

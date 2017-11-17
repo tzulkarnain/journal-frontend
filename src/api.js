@@ -1,4 +1,4 @@
-import { apiHost } from './config/config.js';
+import { apiHost, unsplashHost} from './config/config.js';
 import superagent from 'superagent';
 
 /*
@@ -52,7 +52,10 @@ class Api {
         .set('authorisation', token)
         .send(entryDataObj)
     }
-
+    getUnsplashImage = () =>{
+        return superagent
+        .get(`${unsplashHost}/photos/random/?client_id=7f92d3ebf06a461e3f677efbacab2e65ea790ac68f8eac6c7d46794de6da3bcf`)
+    }
     requestLogout = (token) => {
         return superagent
         .delete(`${apiHost}/api/auth/logout`)

@@ -34,11 +34,12 @@ class ReadEntry extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar hist={this.props.history}/>
         {!this.state.loaded ? <div>loading...</div> :
 
           <div className="content-wrapper">
-            <img alt="unsplash-or-chosen" />
+            <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url}/>
+            
             <h3>Title{this.state.singleEntry.title}</h3>
             <h4>Date</h4>
             <div className="content">
