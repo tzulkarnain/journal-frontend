@@ -3,6 +3,7 @@ import NavBar from './NavBar'
 import Slider from './Slider'
 import api from '../api.js'
 import auth from '../auth'
+import { Header, Button, Form, Grid, Image, Input } from 'semantic-ui-react'
 // import PictureUpload from './PictureUpload'
 
 /*
@@ -127,7 +128,7 @@ handleSubmit = (event) => {
                     </div>
                     {/* this component is a stretch goal
                         <PictureUpload> */}
-                    <button>Submit</button>
+                
                 {/* </form> */}
             </div>
         );
