@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
-import { Button, Header, Image } from 'semantic-ui-react'
+import { Button, Header, Image } from 'semantic-ui-react';
+import styled from 'styled-components'
+
+const gridWrapper = {
+  'display': 'grid',
+  'grid-template-rows': '50% 50%'
+}
 
 // import styles from '../temp-css/landingPage.css'
 
@@ -13,9 +19,10 @@ put image with content
 class LandingPage extends Component {
   
   render() {
+   
     return (
-      <div className="landingPage">
-        <Image className="landingImg" src={blueBeige} alt="abstract-painting"/>
+      <div className="landingPage" style={{ gridWrapper }}>
+        <img className="landingImg" src={blueBeige} alt="abstract-painting" style= {{height: 35 + 'em'}} />
         <div className="landingTextWrapper">
           <Header as ='h1'>Welcome to Noctjournal</Header>
           <div>
