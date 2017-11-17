@@ -28,6 +28,7 @@ export default {
                 // full user object, with that response save into local storage userobject
         
     },
+    
 
     getToken() {
         return localStorage.token;
