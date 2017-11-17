@@ -45,7 +45,7 @@ class ReadEntry extends Component {
           <Grid columns="equal" padded>]
           <Grid.Column>
               <Grid.Row>
-                <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} />
+                <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style= {{height: 35 + 'em'}}/>
               </Grid.Row>
             </Grid.Column>
             <Grid.Row>
@@ -56,7 +56,6 @@ class ReadEntry extends Component {
             </Grid.Row>
             <Grid.Row stretched>
               <Grid.Column>
-
                 <Segment>
                   <h5>Rating: {this.state.singleEntry.mood}</h5>
                   <h5>Highlights: </h5>
