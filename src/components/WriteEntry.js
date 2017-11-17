@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
-import Slider from './Slider'
 import api from '../api.js'
 import auth from '../auth'
 import { Header, Button, Form, Grid, Image, Input } from 'semantic-ui-react'
@@ -23,7 +22,7 @@ constructor() {
     this.state = {
         //this might be better to initialise using "undefined" where I'm currently using "null"
         title: '',
-        mood: null,
+        mood: 5,
         q1a1: '',
         q1a2: '',
         q1a3: '',
@@ -85,7 +84,8 @@ handleSubmit = (event) => {
                             </Form.Field>
                             <Form.Field>
                                 <label>Rate your mood from 1-10</label>
-                                <Input type='text' value={this.state.mood} onChange={(e) => this.setState({ mood: e.target.value })} />
+                                <Input type='range' min="1" max="10" value={this.state.mood} onChange={(e) => this.setState({ mood: e.target.value })} />
+                                <p>{this.state.mood}</p>
                             </Form.Field>
                             <Form.Field >
                                 <label>What are three hightlights of today?</label>

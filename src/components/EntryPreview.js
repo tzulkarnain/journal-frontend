@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Card, Icon, Image, Button } from 'semantic-ui-react'
-import puppyPic from '../images/puppy.png';
 import auth from '../auth.js';
 import api from '../api.js';
 
