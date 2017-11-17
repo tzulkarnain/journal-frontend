@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
 import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-
+import {Link} from 'react-router-dom';
 /*
 logic:
 handleSubmit: runs backend function that checks database for email and password, and 
@@ -64,6 +64,8 @@ class Login extends Component {
                 />
               <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} 
                 />
+                <p>No account? <Link to="/createaccount">Create an account</Link>
+</p>
                 {this.state.error && (<p>{this.state.error}</p>) }
               <Button fluid size='large'>Log In</Button>
             </Form>
