@@ -3,8 +3,6 @@ import NavBar from './NavBar'
 import Slider from './Slider'
 import api from '../api.js'
 import auth from '../auth'
-import { Container, Input, Button, Form, Grid, Header, Image, Message, Segment, Divider } from 'semantic-ui-react'
-
 // import PictureUpload from './PictureUpload'
 
 /*
@@ -102,35 +100,35 @@ handleSubmit = (event) => {
 
                 {/* <form onSubmit={this.handleSubmit}>
                     <div className="q0">
-                        <input value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })} placeholder="enter a title here" />
+                        <input ref={r => this.q0a1Input = r} placeholder="enter a title here" />
                     </div>
                     <div className="mood" >
                         <p>rate your day</p>
-                        <input type='text' value={this.state.mood} onChange={(e) => this.setState({ mood: e.target.value })} />
+                        <input type='text' ref={r => this.moodInp = r} />
                     </div>
                     <div className="q1">
                         <p>what were three highlights of today?</p>
-                        <input type="text" value={this.state.q1a1} onChange={(e) => this.setState({ q1a1: e.target.value })} />
-                        <input type="text" value={this.state.q1a2} onChange={(e) => this.setState({ q1a2: e.target.value })} />
-                        <input type="text" value={this.state.q1a3} onChange={(e) => this.setState({ q1a3: e.target.value })} />
+                        <input type="text" ref={r => this.q1a1Input = r} />
+                        <input type="text" ref={r => this.q1a2Input = r} />
+                        <input type="text" ref={r => this.q1a3Input = r} />
 
                     </div>
                     <div className="q2">
                         <p>What could you have done to make today better?</p>
-                        <input type="text" value={this.state.q2} onChange={(e) => this.setState({ q2: e.target.value })} />
+                        <input type="text" ref={r => this.q2a1Input = r} />
                     </div>
                     <div className="q3">
                         <p>what is something you've always wanted to do?</p>
-                        <input type="text" value={this.state.q3} onChange={(e) => this.setState({ q3: e.target.value })} />
+                        <input type="text" ref={r => this.q3a1Input = r} />
                     </div>
                     <div className="q4">
                         <p>today's notes</p>
-                        <input type="text" value={this.state.q4} onChange={(e) => this.setState({ q4: e.target.value })} />
+                        <input type="text" ref={r => this.q4a1Input = r} />
                     </div>
                     {/* this component is a stretch goal
                         <PictureUpload> */}
-                    
-               
+                    <button>Submit</button>
+                {/* </form> */}
             </div>
         );
     }
