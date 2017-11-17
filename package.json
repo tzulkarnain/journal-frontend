@@ -9,6 +9,7 @@
     "react-slick": "^0.15.4",
     "semantic-ui-react": "^0.76.0",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^2.2.3",
     "superagent": "^3.8.1"
   },
   "scripts": {
