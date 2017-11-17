@@ -33,11 +33,11 @@ constructor() {
 }    
 setSearchQuery = (rating) => {
     let searchQuery = 
-    rating >=9 ? "yellow" : 
-    rating >=7 ? "red" : 
-    rating >= 5 ? "gray" : 
-    rating >= 3 ? 'blue' : 
-    rating >= 0 ? "black" : "walrus";
+    rating >=9 ? "color" : 
+    rating >=7 ? "horizon" : 
+    rating >= 5 ? "calm" : 
+    rating >= 3 ? 'rain' : 
+    rating >= 0 ? "dark" : "walrus";
     return searchQuery;
   }
 handleSubmit = (event) => {
