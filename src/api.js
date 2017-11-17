@@ -1,10 +1,6 @@
 import { apiHost, unsplashHost} from './config/config.js';
 import superagent from 'superagent';
 
-/*
-
-need: requestLogout(), ;
-*/
 
 class Api {
 
@@ -60,6 +56,8 @@ class Api {
         return superagent
         .delete(`${apiHost}/api/auth/logout`)
         .set('authorisation', token)
+        //cause superagent's voodoo magic needs to have a .then 
+        .then(response=>console.log(response))
     }
 
 }
