@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Card, Icon, Image } from 'semantic-ui-react'
+import { Grid, Card, Icon, Image, Button } from 'semantic-ui-react'
 import puppyPic from '../images/puppy.png';
+import auth from '../auth.js';
+import api from '../api.js';
 
 /*
 logic:
@@ -13,6 +15,10 @@ logic:
 */
 
 class EntryPreview extends Component {
+  constructor() {
+    super();
+    this.state = {imageDeleted: false}
+  }
 
   displayDate = timeStamp => {
   let newDateArray = timeStamp.split('T');
@@ -30,9 +36,19 @@ class EntryPreview extends Component {
     return entryMood;
   }
 
+  handleDelete = (event) => {
+    console.log('clicked', this.props.data.id, auth.getToken());
+    api.requestDeleteEntry(this.props.data.id, auth.getToken())
+      .then(this.setState( st => (
+        {imageDeleted: true}
+      )))
+      
+  }
+
   render() {
-    return (
+    return ( 
       <Grid.Column>
+      {this.state.imageDeleted ? <Card.Header>Entry successfully deleted. </Card.Header> :
         <Card>
           <Image src={this.props.data.thumbnail_image_url} />
           <Card.Content>
@@ -50,12 +66,14 @@ class EntryPreview extends Component {
               <Icon size="large" name="external"/>
                 </Link>
             </Card.Description>
-            <Card.Content extra >
-            
+            <Card.Content extra>
+            <Button onClick={this.handleDelete}>Delete</Button>
             </Card.Content>
           </Card.Content>
 
         </Card>
+      }
+      
 
       </Grid.Column>
 
@@ -65,7 +83,7 @@ class EntryPreview extends Component {
           <h4>^</h4>
         </Link>
         <h4>{this.props.data.createdAt}</h4>
-        <button>Delete</button>
+        <Button>Delete</Button>
       </div> */
     );
   }
