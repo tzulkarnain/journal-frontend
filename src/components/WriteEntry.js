@@ -3,7 +3,6 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth'
 import { Header, Button, Form, Grid, Image, Input } from 'semantic-ui-react'
-// import PictureUpload from './PictureUpload'
 
 /*
 Logic:
@@ -122,7 +121,6 @@ handleSubmit = (event) => {
                     </Grid.Column>
 
                 </Grid>
-
 
 
                 {/* <form onSubmit={this.handleSubmit}>

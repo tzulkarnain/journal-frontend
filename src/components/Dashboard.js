@@ -5,6 +5,8 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
+import SimpleMap from './SimpleMap'
+
 // import { Grid, Button } from 'react-bootstrap';
 
 
@@ -31,7 +33,8 @@ class Dashboard extends Component {
     this.state = {
       userObj: {},
       entries: [],
-      geoTaggedEntries:[]
+      geotaggedEntries:[{ lat: 45.50, lng: -73.56 }
+      ]
     }
   }
 
@@ -45,7 +48,7 @@ class Dashboard extends Component {
     //same with requestGeotaggedEntries
     api.requestGeotaggedEntries(auth.getToken(),7)
     .then(reply => 
-      this.setState({ geoTaggedEntries: reply.body })
+      this.setState({ geotaggedEntries: reply.body })
   );
     const userObj = auth.getUser();
     console.log('userobj', userObj)
@@ -68,7 +71,7 @@ class Dashboard extends Component {
 
       <div className="dashboard">
         <NavBar hist={this.props.history} />
-        <Grid columns="equal" padded>]
+           <Grid columns="equal" padded>]
           <Grid.Row>
             <Grid.Column>
               <Segment size="massive">Hey {this.state.userObj.firstName} </Segment>
@@ -101,7 +104,8 @@ class Dashboard extends Component {
 
 
         </Grid >
-
+        <SimpleMap geotaggedEntries={this.state.geotaggedEntries}/>
+        
         {/* <div className="entriesWrapper">
           <div className="entriesWrapperA">
             <h3>Your entries</h3>
