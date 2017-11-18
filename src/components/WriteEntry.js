@@ -29,6 +29,7 @@ constructor() {
         q2: '',
         q3: '',
         q4: '',
+        place: '',
         lat:null,
         lng:null
     }
@@ -44,12 +45,19 @@ setSearchQuery = (rating) => {
   }
 handleSubmit = (event) => {
         event.preventDefault();
+
+       const p1 = api.requestLatLong(this.state.place)
+                .then(object => this.setState (
+                 {lat: object.lat,
+                 lng: object.lng}
+                ))
         
 
-        api.getUnsplashImage(this.setSearchQuery(this.state.mood)).then(response =>
-        //fixing this in a sec
+        const p2 = api.getUnsplashImage(this.setSearchQuery(this.state.mood))
+        Promise.all([p1, p2])
+        .then(results =>
         {
-            console.log(response);
+            console.log(results);
             let entryDataObj = {
                 title: this.state.title,
                 mood: this.state.mood,
@@ -59,8 +67,8 @@ handleSubmit = (event) => {
                 q2: this.state.q2,
                 q3: this.state.q3,
                 q4: this.state.q4,
-                full_image_url: response.body.urls.regular,
-                thumbnail_image_url:response.body.urls.thumb,
+                full_image_url: results[1].body.urls.regular,
+                thumbnail_image_url:results[1].body.urls.thumb,
                 lat:this.state.lat,
                 lng:this.state.lng
             }
@@ -105,7 +113,10 @@ handleSubmit = (event) => {
                                 <label>Notes</label>
                                 <Input type='text' value={this.state.q4} onChange={(e) => this.setState({ q4: e.target.value })} />
                             </Form.Field>
-                            {/* then we'll have an input component here which sets this.state.lat and this.state.lng */}
+                            <Form.Field >
+                                <label>Where did you go today?</label>
+                                <Input type='text' value={this.state.place} onChange={(e) => this.setState({ place: e.target.value })} />
+                            </Form.Field>
                             <Button>Submit</Button>
                         </Form>
                     </Grid.Column>

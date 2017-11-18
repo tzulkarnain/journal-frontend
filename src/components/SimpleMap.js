@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { MAPS_API_KEY } from './config/config.js';
+import { MAPS_API_KEY } from '../config/config.js';
 import api from '../api.js';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class SimpleMap extends Component {
-    constructor() {
-        super();
-        this.state = {
-            lat: 0,
-            lng: 0,
-        }
-    }
 
     static defaultProps = {
         center: { lat: 45.50, lng: -73.56 },
@@ -32,10 +25,7 @@ class SimpleMap extends Component {
     render() {
         return (
             <div style={{ textAlign: "center", padding: 100 }}>
-                <form style={{padding: 10}} >
-                    <input type="text" ref={r => this.cityInput = r} placeholder="place" />
-                    <button onClick={this.handleClick}>Make GoogleMaps API Call</button>
-                </form>
+                
 
                 <div style={{ width: 500, height: 500 }}>
                     <GoogleMapReact
