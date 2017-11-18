@@ -55,7 +55,7 @@ export default class StyledTesting extends Component {
       <Div>
       	<Title>Welcome to Noctjournal</Title>
         <div>
-        <Link to="/createaccount"><Button>Create Account</Button></Link>
+        <Link to="/createaccount"><Button inverted color='yellow'>Create Account</Button></Link>
           <Link to="/login"><Button>Log In</Button></Link>
         </div>
         </Div>
