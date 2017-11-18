@@ -1,4 +1,4 @@
-import { apiHost, unsplashHost} from './config/config.js';
+import { apiHost, unsplashHost, MAPS_API_URL, MAPS_API_KEY } from './config/config.js';
 import superagent from 'superagent';
 
 
@@ -80,6 +80,20 @@ class Api {
         .delete(`${apiHost}/api/entries/${id}` )
         .set('authorisation', token)
         .then (reply => console.log('working', reply) )
+    }
+
+    requestLatLong = (address) => {
+        return superagent
+            .post(`${MAPS_API_URL}address=${address}&key=${MAPS_API_KEY}`)
+            .then(data => {
+                const latLong =
+                    {
+                        lat: data.body.results[0].geometry.location.lat,
+                        lng: data.body.results[0].geometry.location.lng
+                    }
+                return latLong
+            }
+            )
     }
 }
 
