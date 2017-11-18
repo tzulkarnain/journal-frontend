@@ -5,6 +5,8 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
+// import { Grid, Button } from 'react-bootstrap';
+
 
 
 /*
@@ -34,13 +36,14 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    //requestEntries takes two arguments - the token, and the number of posts to return.
-    api.requestEntries(auth.getToken(),10)
+    //requestEntries takes two arguments - the token, and the number of days to retrieve from.
+    //"7" here indicates that we're retrieving entries made in the last 7 days.
+    api.requestEntries(auth.getToken(),7)
       .then(reply => 
         this.setState({ entries: reply.body })
     );
     //same with requestGeotaggedEntries
-    api.requestGeotaggedEntries(auth.getToken(),10)
+    api.requestGeotaggedEntries(auth.getToken(),7)
     .then(reply => 
       this.setState({ geoTaggedEntries: reply.body })
   );
@@ -61,6 +64,8 @@ class Dashboard extends Component {
     console.log('the state: ', this.state)
 
     return (
+        
+
       <div className="dashboard">
         <NavBar hist={this.props.history} />
         <Grid columns="equal" padded>]
@@ -113,7 +118,7 @@ class Dashboard extends Component {
 
         </div> */}
 
-      </div >
+      </div>
     );
   }
 }

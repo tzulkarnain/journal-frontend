@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components'
-import { Button } from 'semantic-ui-react'
-
 
 const Wrapper = styled.div`
     min-height: 100vh;
@@ -34,12 +32,12 @@ position: absolute;
     width: 100%;
 `;
 
-// const Button = styled.button`
-// 	font-size: 1em;
-// 	margin: 1em;
-// 	padding: 0.25em 1em;
-// 	border-radius: 3px;
-// `;
+const Button = styled.button`
+	font-size: 1em;
+	margin: 1em;
+	padding: 0.25em 1em;
+	border-radius: 3px;
+`;
 
 const Div = styled.div`
   position: absolute;
@@ -50,20 +48,18 @@ const Div = styled.div`
 `;
 
 
-class LandingPage extends Component {
+export default class StyledTesting extends Component {
   render() {
     return (
       <Wrapper>
       <Div>
       	<Title>Welcome to Noctjournal</Title>
         <div>
-        <Link to="/createaccount"><Button size="big" color='black'>Create Account</Button></Link>
-          <Link to="/login"><Button size="big" color='black'>Log In</Button></Link>
+        <Link to="/createaccount"><Button inverted color='yellow'>Create Account</Button></Link>
+          <Link to="/login"><Button>Log In</Button></Link>
         </div>
         </Div>
       </Wrapper>
     )
   }
 }
-
-export default LandingPage;

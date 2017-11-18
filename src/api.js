@@ -29,23 +29,24 @@ class Api {
         // });
     }
 
-    requestEntries = (token,numberOfEntries) => {
+    requestEntries = (token,days) => {
+        console.log("requesting entries in last ",days,"days")
         //could do this url-encoded but right now it's in the header instead, just like the token
         //returns an array of entries belonging to the user, limited to the amount specified
         return superagent
         .get(`${apiHost}/api/entries`)
         .set({'authorisation': token,
-            'amount':numberOfEntries
+            'days':days
         })
          
     }
-    requestGeotaggedEntries = (token,numberOfEntries) =>{
+    requestGeotaggedEntries = (token,days) =>{
         // works just like requestEntries, except
         // only includes entries which are geotagged
         return superagent
         .get(`${apiHost}/api/geotags`)
         .set({'authorisation': token,
-            'amount':numberOfEntries
+            'days':days
         })
     }
 

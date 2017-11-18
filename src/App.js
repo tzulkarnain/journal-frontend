@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard';
 import WriteEntry from './components/WriteEntry';
 import ReadEntry from './components/ReadEntry';
 import SimpleMap from './components/SimpleMap';
+import StyledTesting from './components/StyledTesting';
 
 class App extends Component {
   render() {
@@ -21,6 +22,7 @@ class App extends Component {
           <Route path="/writeentry" component={WriteEntry} />
           <Route path="/readentry/:id" component={ReadEntry} />
           <Route path="/testingmap" component={SimpleMap} />
+          <Route path="/styled" component={StyledTesting} />
           <footer>Curious Rose™</footer>
         </div>
       </BrowserRouter>
