@@ -5,6 +5,8 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
+// import { Grid, Button } from 'react-bootstrap';
+
 
 
 /*
@@ -55,6 +57,8 @@ class Dashboard extends Component {
     console.log('the state: ', this.state)
 
     return (
+        
+
       <div className="dashboard">
         <NavBar hist={this.props.history} />
         <Grid columns="equal" padded>]
@@ -107,7 +111,7 @@ class Dashboard extends Component {
 
         </div> */}
 
-      </div >
+      </div>
     );
   }
 }
