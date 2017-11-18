@@ -7,11 +7,8 @@
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
-<<<<<<< HEAD
     "react-router-dom": "^4.2.2",
-=======
     "react-easy-chart": "^0.3.0",
->>>>>>> fee7a9c48d4e8003502dbae0d561a0c921388b39
     "react-scripts": "1.0.17",
     "react-slick": "^0.15.4",
     "semantic-ui-react": "^0.76.0",
