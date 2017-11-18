@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import NavBar from './NavBar'
-import Slider from './Slider'
 import api from '../api.js'
 import auth from '../auth'
 import { Header, Button, Form, Grid, Image, Input } from 'semantic-ui-react'
@@ -21,14 +20,17 @@ class WriteEntry extends Component {
 constructor() {
     super()
     this.state = {
+        //this might be better to initialise using "undefined" where I'm currently using "null"
         title: '',
-        mood: '',
+        mood: 5,
         q1a1: '',
         q1a2: '',
         q1a3: '',
         q2: '',
         q3: '',
-        q4: ''
+        q4: '',
+        lat:null,
+        lng:null
     }
 }    
 setSearchQuery = (rating) => {
@@ -58,7 +60,9 @@ handleSubmit = (event) => {
                 q3: this.state.q3,
                 q4: this.state.q4,
                 full_image_url: response.body.urls.regular,
-                thumbnail_image_url:response.body.urls.thumb
+                thumbnail_image_url:response.body.urls.thumb,
+                lat:this.state.lat,
+                lng:this.state.lng
             }
             return entryDataObj;
         }).then(entryDataObj =>
@@ -80,7 +84,8 @@ handleSubmit = (event) => {
                             </Form.Field>
                             <Form.Field>
                                 <label>Rate your mood from 1-10</label>
-                                <Input type='text' value={this.state.mood} onChange={(e) => this.setState({ mood: e.target.value })} />
+                                <Input type='range' min="1" max="10" value={this.state.mood} onChange={(e) => this.setState({ mood: e.target.value })} />
+                                <p>{this.state.mood}</p>
                             </Form.Field>
                             <Form.Field >
                                 <label>What are three hightlights of today?</label>
@@ -100,7 +105,7 @@ handleSubmit = (event) => {
                                 <label>Notes</label>
                                 <Input type='text' value={this.state.q4} onChange={(e) => this.setState({ q4: e.target.value })} />
                             </Form.Field>
-
+                            {/* then we'll have an input component here which sets this.state.lat and this.state.lng */}
                             <Button>Submit</Button>
                         </Form>
                     </Grid.Column>

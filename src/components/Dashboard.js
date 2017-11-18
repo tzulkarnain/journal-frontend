@@ -11,10 +11,9 @@ import { Grid, Segment, Button } from 'semantic-ui-react'
 
 /*
 logic:
-1. h1 needs to display the user's name by fetching that data from the database
-2. p: would be cool of p used an api to cycle through quotes: https://codepen.io/catapixel/pen/LpVEgy / 
+1. p: would be cool of p used an api to cycle through quotes: https://codepen.io/catapixel/pen/LpVEgy / 
 could also make our own api of quotes so they're relevant 
-3. fairly certain the carosal type thing will be in Entry Preview not Dashboard. 
+2. fairly certain the carosal type thing will be in Entry Preview not Dashboard. 
 can experiment more when we have backend to populate
 
 todo: state only has contents that user put into create account
@@ -32,14 +31,21 @@ class Dashboard extends Component {
     this.state = {
       userObj: {},
       entries: [],
+      geoTaggedEntries:[]
     }
   }
 
   componentDidMount() {
-    api.requestEntries(auth.getToken())
+    //requestEntries takes two arguments - the token, and the number of posts to return.
+    api.requestEntries(auth.getToken(),10)
       .then(reply => 
         this.setState({ entries: reply.body })
     );
+    //same with requestGeotaggedEntries
+    api.requestGeotaggedEntries(auth.getToken(),10)
+    .then(reply => 
+      this.setState({ geoTaggedEntries: reply.body })
+  );
     const userObj = auth.getUser();
     console.log('userobj', userObj)
     this.setState({ userObj })
