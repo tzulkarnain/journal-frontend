@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import blueBeige from '../images/bluebeige.jpg';
+import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { Button } from 'semantic-ui-react'
@@ -58,7 +58,7 @@ class LandingPage extends Component {
       	<Title>Welcome to Noctjournal</Title>
         <div>
         <Link to="/createaccount"><Button size="big" color='black'>Create Account</Button></Link>
-          <Link to="/login"><Button size="big" color='black'>Log In</Button></Link>
+          <Link to="/login"><Button size="big" color='black' >Log In</Button></Link>
         </div>
         </Div>
       </Wrapper>
