@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const MainWrapper = styled.div`
    width: 100%;
    display: grid;
-   grid-template-columns: 25% 60%;
+   grid-template-columns: 20% 60%;
 
 `
 
@@ -95,7 +95,7 @@ class Dashboard extends Component {
         <NavBar hist={this.props.history} />
      
           <MainWrapper>
-            <div className="side-bar-wrapper" style={{'position': 'fixed', 'width': 25 + '%' }} >
+            <div className="side-bar-wrapper" style={{'position': 'fixed', 'width': 20 + '%'}} >
               <SideBarChoices>      
                <Link to="/dashboard/entries" style= {{'text-decoration': 'none'}} ><Options>Entries</Options></Link> 
                 <Options>Favourites</Options>
@@ -103,7 +103,7 @@ class Dashboard extends Component {
                 <Link to="/dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
               </SideBarChoices>
             </div>
-            <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
+            <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'absolute', 'width': '75%', 'height': '100%', 'display':'grid'}} >
             {/* display: grid; probably unnecessary */}
               <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
               <Route path={`/dashboard/stats`} render={() => { return <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/> }} />
