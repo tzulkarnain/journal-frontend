@@ -95,22 +95,20 @@ class Dashboard extends Component {
       <div className="dashboard">
         <NavBar hist={this.props.history} />
      
-        <SimpleMap geotaggedEntries={this.state.geotaggedEntries}/>
-        <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/>
-     
           <MainWrapper>
             <div className="side-bar-wrapper" style={{'position': 'fixed', 'width': 25 + '%' }} >
               <SideBarChoices>      
                <Link to="/dashboard/entries" style= {{'text-decoration': 'none'}} ><Options>Entries</Options></Link> 
                 <Options>Favourites</Options>
-                <Options>Stats</Options>
-                <Link to="dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
+                <Link to="/dashboard/stats" style= {{'text-decoration': 'none'}} ><Options>Stats</Options></Link>
+                <Link to="/dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
               </SideBarChoices>
             </div>
             <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
             {/* display: grid; probably unnecessary */}
               <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
-              <Route path={`/dashboard/map`} render={() => { return <SimpleMap /> }} />
+              <Route path={`/dashboard/stats`} render={() => { return <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/> }} />
+              <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} /> }} />
               
             </div>
           </MainWrapper>
