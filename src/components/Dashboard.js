@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import DisplayEntries from './DisplayEntries';
 import NavBar from './NavBar'
 import SimpleMap from './SimpleMap';
 import api from '../api.js'
 import auth from '../auth.js';
-import { Grid, Segment, Button } from 'semantic-ui-react'
 import SimpleChart from './SimpleChart'
-
 import styled from 'styled-components';
 // import { Grid, Button } from 'react-bootstrap';
 
