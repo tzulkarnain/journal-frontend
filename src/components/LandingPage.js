@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import blueBeige from '../images/bluebeige.jpg';
+// import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { Button } from 'semantic-ui-react'
@@ -26,13 +26,13 @@ font-size: 2.5em;
 color: black;
 `;
 
-const Box = styled.div`
-position: absolute;
-    bottom: 16%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-`;
+// const Box = styled.div`
+// position: absolute;
+//     bottom: 16%;
+//     left: 50%;
+//     transform: translateX(-50%);
+//     width: 100%;
+// `;
 
 // const Button = styled.button`
 // 	font-size: 1em;
