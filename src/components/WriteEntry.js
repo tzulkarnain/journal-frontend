@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth'
-import { Header, Button, Form, Grid, Image, Input } from 'semantic-ui-react'
+import { Header, Button, Form, Grid, Input } from 'semantic-ui-react'
 
 /*
 Logic:

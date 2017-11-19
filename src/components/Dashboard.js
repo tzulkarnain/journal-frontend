@@ -6,6 +6,7 @@ import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
 import SimpleMap from './SimpleMap'
+import SimpleChart from './SimpleChart'
 
 // import { Grid, Button } from 'react-bootstrap';
 
@@ -34,19 +35,20 @@ class Dashboard extends Component {
       userObj: {},
       entries: [],
       geotaggedEntries:[{ lat: 45.50, lng: -73.56 }
-      ]
+      ],
+      period:7
     }
   }
 
   componentDidMount() {
     //requestEntries takes two arguments - the token, and the number of days to retrieve from.
     //"7" here indicates that we're retrieving entries made in the last 7 days.
-    api.requestEntries(auth.getToken(),7)
+    api.requestEntries(auth.getToken(),this.state.period)
       .then(reply => 
         this.setState({ entries: reply.body })
     );
     //same with requestGeotaggedEntries
-    api.requestGeotaggedEntries(auth.getToken(),7)
+    api.requestGeotaggedEntries(auth.getToken(),this.state.period)
     .then(reply => 
       this.setState({ geotaggedEntries: reply.body })
   );
@@ -105,7 +107,7 @@ class Dashboard extends Component {
 
         </Grid >
         <SimpleMap geotaggedEntries={this.state.geotaggedEntries}/>
-        
+        <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/>
         {/* <div className="entriesWrapper">
           <div className="entriesWrapperA">
             <h3>Your entries</h3>
