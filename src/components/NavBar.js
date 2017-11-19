@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import auth from '../auth.js';
-import { Menu, Image, Icon } from 'semantic-ui-react';
-import logo from '../images/NCTJRNL.png'
+import { Menu, Icon } from 'semantic-ui-react';
+
 
 
 /*
