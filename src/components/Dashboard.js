@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import DisplayEntries from './DisplayEntries';
 import NavBar from './NavBar'
+import SimpleMap from './SimpleMap';
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
@@ -92,15 +93,17 @@ class Dashboard extends Component {
           <MainWrapper>
             <div className="side-bar-wrapper" style={{'position': 'fixed', 'width': 25 + '%' }} >
               <SideBarChoices>      
-               <Link to="/writeentry" style= {{'text-decoration': 'none'}} ><Options>Entries</Options></Link> 
+               <Link to="/dashboard/entries" style= {{'text-decoration': 'none'}} ><Options>Entries</Options></Link> 
                 <Options>Favourites</Options>
                 <Options>Stats</Options>
-                <Options>Map</Options>
+                <Link to="dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
               </SideBarChoices>
             </div>
             <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
             {/* display: grid; probably unnecessary */}
-              <DisplayEntries entries={this.state.entries} />
+              <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
+              <Route path={`/dashboard/map`} render={() => { return <SimpleMap /> }} />
+              
             </div>
           </MainWrapper>
 
