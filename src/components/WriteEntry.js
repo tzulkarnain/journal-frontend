@@ -3,6 +3,7 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth'
 import { Header, Button, Form, Grid, Input } from 'semantic-ui-react'
+import Autocomplete from 'react-google-autocomplete';
 
 /*
 Logic:
@@ -16,72 +17,72 @@ gather data and put it into json and then api sends it to server OMG
 
 
 class WriteEntry extends Component {
-constructor() {
-    super()
-    this.state = {
-        //this might be better to initialise using "undefined" where I'm currently using "null"
-        title: '',
-        mood: 5,
-        q1a1: '',
-        q1a2: '',
-        q1a3: '',
-        q2: '',
-        q3: '',
-        q4: '',
-        place: '',
-        lat:null,
-        lng:null
+    constructor() {
+        super()
+        this.state = {
+            //this might be better to initialise using "undefined" where I'm currently using "null"
+            title: '',
+            mood: 5,
+            q1a1: '',
+            q1a2: '',
+            q1a3: '',
+            q2: '',
+            q3: '',
+            q4: '',
+            place: '',
+            lat: null,
+            lng: null
+        }
     }
-}    
-setSearchQuery = (rating) => {
-    let searchQuery = 
-    rating >=9 ? "color" : 
-    rating >=7 ? "horizon" : 
-    rating >= 5 ? "calm" : 
-    rating >= 3 ? 'rain' : 
-    rating >= 0 ? "dark" : "walrus";
-    return searchQuery;
-  }
-handleSubmit = (event) => {
+    setSearchQuery = (rating) => {
+        let searchQuery =
+            rating >= 9 ? "color" :
+                rating >= 7 ? "horizon" :
+                    rating >= 5 ? "calm" :
+                        rating >= 3 ? 'rain' :
+                            rating >= 0 ? "dark" : "walrus";
+        return searchQuery;
+    }
+    handleSubmit = (event) => {
         event.preventDefault();
 
-       const p1 = api.requestLatLong(this.state.place)
-                .then(object => this.setState (
-                 {lat: object.lat,
-                 lng: object.lng}
-                ))
-        
+        const p1 = api.requestLatLong(this.state.place)
+            .then(object => this.setState(
+                {
+                    lat: object.lat,
+                    lng: object.lng
+                }
+            ))
+
 
         const p2 = api.getUnsplashImage(this.setSearchQuery(this.state.mood))
         Promise.all([p1, p2])
-        .then(results =>
-        {
-            console.log(results);
-            let entryDataObj = {
-                title: this.state.title,
-                mood: this.state.mood,
-                q1a1: this.state.q1a1,
-                q1a2: this.state.q1a2,
-                q1a3: this.state.q1a3,
-                q2: this.state.q2,
-                q3: this.state.q3,
-                q4: this.state.q4,
-                full_image_url: results[1].body.urls.regular,
-                thumbnail_image_url:results[1].body.urls.thumb,
-                lat:this.state.lat,
-                lng:this.state.lng
-            }
-            return entryDataObj;
-        }).then(entryDataObj =>
-            api.createSingleEntry(entryDataObj, auth.getToken())
-                .then(() => this.props.history.push("/dashboard")))
+            .then(results => {
+                console.log(results);
+                let entryDataObj = {
+                    title: this.state.title,
+                    mood: this.state.mood,
+                    q1a1: this.state.q1a1,
+                    q1a2: this.state.q1a2,
+                    q1a3: this.state.q1a3,
+                    q2: this.state.q2,
+                    q3: this.state.q3,
+                    q4: this.state.q4,
+                    full_image_url: results[1].body.urls.regular,
+                    thumbnail_image_url: results[1].body.urls.thumb,
+                    lat: this.state.lat,
+                    lng: this.state.lng
+                }
+                return entryDataObj;
+            }).then(entryDataObj =>
+                api.createSingleEntry(entryDataObj, auth.getToken())
+                    .then(() => this.props.history.push("/dashboard")))
     }
 
     render() {
         return (
             <div className="write-entry">
-                    <NavBar hist={this.props.history} />
-                    <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+                <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 700 }}>
                         <Header as="h2" textAlign="center">Write a new entry</Header>
                         <Form size="big" widths="equal" onSubmit={this.handleSubmit}>
@@ -114,7 +115,13 @@ handleSubmit = (event) => {
                             </Form.Field>
                             <Form.Field >
                                 <label>Where did you go today?</label>
-                                <Input type='text' value={this.state.place} onChange={(e) => this.setState({ place: e.target.value })} />
+                                <Autocomplete
+                                style={{ width: '90%' }}  onPlaceSelected={(place) => {this.setState({ place: place.formatted_address }); console.log(place.formatted_address);}}
+                                    types={[]}
+                                    componentRestrictions={{}}
+                                />
+
+                                {/* <Input type='text' value={this.state.place} onChange={(e) => this.setState({ place: e.target.value })} /> */}
                             </Form.Field>
                             <Button>Submit</Button>
                         </Form>
@@ -122,38 +129,6 @@ handleSubmit = (event) => {
 
                 </Grid>
 
-
-                {/* <form onSubmit={this.handleSubmit}>
-                    <div className="q0">
-                        <input ref={r => this.q0a1Input = r} placeholder="enter a title here" />
-                    </div>
-                    <div className="mood" >
-                        <p>rate your day</p>
-                        <input type='text' ref={r => this.moodInp = r} />
-                    </div>
-                    <div className="q1">
-                        <p>what were three highlights of today?</p>
-                        <input type="text" ref={r => this.q1a1Input = r} />
-                        <input type="text" ref={r => this.q1a2Input = r} />
-                        <input type="text" ref={r => this.q1a3Input = r} />
-
-                    </div>
-                    <div className="q2">
-                        <p>What could you have done to make today better?</p>
-                        <input type="text" ref={r => this.q2a1Input = r} />
-                    </div>
-                    <div className="q3">
-                        <p>what is something you've always wanted to do?</p>
-                        <input type="text" ref={r => this.q3a1Input = r} />
-                    </div>
-                    <div className="q4">
-                        <p>today's notes</p>
-                        <input type="text" ref={r => this.q4a1Input = r} />
-                    </div>
-                    {/* this component is a stretch goal
-                        <PictureUpload> */}
-                
-                {/* </form> */}
             </div>
         );
     }

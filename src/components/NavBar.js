@@ -33,7 +33,7 @@ class NavBar extends Component {
     return (
       <Menu stackable position="right">
       <Menu.Item>
-       <Icon name='moon' size="big" />
+       <Icon name='moon' size="big"/>
         </Menu.Item>
         <Menu.Menu position="right">
         <Menu.Item

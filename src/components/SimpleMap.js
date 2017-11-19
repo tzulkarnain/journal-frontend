@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../config/config.js';
+import { Icon } from 'semantic-ui-react';
 
+
+// ${props.entry.thumbnail_image_url}
 const Pin = props => {
-    const dependsOnHover =
-        props.$hover ? { "font-style": "bold", color: '#ffffff' } : { color: '#ff0000' };
-    return <Link to={`/readentry/${props.entry.id}`}>
-        <div style={{
-            width: 100,
-            height: 100,
-            backgroundImage: `url(${props.entry.thumbnail_image_url})`
-        }}>
-            <p style={dependsOnHover}>{props.entry.title}
-            </p>
-        </div>
-    </Link>
+    // const dependsOnHover =
+        // props.$hover ? { "font-style": "bold", color: '#ffffff', 'background-color': 'grey' } : { color: '#ff0000' };
+    return  <Link to={`/readentry/${props.entry.id}`}>
+                <div style={{
+                    transform: 'translateY(-100%)',
+                    width: 'auto',
+                    height: 'auto', }}>
+                    <p style={{'color': 'black'} }>{props.entry.title} </p>
+                    <Icon name="map pin" size="huge" color='pink'/>
+                    
+                </div>
+            </Link>
 };
 class SimpleMap extends Component {
 

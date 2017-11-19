@@ -7,7 +7,7 @@ import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
 import SimpleChart from './SimpleChart'
-
+import WriteEntry from './WriteEntry';
 import styled from 'styled-components';
 // import { Grid, Button } from 'react-bootstrap';
 
@@ -109,7 +109,7 @@ class Dashboard extends Component {
               <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
               <Route path={`/dashboard/stats`} render={() => { return <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/> }} />
               <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} /> }} />
-              
+              <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history}/> }} />
             </div>
           </MainWrapper>
 

@@ -3,6 +3,7 @@ import EntryPreview from './EntryPreview';
 import { Card, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
+
 class DisplayEntries extends Component {
     // will need to pass the entries array as props
     //this.props.entries
@@ -32,14 +33,14 @@ class DisplayEntries extends Component {
                             mood
                         </Card.Description>
                         <Card.Content extra>
-                        <Button size="massive" as={Link} to='/writeentry'> + </Button>
+                        <Button size="massive" as={Link} to='/dashboard/writeentry'> + </Button>
                         </Card.Content>
                     </Card.Content>
 
                 </Card>
                 {this.props.entries.length ?
                     this.props.entries.map(this.displayEntryPreview) :
-                    (<div>You haven't written anything yet. Click the + button to add a new entry.</div>)}
+                    null}
             </div>
 
         )
