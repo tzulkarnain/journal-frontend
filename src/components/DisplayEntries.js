@@ -1,0 +1,52 @@
+import React, { Component } from 'react';
+import EntryPreview from './EntryPreview';
+import { Card, Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
+
+class DisplayEntries extends Component {
+    // will need to pass the entries array as props
+    //this.props.entries
+
+
+    displayEntryPreview = (entryObj) => {
+        return (<EntryPreview data={entryObj} key={entryObj.id} />)
+    }
+
+    render() {
+        console.log('props ', this.props.entries)
+        return (
+            // <div>hello</div>
+            <div style={{ 'grid-template-columns': 'auto auto', 'display': 'inline-grid', 'grid-gap': '1em 15%', 'width': '60%' }}>
+                <Card>
+                    <div height='226px' width='290px' />
+                    <Card.Content>
+                        <Card.Header>
+                            Create a new entry!
+                        </Card.Header>
+                        <Card.Meta>
+                            <span className='date'>
+                                date
+                            </span>
+                        </Card.Meta>
+                        <Card.Description>
+                            mood
+                        </Card.Description>
+                        <Card.Content extra>
+                        <Button size="massive" as={Link} to='/writeentry'> + </Button>
+                        </Card.Content>
+                    </Card.Content>
+
+                </Card>
+                {this.props.entries.length ?
+                    this.props.entries.map(this.displayEntryPreview) :
+                    (<div>You haven't written anything yet. Click the + button to add a new entry.</div>)}
+            </div>
+
+        )
+
+
+    }
+
+
+}
+export default DisplayEntries;

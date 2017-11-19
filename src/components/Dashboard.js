@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import EntryPreview from './EntryPreview';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
+import DisplayEntries from './DisplayEntries';
 import NavBar from './NavBar'
+import SimpleMap from './SimpleMap';
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Button } from 'semantic-ui-react'
-import SimpleMap from './SimpleMap'
 import SimpleChart from './SimpleChart'
 
+import styled from 'styled-components';
 // import { Grid, Button } from 'react-bootstrap';
 
+const MainWrapper = styled.div`
+   width: 100%;
+   display: grid;
+   grid-template-columns: 25% 60%;
 
+`
+
+const SideBarChoices = styled.div`
+  display: grid;
+  ${'' /* grid-row-gap: 2em; */}
+  position: relative;
+  width: 100%;
+  padding-top: 1em;
+
+`
+
+const ContentWrapper = styled.div`
+  display: grid;
+`
+const Options = styled.div`
+  padding: 2em;
+  color: black;
+  &:hover {
+      font-size: 1.5em;
+    }
+
+`
 
 /*
 logic:
@@ -46,7 +73,7 @@ class Dashboard extends Component {
     api.requestEntries(auth.getToken(),this.state.period)
       .then(reply => 
         this.setState({ entries: reply.body })
-    );
+      );
     //same with requestGeotaggedEntries
     api.requestGeotaggedEntries(auth.getToken(),this.state.period)
     .then(reply => 
@@ -58,71 +85,35 @@ class Dashboard extends Component {
 
   }
 
-  displayEntryPreviews = (entryObj) => {
-    return (
-      <div style={{display:'inline-block', margin: '2em 2em'}}><EntryPreview data={entryObj} key={entryObj.id} /></div>
-    )
-  }
 
 
   render() {
     console.log('the state: ', this.state)
 
     return (
-        
 
       <div className="dashboard">
         <NavBar hist={this.props.history} />
-           <Grid columns="equal" padded>]
-          <Grid.Row>
-            <Grid.Column>
-              <Segment size="massive">Hey {this.state.userObj.firstName} </Segment>
-            </Grid.Column>
-
-            <Grid.Column width={8}>
-              <Segment size="big">We write to taste life twice, in the moment and in retrospect <br/> Anais Nin</Segment>
-            </Grid.Column>
-
-            <Grid.Column>
-              <Button size="massive" as={Link} to='/writeentry' width={2}> + </Button>
-              {/* <Link to="/writeentry"><Button>+</Button></Link> as={Link} to='/writeentry'*/}
-            </Grid.Column>
-
-          </Grid.Row>
-          <Grid.Row stretched>
-            <Grid.Column verticalAlign="middle" width={3}>
-              <Segment >Your entries</Segment>
-            </Grid.Column>
-            <Grid.Column width={9}>
-                <div style={{width:'100%', display:'flex', flexDirection:'row', overflowX:'scroll'}}>
-
-                 {this.state.entries.length ? this.state.entries.map(this.displayEntryPreviews) :
-                  (<div>You haven't written anything yet. Click the + button to add a new entry.</div>)
-                 } 
-                </div>
-
-            </Grid.Column>
-          </Grid.Row>
-
-
-        </Grid >
+     
         <SimpleMap geotaggedEntries={this.state.geotaggedEntries}/>
         <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/>
-        {/* <div className="entriesWrapper">
-          <div className="entriesWrapperA">
-            <h3>Your entries</h3>
-          </div>
-
-          <div className="entriesWrapperB">
-            
-          </div>
-
-          <div className="entriesWrapperD">
-            <div>next-arrow</div>
-            <div>the past</div>
-          </div>
-
-        </div> */}
+     
+          <MainWrapper>
+            <div className="side-bar-wrapper" style={{'position': 'fixed', 'width': 25 + '%' }} >
+              <SideBarChoices>      
+               <Link to="/dashboard/entries" style= {{'text-decoration': 'none'}} ><Options>Entries</Options></Link> 
+                <Options>Favourites</Options>
+                <Options>Stats</Options>
+                <Link to="dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
+              </SideBarChoices>
+            </div>
+            <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
+            {/* display: grid; probably unnecessary */}
+              <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
+              <Route path={`/dashboard/map`} render={() => { return <SimpleMap /> }} />
+              
+            </div>
+          </MainWrapper>
 
       </div>
     );
