@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
 import api from '../api.js'
 import auth from '../auth.js';
@@ -53,27 +52,6 @@ background-color: black;
 flex:1
 `
 
-const Title = styled.h1`
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 2.5em;
-color: black;
-`;
-
-
-const Button = styled.button`
-	font-size: 1em;
-	margin: 1em;
-	padding: 0.25em 1em;
-	border-radius: 3px;
-`;
-
-const Div = styled.div`
-  display:flex;
-  grid-area: 5/ col4-start / last-line / 6
-`;
-
 
 export default class StyledTesting extends Component {
   constructor() {
@@ -114,23 +92,7 @@ export default class StyledTesting extends Component {
 
   
       <Wrapper>
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" id="mySidebar"><br/>    
-<div class="w3-container">
-<a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
-  <i class="fa fa-remove"></i>
-</a>
-<h4><b>Menu</b></h4>
-</div>
-<div class="w3-bar-block">
-<a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>DASHBOARD</a> 
-<a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>GRAPHS</a> 
-<a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>MAPS</a>
-</div>
-</nav>
-      
 
-      
-      
       <Sidebar>
       <div className="sidebar">
           <div><Link to="/dashboard">Dashboard</Link></div>

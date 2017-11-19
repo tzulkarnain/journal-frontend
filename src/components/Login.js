@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
-import { Container, Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 /*
 logic:
