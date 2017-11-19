@@ -50,13 +50,13 @@ class SimpleChart extends Component {
     console.log("the simplechart props are:", this.props.entries)
     console.log("the data labels are:", this.data.labels)
     return (
-      <div>
+      // style this div to set the 
+      <div style={{height:500,width:700}}>
         <h2>{`Mood over the past ${this.props.period} days`}</h2>
 
         <Line 
         data={this.data(this.props.entries, this.props.period)} 
-        width={10}
-        height={500} 
+        
         options={this.options} />
       </div>
     );
