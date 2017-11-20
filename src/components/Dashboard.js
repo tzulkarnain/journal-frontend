@@ -65,23 +65,20 @@ class Dashboard extends Component {
       geotaggedEntries:[{ lat: 45.50, lng: -73.56 }
       ],
       period:7,
-      searchTerm:null,
-      moodLimit:null
+      searchTerm:"",
+      moodLimit:""
     }
   }
 
   componentDidMount() {
-    //requestEntries takes two arguments - the token, and the number of days to retrieve from.
-    //"7" here indicates that we're retrieving entries made in the last 7 days.
+    //requestEntries takes arguments - the token, number of days to retrieve from, the search term and a mood limit.
+    //populates this.state.geotaggedEntries by filtering for entries with a lat property.
     api.requestEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
       .then(reply => 
-        this.setState({ entries: reply.body })
+        this.setState({ entries: reply.body,
+                        geotaggedEntries:reply.body.filter(entry=>!!entry.lat)})
       );
-    //same with requestGeotaggedEntries
-    api.requestGeotaggedEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
-    .then(reply => 
-      this.setState({ geotaggedEntries: reply.body })
-  );
+    
     const userObj = auth.getUser();
     console.log('userobj', userObj)
     this.setState({ userObj })
