@@ -106,8 +106,11 @@ class Dashboard extends Component {
     return (
 
       <div className="dashboard">
-        <NavBar hist={this.props.history} updateSearchTerm = {(searchTerm) => (this.setState({ searchTerm }))} 
-        updatePeriod = {(period) => (this.setState({ period }))} searchTermValue = {this.state.searchTerm} periodValue = {this.state.period}
+        <NavBar hist={this.props.history} 
+        updateSearchTerm = {(searchTerm) => (this.setState({ searchTerm }))} 
+        updatePeriod = {(period) => (this.setState({ period }))} 
+        searchTermValue = {this.state.searchTerm} 
+        periodValue = {this.state.period}
         handleClick={this.handleClick} 
         />
 
