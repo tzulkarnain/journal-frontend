@@ -74,26 +74,29 @@ class Dashboard extends Component {
     }
   }
 
+  
   componentDidMount() {
     //requestEntries takes arguments - the token, number of days to retrieve from, the search term and a mood limit.
     //populates this.state.geotaggedEntries by filtering for entries with a lat property.
-    api.requestEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
-      .then(reply => 
-        this.setState({ entries: reply.body,
-                        geotaggedEntries:reply.body.filter(entry=>!!entry.lat)})
-      );
     
+    this.loadEntries();
     const userObj = auth.getUser();
     console.log('userobj', userObj)
     this.setState({ userObj })
 
   }
 
+  loadEntries = () => {
+    api.requestEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
+    .then(reply => 
+      this.setState({ entries: reply.body,
+                      geotaggedEntries:reply.body.filter(entry=>!!entry.lat)})
+    );
+  }
+
   handleClick = (event) => {
-    api.requestEntries(auth.getToken(), this.state.period, this.state.searchTerm, this.state.moodLimit)
-      .then(reply =>
-        this.setState({ entries: reply.body })
-      );
+    event.preventDefault();
+    this.loadEntries();
     //consider adding previous function here
   
   }
@@ -120,7 +123,7 @@ class Dashboard extends Component {
               <Link to="/dashboard/map" style={{ 'text-decoration': 'none' }}><Options>Map</Options></Link>
             </SideBarChoices>
           </div>
-          
+
           <div className="content-wrapper" style={{ 'left': 20 + '%', 'position': 'absolute', 'width': '75%', 'height': '100%', 'display': 'grid' }} >
             {/* display: grid; probably unnecessary */}
             <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />

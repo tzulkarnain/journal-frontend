@@ -82,7 +82,9 @@ class SimpleChart extends Component {
         <Line 
         data={this.data(this.props.entries, this.props.period)} 
         
-        options={this.options} /></div>
+        options={this.options} 
+        />
+        </div>
         {/* this next part just checks if an entry's being hovered over, and if so,
         renders an EntryPreview object with the data from that entry! */}
         {this.state.hoveredChartPoint?
