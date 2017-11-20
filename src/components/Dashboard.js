@@ -106,7 +106,7 @@ class Dashboard extends Component {
             <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
             {/* display: grid; probably unnecessary */}
               <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
-              <Route path={`/dashboard/stats`} render={() => { return <SimpleChart entries={this.state.entries.reverse()} period={this.state.period}/> }} />
+              <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist= {this.props.history} entries={this.state.entries.slice().reverse()} period={this.state.period}/> }} />
               <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} /> }} />
               <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history}/> }} />
             </div>
