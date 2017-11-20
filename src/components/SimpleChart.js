@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 
+import EntryPreview from './EntryPreview';
 
 
 
@@ -73,7 +74,7 @@ class SimpleChart extends Component {
         {/*essentially the way to use this chart is that each point corresponds to an entry.
         when a user hovers over a point in the chart corresponding
         to an entry, the short-form info for that entry will get put into this.state.hoveredChartPoint.
-        this next div just displays the hovered entry's title. you can display all the info if you like. */}
+        */}
         <div style={{height:500,width:700}}>
           <h2>{`Mood over the past ${this.props.period} days`}</h2>
         
@@ -82,12 +83,12 @@ class SimpleChart extends Component {
         data={this.data(this.props.entries, this.props.period)} 
         
         options={this.options} /></div>
+        {/* this next part just checks if an entry's being hovered over, and if so,
+        renders an EntryPreview object with the data from that entry! */}
+        {this.state.hoveredChartPoint?
+        <EntryPreview data={this.state.hoveredChartPoint} key={this.state.hoveredChartPoint.id} />
+        :null}
         
-        {this.state.hoveredChartPoint? <div>
-        <h2>{this.state.hoveredChartPoint.title}</h2>
-        <img src={this.state.hoveredChartPoint.thumbnail_image_url}/>
-        <h4>the mood was: {this.state.hoveredChartPoint.mood}</h4>
-        </div>:null}
 
       </div>
     );

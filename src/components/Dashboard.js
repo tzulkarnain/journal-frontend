@@ -8,6 +8,8 @@ import auth from '../auth.js';
 import SimpleChart from './SimpleChart'
 import WriteEntry from './WriteEntry';
 import styled from 'styled-components';
+import { Input } from 'semantic-ui-react'
+
 // import { Grid, Button } from 'react-bootstrap';
 
 const MainWrapper = styled.div`
@@ -62,19 +64,21 @@ class Dashboard extends Component {
       entries: [],
       geotaggedEntries:[{ lat: 45.50, lng: -73.56 }
       ],
-      period:7
+      period:7,
+      searchTerm:null,
+      moodLimit:null
     }
   }
 
   componentDidMount() {
     //requestEntries takes two arguments - the token, and the number of days to retrieve from.
     //"7" here indicates that we're retrieving entries made in the last 7 days.
-    api.requestEntries(auth.getToken(),this.state.period)
+    api.requestEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
       .then(reply => 
         this.setState({ entries: reply.body })
       );
     //same with requestGeotaggedEntries
-    api.requestGeotaggedEntries(auth.getToken(),this.state.period)
+    api.requestGeotaggedEntries(auth.getToken(),this.state.period,this.state.searchTerm,this.state.moodLimit)
     .then(reply => 
       this.setState({ geotaggedEntries: reply.body })
   );
@@ -101,6 +105,8 @@ class Dashboard extends Component {
                 <Options>Favourites</Options>
                 <Link to="/dashboard/stats" style= {{'text-decoration': 'none'}} ><Options>Stats</Options></Link>
                 <Link to="/dashboard/map" style= {{'text-decoration': 'none'}} ><Options>Map</Options></Link>
+                {/* <Input type='text' value={this.state.searchTerm} onChange={(e) => this.setState({ searchTerm: e.target.value })} /> */}
+
               </SideBarChoices>
             </div>
             <div className="content-wrapper" style={{'left': 20 + '%', 'position': 'relative'}} >
