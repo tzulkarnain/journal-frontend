@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import auth from '../auth.js';
 import { Menu, Icon } from 'semantic-ui-react';
+import styled from 'styled-components';
 
-
+const SearchInput = styled.input`
+    border: 1px solid rgba(34,36,38,.15);
+    border-radius: .28571429rem;
+`
 
 /*
 logic:
@@ -35,6 +39,21 @@ class NavBar extends Component {
       <Menu.Item>
        <Icon name='moon' size="big"/>
         </Menu.Item>
+        <form onSubmit={this.props.handleClick}>
+                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
+                <span>in the last</span>
+                <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))}>
+                    <option value="1">1 day</option>
+                    <option value="7">7 days</option>
+                    <option value="10">10 days</option>
+                    <option value="30">30 days</option>
+                    <option value="90">90 days</option>
+                    <option value="180">6 months</option>
+                    <option value="365">1 year</option>
+                    <option value='null'>all time</option>
+                  </select>
+                {/* <button onClick={this.props.handleClick}>Search</button> */}
+              </form>
         <Menu.Menu position="right">
         <Menu.Item
           name='dashboard'
