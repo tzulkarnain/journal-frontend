@@ -9,35 +9,37 @@ import { Icon } from 'semantic-ui-react';
 const FontAwesome = require('react-fontawesome')
 // ${props.entry.thumbnail_image_url}
 const Pin = props => {
-    const dependsOnHover =
+    const pinSize =
         props.$hover ? '4x' : '3x';
-    return  <Link to={`/readentry/${props.entry.id}`}>
+    return  (<Link to={`/readentry/${props.entry.id}`}>
                 <div style={{
                     transform: 'translateY(-100%)',
                     width: 'auto',
                     height: 'auto', }}>
                     {/* <p style={{'color': 'black'} }>{props.entry.title} </p> */}
-                    <FontAwesome name="map-marker" size={dependsOnHover} style={{color:'red'}} />
+                    <FontAwesome name="map-marker" size={pinSize} style={{color:'red'}} />
                     
                 </div>
-            </Link>
+            </Link>)
+//this.hoverHandler( ) this.state.hoveredMapPoint
+    props.$hover ? console.log('its hovering:', props.entry.id ) : console.log('not yet');
 };
 class SimpleMap extends Component {
+    constructor() {
+        super()
+        this.state = {
+            hoveredMapPoint: null
+        }
+    }
 
     static defaultProps = {
         center: { lat: 45.50, lng: -73.56 },
         zoom: 12
     };
 
-    // handleClick = (event) => {
-    //     event.preventDefault();
-    //     const place = this.cityInput.value;
-    //     api.requestLatLong(place)
-    //         .then(object => this.setState (
-    //             {lat: object.lat,
-    //             lng: object.lng}
-    //         ))
-    // }
+    hoverHandler = (item) => item[0] ? (console.log("Item", this.props.entries[item[0]._index], "hovered"),
+    this.setState({hoveredChartPoint:this.props.entries[item[0]._index]}))
+    :(null)
 
     render() {
         console.log("the simplemap props are:", this.props)
