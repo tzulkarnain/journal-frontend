@@ -58,7 +58,7 @@ class LandingPage extends Component {
       	<Title>Welcome to Noctjournal</Title>
         <div>
         <Link to="/createaccount"><Button size="big" color='black'>Create Account</Button></Link>
-          <Link to="/login"><Button size="big" color='black'>Log In</Button></Link>
+          <Link to="/login"><Button size="big" color='black' >Log In</Button></Link>
         </div>
         </Div>
       </Wrapper>

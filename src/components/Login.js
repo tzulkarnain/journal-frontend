@@ -64,8 +64,7 @@ class Login extends Component {
                 />
               <Form.Input icon='lock' iconPosition='left' type='password' placeholder="Password" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} 
                 />
-                <p>No account? <Link to="/createaccount">Create an account</Link>
-</p>
+                <p>No account? <Link to="/createaccount">Create an account</Link></p>
                 {this.state.error && (<p>{this.state.error}</p>) }
               <Button fluid size='large'>Log In</Button>
             </Form>

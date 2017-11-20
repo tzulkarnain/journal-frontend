@@ -5,17 +5,19 @@ import { MAPS_API_KEY } from '../config/config.js';
 import { Icon } from 'semantic-ui-react';
 
 
+
+const FontAwesome = require('react-fontawesome')
 // ${props.entry.thumbnail_image_url}
 const Pin = props => {
-    // const dependsOnHover =
-        // props.$hover ? { "font-style": "bold", color: '#ffffff', 'background-color': 'grey' } : { color: '#ff0000' };
+    const dependsOnHover =
+        props.$hover ? '4x' : '3x';
     return  <Link to={`/readentry/${props.entry.id}`}>
                 <div style={{
                     transform: 'translateY(-100%)',
                     width: 'auto',
                     height: 'auto', }}>
-                    <p style={{'color': 'black'} }>{props.entry.title} </p>
-                    <Icon name="map pin" size="huge" color='pink'/>
+                    {/* <p style={{'color': 'black'} }>{props.entry.title} </p> */}
+                    <FontAwesome name="map-marker" size={dependsOnHover} style={{color:'red'}} />
                     
                 </div>
             </Link>
@@ -40,9 +42,9 @@ class SimpleMap extends Component {
     render() {
         console.log("the simplemap props are:", this.props)
         return (
-            <div style={{ textAlign: "center", padding: 100 }}>
+            // <div style={{ textAlign: "center", padding: 100 }}>
 
-                <div style={{ width: 500, height: 500 }}>
+                <div style={{ width: '100%', height: '70%' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{
                             key: MAPS_API_KEY
@@ -55,6 +57,7 @@ class SimpleMap extends Component {
                      1)entry, which contains the entry object with title, imageurl, etc
                      2)lat, which is just the entry lat
                      3)ditto for lng
+                     style={{ width: 500, height: 500 }}
                      */}
 
                         {this.props.geotaggedEntries ? this.props.geotaggedEntries.map(entry => <Pin entry={entry} lat={entry.lat} lng={entry.lng} />) : null}
@@ -73,7 +76,7 @@ class SimpleMap extends Component {
                     </GoogleMapReact>
                 </div>
 
-            </div>
+            // </div>
 
 
         );

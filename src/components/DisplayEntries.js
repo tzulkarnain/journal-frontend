@@ -17,10 +17,10 @@ class DisplayEntries extends Component {
         console.log('props ', this.props.entries)
         return (
             // <div>hello</div>
-            <div style={{ 'grid-template-columns': 'auto auto', 'display': 'inline-grid', 'grid-gap': '1em 15%', 'width': '60%' }}>
+            <div style={{ 'grid-template-columns': 'repeat(auto-fit, 290px)', 'grid-template-rows': 'repeat(auto-fit, 378.44px)',  'display': 'grid', 'grid-gap': '1em 3%' }}>
                 <Card>
-                    <div height='226px' width='290px' />
-                    <Card.Content>
+                    <div height='226px' width='290px'/>
+                    <div className="card-content">
                         <Card.Header>
                             Create a new entry!
                         </Card.Header>
@@ -35,7 +35,7 @@ class DisplayEntries extends Component {
                         <Card.Content extra>
                         <Button size="massive" as={Link} to='/dashboard/writeentry'> + </Button>
                         </Card.Content>
-                    </Card.Content>
+                    </div>
 
                 </Card>
                 {this.props.entries.length ?
