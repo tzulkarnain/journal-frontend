@@ -40,9 +40,8 @@ class ReadEntry extends Component {
   render() {
     return (
       <div>
-        <NavBar hist={this.props.history} />
         {!this.state.loaded ? <div>loading...</div> :
-          <Grid columns="equal" padded>]
+          <Grid columns="equal" padded>
           <Grid.Column>
               <Grid.Row>
                 <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style= {{height: 35 + 'em'}}/>
