@@ -22,7 +22,7 @@ const MainWrapper = styled.div`
 
 const SideBarChoices = styled.div`
   display: grid;
-  ${'' /* grid-row-gap: 2em; */}
+  grid-row-gap: 2em;
   position: relative;
   width: 100%;
   padding-top: 1em;
@@ -32,12 +32,20 @@ const SideBarChoices = styled.div`
 // const ContentWrapper = styled.div`
 //   display: grid;
 // `
-const Options = styled.div`
+const Options = styled.span`
   padding: 2em;
   color: black;
+  display: inline-block;
   &:hover {
-      font-size: 1.5em;
+          display: inline-block;
     }
+`
+
+const SidebarLink = styled.div`
+    &:hover {
+      background: lightblue;
+      transform: scale(1.2);
+  }
 
 `
 // 
@@ -117,9 +125,12 @@ class Dashboard extends Component {
         <MainWrapper>
           <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 20 + '%' }}>
             <SideBarChoices>
-             <Link to="/dashboard" style={{ 'textDecoration': 'none' }}><Options>Entries</Options></Link>
-              <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}><Options>Stats</Options></Link>
-              <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}><Options>Map</Options></Link>
+            <Link to="/dashboard" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Entries</Options></SidebarLink></Link>
+            <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Stats</Options></SidebarLink></Link>
+            <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Map</Options></SidebarLink></Link>
             </SideBarChoices>
           </div>
 
