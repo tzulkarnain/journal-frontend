@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-
 import EntryPreview from './EntryPreview';
-
-
-
 
 class SimpleChart extends Component {
 
-  constructor(){
+  constructor() {
     super()
     this.state={
       hoveredChartPoint:null
     } 
   }
+
   displayDate = timeStamp => {
     let newDateArray = timeStamp.split('T');
     let justDate = newDateArray[0];
@@ -47,16 +44,14 @@ class SimpleChart extends Component {
     ]
   });
 
-  hoverHandler=(e, item) => 
-  item[0]?(
-  console.log("Item", this.props.entries[item[0]._index], "hovered"),
+  hoverHandler = (e, item) => item[0] ? (console.log("Item", this.props.entries[item[0]._index], "hovered - state: ",this.state),
   this.setState({hoveredChartPoint:this.props.entries[item[0]._index]}))
   :(null)
 
   clickHandler=(e,item)=> item[0]? this.props.hist.push(`/dashboard/readentry/${this.props.entries[item[0]._index].id}`):(null)
 
 
-  options = {
+   options = {
     onHover: this.hoverHandler,
     onClick: this.clickHandler,
     //  events: ["click","hover"],
@@ -78,16 +73,13 @@ class SimpleChart extends Component {
         <div style={{height:500,width:700}}>
           <h2>{`Mood over the past ${this.props.period} days`}</h2>
         
-
-        <Line 
-        data={this.data(this.props.entries, this.props.period)} 
-        
-        options={this.options} /></div>
+          <Line data={this.data(this.props.entries, this.props.period)} options={this.options} />
+        </div>
         {/* this next part just checks if an entry's being hovered over, and if so,
         renders an EntryPreview object with the data from that entry! */}
-        {this.state.hoveredChartPoint?
+        {this.state.hoveredChartPoint ?
         <EntryPreview data={this.state.hoveredChartPoint} key={this.state.hoveredChartPoint.id} />
-        :null}
+        : null}
         
 
       </div>
