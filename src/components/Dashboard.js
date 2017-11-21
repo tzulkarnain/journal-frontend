@@ -16,7 +16,7 @@ import ReadEntry from './ReadEntry';
 const MainWrapper = styled.div`
    width: 100%;
    display: grid;
-   grid-template-columns: 20% 60%;
+   grid-template-columns: 15% 60%;
 
 `
 
@@ -27,6 +27,13 @@ const SideBarChoices = styled.div`
   width: 100%;
   padding-top: 1em;
 
+`
+const ContentWrapper = styled.div`
+left: 15%;
+position: absolute; 
+width: 75%; 
+height: 100%; 
+display: grid;
 `
 
 // const ContentWrapper = styled.div`
@@ -115,7 +122,7 @@ class Dashboard extends Component {
         />
 
         <MainWrapper>
-          <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 20 + '%' }}>
+          <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 15 + '%' }}>
             <SideBarChoices>
              <Link to="/dashboard" style={{ 'textDecoration': 'none' }}><Options>Entries</Options></Link>
               <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}><Options>Stats</Options></Link>
@@ -123,7 +130,7 @@ class Dashboard extends Component {
             </SideBarChoices>
           </div>
 
-          <div className="content-wrapper" style={{ 'left': 20 + '%', 'position': 'absolute', 'width': '75%', 'height': '100%', 'display': 'grid' }} >
+          <ContentWrapper>
             {/* display: grid; probably unnecessary */}
             <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
@@ -131,7 +138,7 @@ class Dashboard extends Component {
             <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} period={this.state.period}/> }} />
             <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history} reloadEntries={this.loadEntries}/> }} />
             <Route path={`/dashboard/readentry/:id`} render={(props) => { return <ReadEntry {...props} history={this.props.history} /> }} />
-          </div>
+          </ContentWrapper>
         </MainWrapper>
 
       </div>

@@ -15,6 +15,15 @@ transform: translate(-25%, -100%);
 border-radius: 2px;
 `
 
+const MapPageWrapper = styled.div`
+    width: 70vw;
+`
+
+const MapWrapper = styled.div`
+    width: 100%; 
+    height: 60%
+`
+
 const FontAwesome = require('react-fontawesome')
 const Pin = props => {
     const pinSize = props.$hover ? '4x' : '3x';
@@ -50,9 +59,9 @@ class SimpleMap extends Component {
     render() {
         console.log("the simplemap props are:", this.props)
         return (
-            <div>
+            <MapPageWrapper>
                 <h2>{`Where you were over the past ${this.props.period} days`}</h2>
-                <div className='mapWrapper' style={{ width: '70%', height: '55vh' }}>
+                <MapWrapper>
                     <GoogleMapReact
                         bootstrapURLKeys={{
                             key: MAPS_API_KEY
@@ -77,8 +86,8 @@ class SimpleMap extends Component {
                         {this.props.geotaggedEntries ? this.props.geotaggedEntries.map(entry => <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />) : null}
 
                     </GoogleMapReact>
-                </div>
-            </div>
+                </MapWrapper>
+            </MapPageWrapper>
 
         );
     }
