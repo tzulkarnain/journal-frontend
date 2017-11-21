@@ -44,7 +44,7 @@ class SimpleChart extends Component {
     ]
   });
 
-  hoverHandler = (e, item) => item[0] ? (console.log("Item", this.props.entries[item[0]._index], "hovered"),
+  hoverHandler = (e, item) => item[0] ? (console.log("Item", this.props.entries[item[0]._index], "hovered - state: ",this.state),
   this.setState({hoveredChartPoint:this.props.entries[item[0]._index]}))
   :(null)
 
