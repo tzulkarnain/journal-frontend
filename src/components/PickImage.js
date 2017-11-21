@@ -23,13 +23,16 @@ class PickImage extends Component {
             }
         )
     }
+    unSplashRemove=()=>{
+        this.setState({photoChoicesArray:null})
+    }
     getUploadedFile = (e) => {
         const userFile=e.target.files[0]
         userFile.urls={regular:URL.createObjectURL(userFile),thumb:URL.createObjectURL(userFile)}
         userFile.userUploaded=true
         console.log("we added local urls to the userFile:",userFile.urls)
         
-        this.props.photoSet(userFile)
+        this.props.selectImage(userFile)
     }
 
     openUpload = () => {
@@ -58,7 +61,7 @@ class PickImage extends Component {
 
             />
             {this.props.chosenPhoto ?
-
+                <div style={{position:"relative"}}>
                 <img
                     style={{
                         "maxWidth": "100%",
@@ -66,19 +69,24 @@ class PickImage extends Component {
                     }}
                     src={this.props.chosenPhoto.urls.regular}
                     alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo":this.props.chosenPhoto.links.html} />
-                    
+                   <Button onClick={this.props.deleteChosenPhoto}
+                   style={{position:"absolute",bottom:10,right:10}}>X</Button>
+                    </div>
                 :
 
                 this.state.photoChoicesArray ?
 
-                    <div style={{ border: "3px dashed gray", borderRadius: "25px", height: "200px" }}>{
-                        this.state.photoChoicesArray.map(
+                    <div style={{ border: "3px dashed gray", borderRadius: "25px", height: "200px" }}>
+                        {this.state.photoChoicesArray.map(
                             (photo) =>
                                 <button style={{"maxHeight": "100%"}}
-                                    onClick={() => this.props.photoSet(photo)}>
+                                    onClick={() => this.props.selectImage(photo)}>
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />
                                 </button>)}
+                                <Button onClick={this.unsplashGet}>Search Again</Button>
+                                <Button onClick={this.unSplashRemove}>Back</Button>
+
                     </div>
 
                     :

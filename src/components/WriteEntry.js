@@ -56,6 +56,11 @@ class WriteEntry extends Component {
             chosenPhoto: photo
         })
     }
+    deleteChosenPhoto = ()=>{
+        this.setState({
+            chosenPhoto:null
+        })
+    }
     handleKeyPress = (event)=>{
         //this checks if they pressed enter and prevents the default action(form submission) if they did
             if (event.which===13){
@@ -109,6 +114,7 @@ class WriteEntry extends Component {
                    results=>console.log(results)
                 )
             })
+            .then(()=>this.props.reloadEntries())
             .then(() => this.props.history.push("/dashboard/entries"))
     }
 
@@ -119,7 +125,8 @@ class WriteEntry extends Component {
                     <Grid.Column style={{ maxWidth: 700 }}>
                         <PickImage mood={this.state.mood}
                             chosenPhoto={this.state.chosenPhoto}
-                            photoSet={this.selectImage}
+                            selectImage={this.selectImage}
+                            deleteChosenPhoto={this.deleteChosenPhoto}
                         />
                         <Header as="h2" textAlign="center">Write a new entry</Header>
                         <Form size="big" widths="equal" onKeyPress={this.handleKeyPress}>
