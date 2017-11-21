@@ -3,11 +3,23 @@ import React, { Component } from 'react';
 import auth from '../auth.js';
 import { Menu, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
+const FontAwesome = require('react-fontawesome')
 
 const SearchInput = styled.input`
-    border: 1px solid rgba(34,36,38,.15);
-    border-radius: .28571429rem;
+  width: 500px;
+  height: 40px;
+  padding: 0 30px 2px 42px;
+  font-size: 14px;
+  color: #111;
+  background-color: #f1f1f1;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  outline: none;
+  transition: all .2s ease-in-out;
+    -webkit-appearance: none;
 `
+
+
 
 /*
 logic:
@@ -40,7 +52,8 @@ class NavBar extends Component {
        <Icon name='moon' size="big"/>
         </Menu.Item>
         <form onSubmit={this.props.handleClick}>
-                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
+            <Icon name="search" size="big"/>
+                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
                 <span>in the last</span>
                 <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))}>
                     <option value="1">1 day</option>
