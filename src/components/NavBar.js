@@ -51,8 +51,9 @@ class NavBar extends Component {
       <Menu.Item>
        <Icon name='moon' size="big"/>
         </Menu.Item>
+        <div className='searchBar'>
         <form onSubmit={this.props.handleClick}>
-            <Icon name="search" size="big"/>
+            <Icon name="search" size="large"/>
                 <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
                 <span>in the last</span>
                 <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))} value={this.props.periodValue} >
@@ -67,6 +68,7 @@ class NavBar extends Component {
                   </select>
                 <button onClick={this.props.handleClick}>Search</button>
               </form>
+        </div>
         <Menu.Menu position="right">
         <Menu.Item
           name='dashboard'
