@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const FontAwesome = require('react-fontawesome')
 
 const SearchInput = styled.input`
-  width: 500px;
+  width: 60%;
   height: 40px;
   padding: 0 30px 2px 42px;
   font-size: 14px;
@@ -19,7 +19,9 @@ const SearchInput = styled.input`
     -webkit-appearance: none;
 `
 const SearchBar = styled.div`
-
+    width: 100%;
+    display: flex;
+    align-items: center
 `
 
 
@@ -44,9 +46,6 @@ class NavBar extends Component {
       )
   }
 
-  handleRedirectToDashboard = (event) => {
-    this.props.hist.push("/dashboard")
-  }
 
   render() {
     return (
@@ -55,10 +54,10 @@ class NavBar extends Component {
        <Icon name='moon' size="big"/>
         </Menu.Item>
         <SearchBar >
-        <form onSubmit={this.props.handleClick}>
+        <form style={{width: '100%'}} onSubmit={this.props.handleClick}>
             <Icon name="search" size="large"/>
                 <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
-                <span>in the last</span>
+                <span style={{padding: "0px 7px"}}>in the last</span>
                 <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))} value={this.props.periodValue} >
                     <option value="1">1 day</option>
                     <option value="7">7 days</option>
@@ -69,16 +68,10 @@ class NavBar extends Component {
                     <option value="365">1 year</option>
                     <option value="">all time</option>
                   </select>
-                <button onClick={this.props.handleClick}>Search</button>
-              </form>
+                <button style={{margin: "0px 6px", "border-radius": "6px", padding: "8px 10px", "background-color": "#7e7c88", color: "rgb(246, 244, 244)"}} onClick={this.props.handleClick}>Search</button>
+              </form>  
         </SearchBar>
         <Menu.Menu position="right">
-        <Menu.Item
-          name='dashboard'
-          onClick={this.handleRedirectToDashboard} 
-        >
-          Dashboard
-      </Menu.Item>
         <Menu.Item
           name='logOut'
           onClick={this.handleLogOut}
