@@ -19,6 +19,10 @@ const Pin = props => {
             height: 'auto',
         }}
         >
+        {/* {props.data ?
+                    <EntryPreview data={props.data} key={props.data.id} />
+                    : null} */}
+            <div>test</div>
             <FontAwesome name="map-marker" size={pinSize} style={{ color: 'red' }} />
         </div>
     </Link>)
@@ -66,14 +70,12 @@ class SimpleMap extends Component {
                      style={{ width: 500, height: 500 }}
                      */}
 
-                        {this.props.geotaggedEntries ? this.props.geotaggedEntries.map(entry => <Pin entry={entry} lat={entry.lat} lng={entry.lng} />) : null}
+                        {this.props.geotaggedEntries ? this.props.geotaggedEntries.map(entry => <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />) : null}
 
                     </GoogleMapReact>
                 </div>
                 <div className="preview" style={{'padding-left':'2%'}} >
-                {this.state.hoveredMapPoint ?
-                    <EntryPreview data={this.state.hoveredMapPoint} key={this.state.hoveredMapPoint.id} />
-                    : null}
+                
                 </div>
                 
                
