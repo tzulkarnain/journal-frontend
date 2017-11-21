@@ -9,6 +9,7 @@ import SimpleChart from './SimpleChart'
 import WriteEntry from './WriteEntry';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react'
+import ReadEntry from './ReadEntry';
 
 // import { Grid, Button } from 'react-bootstrap';
 
@@ -109,8 +110,11 @@ class Dashboard extends Component {
     return (
 
       <div className="dashboard">
-        <NavBar hist={this.props.history} updateSearchTerm = {(searchTerm) => (this.setState({ searchTerm }))} 
-        updatePeriod = {(period) => (this.setState({ period }))} searchTermValue = {this.state.searchTerm} periodValue = {this.state.period}
+        <NavBar hist={this.props.history} 
+        updateSearchTerm = {(searchTerm) => (this.setState({ searchTerm }))} 
+        updatePeriod = {(period) => (this.setState({ period }))} 
+        searchTermValue = {this.state.searchTerm} 
+        periodValue = {this.state.period}
         handleClick={this.handleClick} 
         />
 
@@ -130,6 +134,7 @@ class Dashboard extends Component {
             <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist={this.props.history} entries={this.state.entries.slice().reverse()} period={this.state.period} /> }} />
             <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} period={this.state.period}/> }} />
             <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history} /> }} />
+            <Route path={`/dashboard/readentry/:id`} render={(props) => { return <ReadEntry {...props} history={this.props.history} /> }} />
           </div>
         </MainWrapper>
 

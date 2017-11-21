@@ -12,7 +12,7 @@ const FontAwesome = require('react-fontawesome')
 const Pin = props => {
 
     const pinSize = props.$hover ? '4x' : '3x';
-    return (<Link to={`/readentry/${props.entry.id}`}>
+    return (<Link to={`/dashboard/readentry/${props.entry.id}`}>
         <div style={{
             transform: 'translateY(-100%)',
             width: 'auto',

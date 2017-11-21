@@ -48,7 +48,7 @@ class SimpleChart extends Component {
   this.setState({hoveredChartPoint:this.props.entries[item[0]._index]}))
   :(null)
 
-  clickHandler=(e,item)=> item[0]? this.props.hist.push(`/readentry/${this.props.entries[item[0]._index].id}`):(null)
+  clickHandler=(e,item)=> item[0]? this.props.hist.push(`/dashboard/readentry/${this.props.entries[item[0]._index].id}`):(null)
 
 
    options = {

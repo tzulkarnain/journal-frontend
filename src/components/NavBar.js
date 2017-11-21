@@ -50,7 +50,7 @@ class NavBar extends Component {
                     <option value="90">90 days</option>
                     <option value="180">6 months</option>
                     <option value="365">1 year</option>
-                    <option value='null'>all time</option>
+                    <option value="">all time</option>
                   </select>
                 <button onClick={this.props.handleClick}>Search</button>
               </form>
