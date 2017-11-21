@@ -8,7 +8,7 @@ import auth from '../auth.js';
 import SimpleChart from './SimpleChart'
 import WriteEntry from './WriteEntry';
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react'
+// import { Input } from 'semantic-ui-react'
 
 // import { Grid, Button } from 'react-bootstrap';
 
@@ -28,9 +28,9 @@ const SideBarChoices = styled.div`
 
 `
 
-const ContentWrapper = styled.div`
-  display: grid;
-`
+// const ContentWrapper = styled.div`
+//   display: grid;
+// `
 const Options = styled.div`
   padding: 2em;
   color: black;
@@ -39,10 +39,7 @@ const Options = styled.div`
     }
 
 `
-const SearchInput = styled.input`
-    border: 1px solid rgba(34,36,38,.15);
-    border-radius: .28571429rem;
-`
+// 
 
 /*
 logic:
@@ -101,7 +98,6 @@ class Dashboard extends Component {
 
 
   render() {
-    console.log('the state: ', this.state)
 
     return (
 
@@ -117,10 +113,10 @@ class Dashboard extends Component {
         <MainWrapper>
           <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 20 + '%' }}>
             <SideBarChoices>
-             <Link to="/dashboard/entries" style={{ 'text-decoration': 'none' }}><Options>Entries</Options></Link>
+             <Link to="/dashboard/entries" style={{ 'textDecoration': 'none' }}><Options>Entries</Options></Link>
               <Options>Favourites</Options>
-              <Link to="/dashboard/stats" style={{ 'text-decoration': 'none' }}><Options>Stats</Options></Link>
-              <Link to="/dashboard/map" style={{ 'text-decoration': 'none' }}><Options>Map</Options></Link>
+              <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}><Options>Stats</Options></Link>
+              <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}><Options>Map</Options></Link>
             </SideBarChoices>
           </div>
           

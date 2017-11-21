@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.1",
+    "firebase": "^4.6.2",
     "google-map-react": "^0.25.0",
     "moment": "^2.19.2",
     "react": "^16.1.1",

@@ -14,10 +14,9 @@ class DisplayEntries extends Component {
     }
 
     render() {
-        console.log('props ', this.props.entries)
         return (
             // <div>hello</div>
-            <div style={{ 'grid-template-columns': 'repeat(auto-fit, 290px)', 'grid-template-rows': 'repeat(auto-fit, 378.44px)',  'display': 'grid', 'grid-gap': '1em 3%' }}>
+            <div style={{ 'gridTemplateColumns': 'repeat(auto-fit, 290px)', 'gridTemplateRows': 'repeat(auto-fit, 378.44px)',  'display': 'grid', 'gridGap': '1em 3%' }}>
                 <Card>
                     <div height='226px' width='290px'/>
                     <div className="card-content">

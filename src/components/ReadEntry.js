@@ -15,7 +15,6 @@ class ReadEntry extends Component {
   }
 
   componentDidMount() {
-    const userObj = auth.getUser();
     console.log('readEntry', this.props.match.params.id)
     api.requestSingleEntry(this.props.match.params.id, auth.getToken())
       .then(reply => {

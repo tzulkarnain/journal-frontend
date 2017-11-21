@@ -1,0 +1,103 @@
+import React, { Component } from 'react';
+import api from '../api.js'
+import { Button } from 'semantic-ui-react'
+
+
+class PickImage extends Component {
+    constructor() {
+        super()
+        this.state = {
+            count:3
+
+        }
+
+    }
+
+    unsplashGet = (e) => {
+        e.preventDefault()
+        api.getUnsplashMultiple(this.setSearchQuery(this.props.mood),this.state.count).then(
+            imageResults => {
+
+                console.log("returned imageResults:", imageResults.body)
+                this.setState({ photoChoicesArray: imageResults.body })
+            }
+        )
+    }
+    getUploadedFile = (e) => {
+        const userFile=e.target.files[0]
+        userFile.urls={regular:URL.createObjectURL(userFile),thumb:URL.createObjectURL(userFile)}
+        userFile.userUploaded=true
+        console.log("we added local urls to the userFile:",userFile.urls)
+        
+        this.props.photoSet(userFile)
+    }
+
+    openUpload = () => {
+        this.uploader.click()
+    }
+
+    
+    setSearchQuery = (rating) => {
+        let searchQuery =
+            rating >= 9 ? "color" :
+                rating >= 7 ? "horizon" :
+                    rating >= 5 ? "calm" :
+                        rating >= 3 ? 'rain' :
+                            rating >= 0 ? "dark" : "walrus";
+        return searchQuery;
+    }
+
+    render() {
+        return (<div>
+            <input
+                ref={r => this.uploader = r}
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={this.getUploadedFile}
+
+            />
+            {this.props.chosenPhoto ?
+
+                <img
+                    style={{
+                        "maxWidth": "100%",
+                        "maxHeight": "100%"
+                    }}
+                    src={this.props.chosenPhoto.urls.regular}
+                    alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo":this.props.chosenPhoto.links.html} />
+                    
+                :
+
+                this.state.photoChoicesArray ?
+
+                    <div style={{ border: "3px dashed gray", borderRadius: "25px", height: "200px" }}>{
+                        this.state.photoChoicesArray.map(
+                            (photo) =>
+                                <button style={{"maxHeight": "100%"}}
+                                    onClick={() => this.props.photoSet(photo)}>
+                                    <img style={{"maxHeight": "100%"}}
+                                        src={photo.urls.thumb} alt={photo.links.html} />
+                                </button>)}
+                    </div>
+
+                    :
+
+                    <div style={{
+                        border: "3px dashed gray",
+                        borderRadius: "25px", height: "200px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                        <Button onClick={this.unsplashGet}>Pick an Unsplash photo</Button>
+                        <Button onClick={this.openUpload}>Upload Your Own Photo</Button>
+                    </div>
+            }
+
+
+        </div>)
+    }
+}
+
+export default PickImage;
