@@ -49,7 +49,9 @@ class EntryPreview extends Component {
       <Grid.Column>
       {this.state.imageDeleted ? <Card.Header>Entry successfully deleted. </Card.Header> :
         <Card>
+        <Link to={`/dashboard/readentry/${this.props.data.id}`}>
           <Image src={this.props.data.thumbnail_image_url} height='226px' width='290px' />
+          </Link>
           <Card.Content>
             <Card.Header>
               {this.props.data.title}
@@ -61,12 +63,10 @@ class EntryPreview extends Component {
             </Card.Meta>
             <Card.Description>
               {this.setMoodDescription(this.props.data.mood)}
-              {' '} <Link to={`/dashboard/readentry/${this.props.data.id}`}>
-              <Icon size="large" name="external"/>
-                </Link>
+              {' '} 
             </Card.Description>
             <Card.Content extra>
-            <Button onClick={this.handleDelete}>Delete</Button>
+            <Button onClick={this.handleDelete} icon='trash' size='small' ></Button>
             </Card.Content>
           </Card.Content>
 

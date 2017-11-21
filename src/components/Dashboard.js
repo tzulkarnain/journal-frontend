@@ -16,29 +16,44 @@ import ReadEntry from './ReadEntry';
 const MainWrapper = styled.div`
    width: 100%;
    display: grid;
-   grid-template-columns: 20% 60%;
+   grid-template-columns: 15% 60%;
 
 `
 
 const SideBarChoices = styled.div`
   display: grid;
-  ${'' /* grid-row-gap: 2em; */}
+  grid-row-gap: 2em;
   position: relative;
   width: 100%;
   padding-top: 1em;
 
 `
+const ContentWrapper = styled.div`
+left: 15%;
+position: absolute; 
+width: 75%; 
+height: 100%; 
+display: grid;
+`
 
 // const ContentWrapper = styled.div`
 //   display: grid;
 // `
-const Options = styled.div`
+const Options = styled.span`
   padding: 2em;
   color: black;
-  &:hover {
-      font-size: 1.5em;
-    }`
+  display: inline-block;
+  &:hover {          display: inline-block;
+  }
+`
 
+const SidebarLink = styled.div`
+  &:hover {
+    background: lightblue;
+    transform: scale(1.2);
+}
+
+`
 const ResultsHeader = props => {
   let currentPeriod =
     props.currentPeriod === 1 ? "day" :
@@ -151,16 +166,18 @@ class Dashboard extends Component {
         />
 
         <MainWrapper>
-          <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 20 + '%' }}>
+          <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 15 + '%' }}>
             <SideBarChoices>
-              <Link to="/dashboard" style={{ 'textDecoration': 'none' }}><Options>Entries</Options></Link>
-              <Options>Favourites</Options>
-              <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}><Options>Stats</Options></Link>
-              <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}><Options>Map</Options></Link>
+            <Link to="/dashboard" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Entries</Options></SidebarLink></Link>
+            <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Stats</Options></SidebarLink></Link>
+            <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}>
+              <SidebarLink><Options>Map</Options></SidebarLink></Link>
             </SideBarChoices>
           </div>
 
-          <div className="content-wrapper" style={{ 'left': 20 + '%', 'position': 'absolute', 'width': '75%', 'height': '100%', 'display': 'grid' }} >
+          <ContentWrapper>
             {/* display: grid; probably unnecessary */}
             <ResultsHeader currentSearchTerm={this.state.currentSearchTerm} currentPeriod={this.state.currentPeriod}></ResultsHeader>
             <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
@@ -169,7 +186,7 @@ class Dashboard extends Component {
             <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} /> }} />
             <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history} reloadEntries={this.loadEntries} /> }} />
             <Route path={`/dashboard/readentry/:id`} render={(props) => { return <ReadEntry {...props} history={this.props.history} /> }} />
-          </div>
+          </ContentWrapper>
         </MainWrapper>
 
       </div>

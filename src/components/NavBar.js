@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const FontAwesome = require('react-fontawesome')
 
 const SearchInput = styled.input`
-  width: 500px;
+  width: 60%;
   height: 40px;
   padding: 0 30px 2px 42px;
   font-size: 14px;
@@ -17,6 +17,11 @@ const SearchInput = styled.input`
   outline: none;
   transition: all .2s ease-in-out;
     -webkit-appearance: none;
+`
+const SearchBar = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center
 `
 
 
@@ -54,15 +59,15 @@ class NavBar extends Component {
       <Menu.Item>
        <Icon name='moon' size="big"/>
         </Menu.Item>
-        <div className='searchBar'>
-        <form onSubmit={this.handleSubmit}>
+<SearchBar >
+<form style={{width: '100%'}}onSubmit={this.handleSubmit}>
             <Icon name="search" size="large"/>
                 <SearchInput className="inputKeyword" 
                 type='text' value={this.props.searchTermValue } 
                 placeholder="Search word" 
                 onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
                 
-                <span>in the last</span>
+                <span style={{padding: "0px 7px"}}>in the last</span>
                 
                 <select
                 ref={r=>this.periodSelector=r} 
@@ -84,16 +89,12 @@ class NavBar extends Component {
                     <option value="365">1 year</option>
                     <option value="">all time</option>
                   </select>
-                <button>Search</button>
+                <button
+                style={{margin: "0px 6px", "border-radius": "6px", padding: "8px 10px", "background-color": "#7e7c88", color: "rgb(246, 244, 244)"}} 
+                >Search</button>
               </form>
-        </div>
+        </SearchBar>
         <Menu.Menu position="right">
-        <Menu.Item
-          name='dashboard'
-          onClick={this.handleRedirectToDashboard} 
-        >
-          Dashboard
-      </Menu.Item>
         <Menu.Item
           name='logOut'
           onClick={this.handleLogOut}
