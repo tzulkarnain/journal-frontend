@@ -3,26 +3,27 @@ import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../config/config.js';
 import { Icon } from 'semantic-ui-react';
+import EntryPreview from './EntryPreview';
 
 
 
 const FontAwesome = require('react-fontawesome')
 // ${props.entry.thumbnail_image_url}
 const Pin = props => {
-    const pinSize =
-        props.$hover ? '4x' : '3x';
+    // console.log('this is props', props)
+    const pinSize = props.$hover ? '4x' : '3x';
     return  (<Link to={`/readentry/${props.entry.id}`}>
                 <div style={{
                     transform: 'translateY(-100%)',
                     width: 'auto',
-                    height: 'auto', }}>
+                    height: 'auto', }}
+                    >
                     {/* <p style={{'color': 'black'} }>{props.entry.title} </p> */}
                     <FontAwesome name="map-marker" size={pinSize} style={{color:'red'}} />
                     
                 </div>
             </Link>)
 //this.hoverHandler( ) this.state.hoveredMapPoint
-    props.$hover ? console.log('its hovering:', props.entry.id ) : console.log('not yet');
 };
 class SimpleMap extends Component {
     constructor() {
@@ -37,9 +38,8 @@ class SimpleMap extends Component {
         zoom: 12
     };
 
-    hoverHandler = (item) => item[0] ? (console.log("Item", this.props.entries[item[0]._index], "hovered"),
-    this.setState({hoveredChartPoint:this.props.entries[item[0]._index]}))
-    :(null)
+    // hoverHandler = (entryObject) => this.setState({hoveredMapPoint: entryObject})
+    
 
     render() {
         console.log("the simplemap props are:", this.props)
@@ -76,6 +76,10 @@ class SimpleMap extends Component {
                             text={'this is the texts prop and it will get rendered in the div'}
                         /> */}
                     </GoogleMapReact>
+
+                    {this.state.hoveredMapPoint ?
+                    <EntryPreview data={this.state.hoveredMapPoint} key={this.state.hoveredMapPoint.id} />
+        : null}
                 </div>
 
             // </div>
