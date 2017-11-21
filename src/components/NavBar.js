@@ -40,7 +40,10 @@ class NavBar extends Component {
 
       )
   }
-
+  handleSubmit = (event)=>{
+    event.preventDefault();
+    this.props.handleClick()
+  }
   handleRedirectToDashboard = (event) => {
     this.props.hist.push("/dashboard")
   }
@@ -52,11 +55,26 @@ class NavBar extends Component {
        <Icon name='moon' size="big"/>
         </Menu.Item>
         <div className='searchBar'>
-        <form onSubmit={this.props.handleClick}>
+        <form onSubmit={this.handleSubmit}>
             <Icon name="search" size="large"/>
-                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
+                <SearchInput className="inputKeyword" 
+                type='text' value={this.props.searchTermValue } 
+                placeholder="Search word" 
+                onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
+                
                 <span>in the last</span>
-                <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))} value={this.props.periodValue} >
+                
+                <select
+                ref={r=>this.periodSelector=r} 
+                name="days"
+                onChange={(event)=>(
+                  //if the user selects "all time" in the dropdown here,
+                  //the value is set to empty quotation marks ("").
+                  //if that's so, onChange will update dashboard's state
+                  //to reflect that. otherwise it will turn the value (which must be set as a string)
+                  //into an integer and update Dashboard's state with that integer.
+                  this.props.updatePeriod(event.target.value!==""?parseInt(event.target.value):event.target.value))} 
+                value={this.props.periodValue}>
                     <option value="1">1 day</option>
                     <option value="7">7 days</option>
                     <option value="10">10 days</option>
@@ -66,7 +84,7 @@ class NavBar extends Component {
                     <option value="365">1 year</option>
                     <option value="">all time</option>
                   </select>
-                <button onClick={this.props.handleClick}>Search</button>
+                <button>Search</button>
               </form>
         </div>
         <Menu.Menu position="right">
