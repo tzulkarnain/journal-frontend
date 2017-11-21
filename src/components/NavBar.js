@@ -3,11 +3,23 @@ import React, { Component } from 'react';
 import auth from '../auth.js';
 import { Menu, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
+const FontAwesome = require('react-fontawesome')
 
 const SearchInput = styled.input`
-    border: 1px solid rgba(34,36,38,.15);
-    border-radius: .28571429rem;
+  width: 500px;
+  height: 40px;
+  padding: 0 30px 2px 42px;
+  font-size: 14px;
+  color: #111;
+  background-color: #f1f1f1;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  outline: none;
+  transition: all .2s ease-in-out;
+    -webkit-appearance: none;
 `
+
+
 
 /*
 logic:
@@ -39,10 +51,12 @@ class NavBar extends Component {
       <Menu.Item>
        <Icon name='moon' size="big"/>
         </Menu.Item>
+        <div className='searchBar'>
         <form onSubmit={this.props.handleClick}>
-                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
+            <Icon name="search" size="large"/>
+                <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
                 <span>in the last</span>
-                <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))}>
+                <select name="days" onChange={(event)=>(this.props.updatePeriod(event.target.value))} value={this.props.periodValue} >
                     <option value="1">1 day</option>
                     <option value="7">7 days</option>
                     <option value="10">10 days</option>
@@ -52,8 +66,9 @@ class NavBar extends Component {
                     <option value="365">1 year</option>
                     <option value="">all time</option>
                   </select>
-                {/* <button onClick={this.props.handleClick}>Search</button> */}
+                <button onClick={this.props.handleClick}>Search</button>
               </form>
+        </div>
         <Menu.Menu position="right">
         <Menu.Item
           name='dashboard'

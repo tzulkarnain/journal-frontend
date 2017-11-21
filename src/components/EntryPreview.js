@@ -61,7 +61,7 @@ class EntryPreview extends Component {
             </Card.Meta>
             <Card.Description>
               {this.setMoodDescription(this.props.data.mood)}
-              {' '} <Link to={`/readentry/${this.props.data.id}`}>
+              {' '} <Link to={`/dashboard/readentry/${this.props.data.id}`}>
               <Icon size="large" name="external"/>
                 </Link>
             </Card.Description>
