@@ -118,7 +118,6 @@ class Dashboard extends Component {
           <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 20 + '%' }}>
             <SideBarChoices>
              <Link to="/dashboard/entries" style={{ 'textDecoration': 'none' }}><Options>Entries</Options></Link>
-              <Options>Favourites</Options>
               <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}><Options>Stats</Options></Link>
               <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}><Options>Map</Options></Link>
             </SideBarChoices>

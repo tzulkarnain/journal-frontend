@@ -18,6 +18,9 @@ const SearchInput = styled.input`
   transition: all .2s ease-in-out;
     -webkit-appearance: none;
 `
+const SearchBar = styled.div`
+
+`
 
 
 
@@ -51,7 +54,7 @@ class NavBar extends Component {
       <Menu.Item>
        <Icon name='moon' size="big"/>
         </Menu.Item>
-        <div className='searchBar'>
+        <SearchBar >
         <form onSubmit={this.props.handleClick}>
             <Icon name="search" size="large"/>
                 <SearchInput className="inputKeyword" type='text' value={this.props.searchTermValue } placeholder="Search word" onChange={(event)=>(this.props.updateSearchTerm(event.target.value))} />
@@ -68,7 +71,7 @@ class NavBar extends Component {
                   </select>
                 <button onClick={this.props.handleClick}>Search</button>
               </form>
-        </div>
+        </SearchBar>
         <Menu.Menu position="right">
         <Menu.Item
           name='dashboard'
