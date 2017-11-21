@@ -4,30 +4,36 @@ import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../config/config.js';
 import { Icon } from 'semantic-ui-react';
 import EntryPreview from './EntryPreview';
+import styled from 'styled-components';
 
-
+const Preview = styled.div` 
+position: absolute;
+padding: 5px;
+background: #fff;
+top: 0;
+transform: translate(-25%, -100%);
+border-radius: 2px;
+`
 
 const FontAwesome = require('react-fontawesome')
-// ${props.entry.thumbnail_image_url}
 const Pin = props => {
-
     const pinSize = props.$hover ? '4x' : '3x';
-    return (<Link to={`/dashboard/readentry/${props.entry.id}`}>
+    return (
         <div style={{
             transform: 'translateY(-100%)',
             width: 'auto',
             height: 'auto',
-        }}
-        >
-        {/* {props.data ?
-                    <EntryPreview data={props.data} key={props.data.id} />
-                    : null} */}
-            <div>test</div>
+        }}>
+            {props.data === props.entry ?
+                <Preview>
+                  <Link to={`/dashboard/readentry/${props.entry.id}`}> <img src={props.entry.thumbnail_image_url}/></Link>
+                </Preview> :
+                null
+            }
             <FontAwesome name="map-marker" size={pinSize} style={{ color: 'red' }} />
         </div>
-    </Link>)
-
-};
+    )
+}
 class SimpleMap extends Component {
     constructor() {
         super()
@@ -45,10 +51,7 @@ class SimpleMap extends Component {
         console.log("the simplemap props are:", this.props)
         return (
             <div>
-            
-            <h2>{`Where you were over the past ${this.props.period} days`}</h2>
-            <div style={{ width: '100%', height: '70vh', display:'flex' }}>
-            
+                <h2>{`Where you were over the past ${this.props.period} days`}</h2>
                 <div className='mapWrapper' style={{ width: '70%', height: '55vh' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{
@@ -61,6 +64,7 @@ class SimpleMap extends Component {
                             console.log('child', this.props.geotaggedEntries[i]);
                             this.setState({ hoveredMapPoint: this.props.geotaggedEntries[i] })
                         }}
+
                     >
                         {/* This will map over the geotaggedEntries array
                      and make a pin for each object. The props are three:
@@ -74,14 +78,6 @@ class SimpleMap extends Component {
 
                     </GoogleMapReact>
                 </div>
-                <div className="preview" style={{'padding-left':'2%'}} >
-                
-                </div>
-                
-               
-               
-            </div>
-
             </div>
 
         );
