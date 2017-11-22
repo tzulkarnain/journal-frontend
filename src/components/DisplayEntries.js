@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import EntryPreview from './EntryPreview';
 import { Card, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+
+const CreateButton = styled(Button)`
+&& {
+background-color: #7e7c88;
+color: rgb(246, 244, 244);
+}
+`;
 
 class DisplayEntries extends Component {
     // will need to pass the entries array as props
@@ -20,20 +28,12 @@ class DisplayEntries extends Component {
                 <Card>
                     <div height='226px' width='290px'/>
                     <div className="card-content">
-                        <Card.Header>
-                            Create a new entry!
-                        </Card.Header>
-                        <Card.Meta>
-                            <span className='date'>
-                                date
-                            </span>
-                        </Card.Meta>
-                        <Card.Description>
-                            mood
-                        </Card.Description>
                         <Card.Content extra>
-                        <Button size="massive" as={Link} to='/dashboard/writeentry'> + </Button>
+                        <CreateButton size="massive" as={Link} to='/dashboard/writeentry'> + </CreateButton>
                         </Card.Content>
+                        <Card.Header>
+                            Create a new entry! 
+                        </Card.Header>
                     </div>
 
                 </Card>
