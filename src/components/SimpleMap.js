@@ -66,7 +66,7 @@ class SimpleMap extends Component {
     render() {
         console.log("the simplemap props are:", this.props)
         return (
-            <MapPageWrapper>
+            // <MapPageWrapper>
                 <MapWrapper>
                     <GoogleMapReact
                         bootstrapURLKeys={{
@@ -93,7 +93,7 @@ class SimpleMap extends Component {
 
                     </GoogleMapReact>
                 </MapWrapper>
-            </MapPageWrapper>
+            // </MapPageWrapper>
 
         );
     }
