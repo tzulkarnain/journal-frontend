@@ -152,7 +152,7 @@ class Dashboard extends Component {
     this.state = {
       userObj: {},
       entries: [],
-      geotaggedEntries: [{ lat: 45.5, lng: -73.56 }],
+      geotaggedEntries: [],
       //searchPeriod is the period we are going to search for, next time we click the "search" button.
       //"currentPeriod" is the period that is currently displayed ("currently showing results from the past X days")
       searchPeriod: '',
@@ -164,7 +164,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    //requestEntries takes arguments - the token, number of days to retrieve from, the search term and a mood limit.
     //populates this.state.geotaggedEntries by filtering for entries with a lat property.
 
     this.loadEntries();
@@ -182,19 +181,14 @@ class Dashboard extends Component {
         this.state.moodLimit
       )
       .then(reply =>
-        this.setState(
-          {
-            entries: reply.body,
-            geotaggedEntries: reply.body.filter(entry => !!entry.lat),
-            currentPeriod: this.state.searchPeriod,
-            currentSearchTerm: this.state.searchTerm
-          },
-          () =>
-            console.log(
-              "loadEntries here. since we're dispaying new results, changed currentPeriod to",
-              this.state.currentPeriod
-            )
-        )
+        this.setState({
+          //populates the state and also updates the currently displayed period and searchTerm,
+          //so the header will know what to display
+          entries: reply.body,
+          geotaggedEntries: reply.body.filter(entry => !!entry.lat),
+          currentPeriod: this.state.searchPeriod,
+          currentSearchTerm:this.state.searchTerm
+        })
       );
   };
 

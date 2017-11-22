@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../config/config.js';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Input, Button } from 'semantic-ui-react';
 import EntryPreview from './EntryPreview';
 import styled from 'styled-components';
 
@@ -42,7 +42,7 @@ const Pin = props => {
         }}>
             {props.data === props.entry ?
                 <Preview>
-                  <Link to={`/dashboard/readentry/${props.entry.id}`}> <img src={props.entry.thumbnail_image_url}/></Link>
+                    <Link to={`/dashboard/readentry/${props.entry.id}`}> <img src={props.entry.thumbnail_image_url} /></Link>
                 </Preview> :
                 null
             }
@@ -51,11 +51,106 @@ const Pin = props => {
     )
 }
 class SimpleMap extends Component {
-    constructor() {
+    constructor(props) {
         super()
         this.state = {
-            hoveredMapPoint: null
+            center:props.center,
+            zoom:props.zoom,
+            hoveredMapPoint: null,
+            // daysWhichContainEntries: {},
+            entryCurrentlyDisplayed: 0,
+            sliderActivated: false,
+            geotaggedEntriesLoading: true
         }
+    }
+    componentDidMount() {
+        this.props.geotaggedEntries.length > 0 ? (
+            // this.loadDaysWithEntries(this.props.geotaggedEntries),
+            this.setState({
+                geotaggedEntriesLoading: false
+            }))
+            :
+            null
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log("the simplemap props are:", nextProps)
+
+        nextProps.geotaggedEntries.length > 0 ? (
+            // this.loadDaysWithEntries(nextProps.geotaggedEntries),
+            this.setState({ geotaggedEntriesLoading: false }))
+            :
+            null
+    }
+    //awesome day-finding function we'll no longer use. sick algorithms child
+    loadDaysWithEntries = (entries) => {
+        let d = []
+        let counter = 0
+
+        const myFunc = entry => {
+            //this is grace's displayDate function which returns the date from a timestamp
+            let date = this.displayDate(entry.createdAt)
+
+            if (!d[counter]) {
+                d[counter] = { date: date, entries: [entry.id] }
+            }
+
+            else if (d[counter].date === date) {
+                d[counter].entries.push(entry.id)
+            }
+            else {
+                counter++;
+                myFunc(entry)
+            }
+
+
+        }
+
+        entries.forEach(myFunc)
+        this.setState({ daysWhichContainEntries: d })
+
+    }
+
+    displayDate = timeStamp => {
+        let newDateArray = timeStamp.split('T');
+        let justDate = newDateArray[0];
+        return justDate;
+    }
+
+    changeEntryDisplayed = (e) => {
+        let sliderValue = parseInt(e.target.value)
+        console.log("changed entry displayed to:",this.props.geotaggedEntries[sliderValue])
+        this.setState({
+            center: {
+                lat:this.props.geotaggedEntries[sliderValue].lat,
+                lng:this.props.geotaggedEntries[sliderValue].lng
+                    },
+            
+            entryCurrentlyDisplayed: sliderValue
+        })
+    }
+    activateSlider = () => {
+        this.setState({ sliderActivated: true })
+    }
+
+    renderPins = (entries) => {
+        let renderedPins =
+            entries.map(entry =>
+                <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
+        return renderedPins
+    }
+
+    decideWhichPinsToRender = () => {
+        if (this.props.geotaggedEntries.length > 0) {
+            if (this.state.sliderActivated === false) {
+                return this.renderPins(this.props.geotaggedEntries)
+            }
+
+            else {
+                return this.renderPins([this.props.geotaggedEntries[this.state.entryCurrentlyDisplayed]])
+            }
+        }
+        else { console.log("still no entries loaded") }
     }
 
     static defaultProps = {
@@ -64,7 +159,6 @@ class SimpleMap extends Component {
     };
 
     render() {
-        console.log("the simplemap props are:", this.props)
         return (
             // <MapPageWrapper>
                 <MapWrapper>
@@ -74,6 +168,8 @@ class SimpleMap extends Component {
                         }}
                         defaultCenter={this.props.center}
                         defaultZoom={this.props.zoom}
+                        center={this.state.center}
+                        zoom={this.state.zoom}
                         resetBoundsOnResize={true}
                         onChildMouseEnter={(i) => {
                             console.log('child', this.props.geotaggedEntries[i]);
@@ -81,7 +177,7 @@ class SimpleMap extends Component {
                         }}
 
                     >
-                        {/* This will map over the geotaggedEntries array
+                        {/* This will map over the geotaggedEntries array (if it exists yet)
                      and make a pin for each object. The props are three:
                      1)entry, which contains the entry object with title, imageurl, etc
                      2)lat, which is just the entry lat
@@ -89,11 +185,14 @@ class SimpleMap extends Component {
                      style={{ width: 500, height: 500 }}
                      */}
 
-                        {this.props.geotaggedEntries ? this.props.geotaggedEntries.map(entry => <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />) : null}
+                        {this.decideWhichPinsToRender()
+                        }
 
                     </GoogleMapReact>
+                
+                <Button onClick={this.activateSlider}>activate slider</Button>
+                <Input onChange={this.changeEntryDisplayed} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
                 </MapWrapper>
-            // </MapPageWrapper>
 
         );
     }
