@@ -12,6 +12,12 @@ color: rgb(246, 244, 244);
 }
 `;
 
+const ButtonPosition = styled(Card.Content)`
+&&{
+padding: 6rem 0 3rem 
+}
+`
+
 class DisplayEntries extends Component {
     // will need to pass the entries array as props
     //this.props.entries
@@ -28,9 +34,9 @@ class DisplayEntries extends Component {
                 <Card>
                     <div height='226px' width='290px'/>
                     <div className="card-content">
-                        <Card.Content extra>
+                        <ButtonPosition extra>
                         <CreateButton size="massive" as={Link} to='/dashboard/writeentry'> + </CreateButton>
-                        </Card.Content>
+                        </ButtonPosition>
                         <Card.Header>
                             Create a new entry! 
                         </Card.Header>
