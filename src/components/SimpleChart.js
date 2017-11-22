@@ -71,9 +71,8 @@ class SimpleChart extends Component {
         to an entry, the short-form info for that entry will get put into this.state.hoveredChartPoint.
         */}
         <div style={{height:500,width:700}}>
-          <h2>{`Mood over the past ${this.props.period} days`}</h2>
         
-          <Line data={this.data(this.props.entries, this.props.period)} options={this.options} />
+          <Line data={this.data(this.props.entries, this.props.displayedPeriod)} options={this.options} />
         </div>
         {/* this next part just checks if an entry's being hovered over, and if so,
         renders an EntryPreview object with the data from that entry! */}

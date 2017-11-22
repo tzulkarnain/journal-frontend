@@ -60,7 +60,6 @@ class SimpleMap extends Component {
         console.log("the simplemap props are:", this.props)
         return (
             <MapPageWrapper>
-                <h2>{`Where you were over the past ${this.props.period} days`}</h2>
                 <MapWrapper>
                     <GoogleMapReact
                         bootstrapURLKeys={{

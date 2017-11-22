@@ -27,7 +27,7 @@ class Api {
 
     requestEntries = (token, days, searchTerm, moodLimit) => {
         console.log("requesting entries in last", days, "days.",
-            `using searchterm ${searchTerm}`,`with mood limit ${moodLimit}no mood limit`)
+            `using searchterm ${searchTerm}`)
         //could do this url-encoded but right now it's in the header instead, just like the token
         //returns an array of entries belonging to the user, limited to the amount specified
         return superagent
