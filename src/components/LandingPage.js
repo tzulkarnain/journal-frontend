@@ -19,13 +19,13 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 4.3em;
-font-family: 'Sue Ellen Francisco', cursive;
-color: rgb(55, 85, 109);
-padding-bottom: 0.2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4.3em;
+  font-family: 'Sue Ellen Francisco', cursive;
+  color: rgb(55, 85, 109);
+  padding-bottom: 0.2em;
 `;
 
 const LandingButton = styled.button`

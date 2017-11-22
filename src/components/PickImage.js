@@ -76,10 +76,10 @@ class PickImage extends Component {
 
                 this.state.photoChoicesArray ?
 
-                    <div style={{ border: "3px dashed gray", borderRadius: "25px", height: "200px" }}>
+                    <div style={{ border: "2px dashed #d6d6d6", borderRadius: "25px", padding: '1rem 0'  }}>
                         {this.state.photoChoicesArray.map(
                             (photo) =>
-                                <button style={{"maxHeight": "100%"}}
+                                <button style={{"maxHeight": "100%", border:'none', 'margin-bottom': '1rem' }}
                                     onClick={() => this.props.selectImage(photo)}>
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />
@@ -91,12 +91,13 @@ class PickImage extends Component {
 
                     :
 
-                    <div style={{
-                        border: "3px dashed gray",
-                        borderRadius: "25px", height: "200px",
+                    <div style={{    
+                        border: "2px dashed #d6d6d6",
+                        borderRadius: "25px", 
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
+                        padding: '1rem 0'
                     }}>
                         <Button onClick={this.unsplashGet}>Pick an Unsplash photo</Button>
                         <Button onClick={this.openUpload}>Upload Your Own Photo</Button>

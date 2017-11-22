@@ -60,13 +60,15 @@ class SimpleMap extends Component {
     constructor(props) {
         super()
         this.state = {
-            center:props.center,
-            zoom:props.zoom,
+            center: props.center,
+            zoom: props.zoom,
             hoveredMapPoint: null,
             // daysWhichContainEntries: {},
             entryCurrentlyDisplayed: 0,
             sliderActivated: false,
-            geotaggedEntriesLoading: true
+            geotaggedEntriesLoading: true,
+            sliderButtonText:"activate slider",
+            sliderPlayPosition:0
         }
     }
     componentDidMount() {
@@ -123,22 +125,49 @@ class SimpleMap extends Component {
         return justDate;
     }
 
-    changeEntryDisplayed = (e) => {
+    handleSliderChange = (e)=>{
         let sliderValue = parseInt(e.target.value)
-        console.log("changed entry displayed to:",this.props.geotaggedEntries[sliderValue])
+        this.changeEntryDisplayed(sliderValue)
+    }
+    changeEntryDisplayed = (entryNumber) => {
+        console.log("changed entry displayed to:", this.props.geotaggedEntries[entryNumber])
         this.setState({
             center: {
-                lat:this.props.geotaggedEntries[sliderValue].lat,
-                lng:this.props.geotaggedEntries[sliderValue].lng
-                    },
-            
-            entryCurrentlyDisplayed: sliderValue
+                lat: this.props.geotaggedEntries[entryNumber].lat,
+                lng: this.props.geotaggedEntries[entryNumber].lng
+            },
+
+            entryCurrentlyDisplayed: entryNumber
         })
     }
-    activateSlider = () => {
-        this.setState({ sliderActivated: true })
+    toggleSlider = () => {
+        if (!this.state.sliderActivated){
+        this.setState({
+            sliderButtonText:"deactivate Slider",
+            center: {
+                lat: this.props.geotaggedEntries[0].lat,
+                lng: this.props.geotaggedEntries[0].lng
+            },
+            sliderActivated: true
+        })}
+        if (this.state.sliderActivated){
+            this.setState({
+            sliderButtonText:"activate Slider",
+            center:this.props.center,            
+            sliderActivated:false
+        })}
     }
-
+    playSlider=()=>{
+        
+        setInterval(()=>{
+            console.log(this.state.sliderPlayPosition)
+            this.changeEntryDisplayed(this.state.sliderPlayPosition);
+            this.setState(st=> {
+                return {sliderPlayPosition:(st.sliderPlayPosition + 1)}
+            },
+            ()=>console.log("changed play pos to",this.state.sliderPlayPosition))
+        },1000)
+    }
     renderPins = (entries) => {
         let renderedPins =
             entries.map(entry =>
@@ -195,11 +224,15 @@ class SimpleMap extends Component {
                         }
 
                     </GoogleMapReact>
+
                 
                 </MapWrapper>
                 <Slider>
-                    <Button onClick={this.activateSlider}>activate slider</Button>
-                    <Input onChange={this.changeEntryDisplayed} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
+                    <Button onClick={this.toggleSlider}>{this.state.sliderButtonText}</Button>
+                    <div style={{display:"flex"}}>
+                    <Button onClick={this.playSlider}> <FontAwesome name="play"/></Button>
+                    <Input onChange={this.handleSliderChange} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
+                    </div>
                 </Slider>
             </MapPageWrapper>
         );
