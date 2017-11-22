@@ -16,3 +16,9 @@ const Preview = styled.div `
     transform: translate(-25%, -100%);
     border-radius: 2px;
 `
+font-family: 'Loved by the King', cursive;
+font-family: 'Sue Ellen Francisco', cursive;
+font-family: 'Barlow Semi Condensed', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Crimson Text', serif;
+font-family: 'Slabo 27px', serif;

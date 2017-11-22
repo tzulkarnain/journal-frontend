@@ -102,7 +102,7 @@ class NavBar extends Component {
               {this.props.resultsHeader}
             </NavContent>
             <NavContent isVisible={this.state.navOpen}>
-              <span style={{ padding: '0px 7px' }}>in the last</span>
+              <span style={{'padding': '0 0.5em', 'font-family': 'Barlow Semi Condensed'}}>in the last</span>
               <select
                 ref={r => (this.periodSelector = r)}
                 name="days"
