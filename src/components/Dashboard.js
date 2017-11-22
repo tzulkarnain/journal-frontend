@@ -104,8 +104,7 @@ class Dashboard extends Component {
     this.state = {
       userObj: {},
       entries: [],
-      geotaggedEntries: [{ lat: 45.50, lng: -73.56 }
-      ],
+      geotaggedEntries: [],
       //searchPeriod is the period we are going to search for, next time we click the "search" button.
       //"currentPeriod" is the period that is currently displayed ("currently showing results from the past X days")
       searchPeriod: "",
@@ -118,7 +117,6 @@ class Dashboard extends Component {
 
 
   componentDidMount() {
-    //requestEntries takes arguments - the token, number of days to retrieve from, the search term and a mood limit.
     //populates this.state.geotaggedEntries by filtering for entries with a lat property.
 
     this.loadEntries();
@@ -132,11 +130,13 @@ class Dashboard extends Component {
     api.requestEntries(auth.getToken(), this.state.searchPeriod, this.state.searchTerm, this.state.moodLimit)
       .then(reply =>
         this.setState({
+          //populates the state and also updates the currently displayed period and searchTerm,
+          //so the header will know what to display
           entries: reply.body,
           geotaggedEntries: reply.body.filter(entry => !!entry.lat),
           currentPeriod: this.state.searchPeriod,
           currentSearchTerm:this.state.searchTerm
-        }, ()=>console.log("loadEntries here. since we're dispaying new results, changed currentPeriod to", this.state.currentPeriod))
+        })
       );
   }
 
@@ -184,10 +184,10 @@ class Dashboard extends Component {
 
           <ContentWrapper>
             {/* display: grid; probably unnecessary */}
-            <ResultsHeader 
+            {/* <ResultsHeader 
             currentSearchTerm={this.state.currentSearchTerm} 
             currentPeriod={this.state.currentPeriod}
-            searchReset={this.searchReset}></ResultsHeader>
+            searchReset={this.searchReset}></ResultsHeader> */}
             <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist={this.props.history} entries={this.state.entries.slice().reverse()} /> }} />
