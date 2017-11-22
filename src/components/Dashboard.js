@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import DisplayEntries from './DisplayEntries';
-import NavBar from './NavBar'
+import NavBar from './NavBar';
 import SimpleMap from './SimpleMap';
-import api from '../api.js'
+import api from '../api.js';
 import auth from '../auth.js';
-import SimpleChart from './SimpleChart'
+import SimpleChart from './SimpleChart';
 import WriteEntry from './WriteEntry';
-import styled from 'styled-components';
-import { Header, Input,Button } from 'semantic-ui-react'
+import styled, { css } from 'styled-components';
+import { Header, Input, Button } from 'semantic-ui-react';
 import ReadEntry from './ReadEntry';
 
 // import { Grid, Button } from 'react-bootstrap';
 
 const MainWrapper = styled.div`
-   width: 100%;
-   display: grid;
-   grid-template-columns: 15% 60%;
-
-`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15% 60%;
+`;
 
 const SideBarChoices = styled.div`
   display: grid;
@@ -26,15 +25,14 @@ const SideBarChoices = styled.div`
   position: relative;
   width: 100%;
   padding-top: 1em;
-
-`
+`;
 const ContentWrapper = styled.div`
-left: 15%;
-position: absolute; 
-width: 75%; 
-height: 100%; 
-display: grid;
-`
+  left: 15%;
+  position: absolute;
+  width: 75%;
+  height: 100%;
+  display: grid;
+`;
 
 // const ContentWrapper = styled.div`
 //   display: grid;
@@ -43,44 +41,78 @@ const Options = styled.span`
   padding: 2em;
   color: black;
   display: inline-block;
-  &:hover {          display: inline-block;
+  &:hover {
+    display: inline-block;
   }
-`
+`;
 
+const sidebarActiveStyles = css`
+  background: lightblue;
+  transform: scale(1.2);
+`;
 const SidebarLink = styled.div`
   &:hover {
-    background: lightblue;
-    transform: scale(1.2);
-}
+    ${sidebarActiveStyles};
+  }
+  ${props => props.isActive && css`
+      ${sidebarActiveStyles};
+  `};
+`;
 
-`
+const NavHeader = styled(Header)`
+  && {
+    margin: 0;
+  }
+`;
+const NavButton = styled(Button)`
+  && {
+    padding: 10px;
+    margin-left: 8px;
+  }
+`;
+
 const ResultsHeader = props => {
   let currentPeriod =
-    props.currentPeriod === 1 ? "day" :
-      props.currentPeriod === 7 ? "week" :
-        props.currentPeriod === 10 ? "10 days" :
-          props.currentPeriod === 30 ? 'month' :
-            props.currentPeriod === 90 ? "3 months" :
-              props.currentPeriod === 180 ? "6 months" :
-                props.currentPeriod === 365 ? "year" :
-                    null
-                    
-  let currentSearch = 
-    props.currentSearchTerm? props.currentSearchTerm:null
+    props.currentPeriod === 1
+      ? 'day'
+      : props.currentPeriod === 7
+        ? 'week'
+        : props.currentPeriod === 10
+          ? '10 days'
+          : props.currentPeriod === 30
+            ? 'month'
+            : props.currentPeriod === 90
+              ? '3 months'
+              : props.currentPeriod === 180
+                ? '6 months'
+                : props.currentPeriod === 365 ? 'year' : null;
 
-  let periodText = currentPeriod ? `Showing entries from the past ${currentPeriod}` : null
-  let searchText = currentSearch ? `Showing entries matching "${currentSearch}"` : null
-  let periodAndSearchText = currentPeriod && currentSearch? `Showing entries matching "${currentSearch}" in the past ${currentPeriod}` : null
-  let genericText = `Showing all entries`
+  let currentSearch = props.currentSearchTerm ? props.currentSearchTerm : null;
+
+  let periodText = currentPeriod
+    ? `Showing entries from the past ${currentPeriod}`
+    : null;
+  let searchText = currentSearch
+    ? `Showing entries matching "${currentSearch}"`
+    : null;
+  let periodAndSearchText =
+    currentPeriod && currentSearch
+      ? `Showing entries matching "${currentSearch}" in the past ${
+          currentPeriod
+        }`
+      : null;
+  let genericText = `Showing all entries`;
   // console.log("ResultsHeader reloaded. periodText is",periodText,"searchText is",searchText,"PeriodAndSearchText is ",periodAndSearchText)
-  return <Header>{
-    periodAndSearchText? periodAndSearchText :
-      periodText ? periodText :
-        searchText ? searchText :
-          genericText}<Button onClick={props.searchReset}>reset</Button>
-  </Header>
-}
-// 
+  return (
+    <NavHeader>
+      {periodAndSearchText
+        ? periodAndSearchText
+        : periodText ? periodText : searchText ? searchText : genericText}
+      <NavButton onClick={props.searchReset}>reset</NavButton>
+    </NavHeader>
+  );
+};
+//
 
 /*
 logic:
@@ -97,7 +129,6 @@ on component did mount or render or will mount to check if user is logged in and
 {this.state.userObj.firstName}
 */
 
-
 class Dashboard extends Component {
   constructor() {
     super();
@@ -107,27 +138,31 @@ class Dashboard extends Component {
       geotaggedEntries: [],
       //searchPeriod is the period we are going to search for, next time we click the "search" button.
       //"currentPeriod" is the period that is currently displayed ("currently showing results from the past X days")
-      searchPeriod: "",
+      searchPeriod: '',
       currentPeriod: 7,
-      searchTerm: "",
-      currentSearchTerm: "",
-      moodLimit: ""
-    }
+      searchTerm: '',
+      currentSearchTerm: '',
+      moodLimit: ''
+    };
   }
-
 
   componentDidMount() {
     //populates this.state.geotaggedEntries by filtering for entries with a lat property.
 
     this.loadEntries();
     const userObj = auth.getUser();
-    console.log('userobj', userObj)
-    this.setState({ userObj })
-
+    console.log('userobj', userObj);
+    this.setState({ userObj });
   }
 
   loadEntries = () => {
-    api.requestEntries(auth.getToken(), this.state.searchPeriod, this.state.searchTerm, this.state.moodLimit)
+    api
+      .requestEntries(
+        auth.getToken(),
+        this.state.searchPeriod,
+        this.state.searchTerm,
+        this.state.moodLimit
+      )
       .then(reply =>
         this.setState({
           //populates the state and also updates the currently displayed period and searchTerm,
@@ -138,65 +173,118 @@ class Dashboard extends Component {
           currentSearchTerm:this.state.searchTerm
         })
       );
-  }
+  };
 
   handleClick = () => {
-   this.loadEntries()
+    this.loadEntries();
     //consider adding previous function here
-
-  }
-  searchReset=()=>{
-    this.setState({
-      searchPeriod:"",
-      searchTerm:""
-    },this.loadEntries)
-  }
-
+  };
+  searchReset = () => {
+    this.setState(
+      {
+        searchPeriod: '',
+        searchTerm: ''
+      },
+      this.loadEntries
+    );
+  };
 
   render() {
-
     return (
-
       <div className="dashboard">
-        <NavBar hist={this.props.history}
-
-          updateSearchTerm={(searchTerm) => (this.setState({ searchTerm }))}
-
-          updatePeriod={
-            (searchPeriod) => (this.setState({ searchPeriod }))}
-
+        <NavBar
+          hist={this.props.history}
+          updateSearchTerm={searchTerm => this.setState({ searchTerm })}
+          updatePeriod={searchPeriod => this.setState({ searchPeriod })}
           searchTermValue={this.state.searchTerm}
           periodValue={this.state.searchPeriod}
           handleClick={this.handleClick}
+          resultsHeader={
+            <ResultsHeader
+              currentSearchTerm={this.state.currentSearchTerm}
+              currentPeriod={this.state.currentPeriod}
+              searchReset={this.searchReset}
+            />
+          }
         />
 
         <MainWrapper>
-          <div className="side-bar-wrapper" style={{ 'position': 'fixed', 'width': 15 + '%' }}>
+          <div
+            className="side-bar-wrapper"
+            style={{ position: 'fixed', width: 15 + '%' }}
+          >
             <SideBarChoices>
-            <Link to="/dashboard" style={{ 'textDecoration': 'none' }}>
-              <SidebarLink><Options>Entries</Options></SidebarLink></Link>
-            <Link to="/dashboard/stats" style={{ 'textDecoration': 'none' }}>
-              <SidebarLink><Options>Stats</Options></SidebarLink></Link>
-            <Link to="/dashboard/map" style={{ 'textDecoration': 'none' }}>
-              <SidebarLink><Options>Map</Options></SidebarLink></Link>
+              <Link to="/dashboard/entries" style={{ textDecoration: 'none' }}>
+                <SidebarLink isActive={this.props.page === 'entries'}>
+                  <Options>Entries</Options>
+                </SidebarLink>
+              </Link>
+              <Link to="/dashboard/stats" style={{ textDecoration: 'none' }}>
+                <SidebarLink isActive={this.props.page === 'stats'}>
+                  <Options>Stats</Options>
+                </SidebarLink>
+              </Link>
+              <Link to="/dashboard/map" style={{ textDecoration: 'none' }}>
+                <SidebarLink isActive={this.props.page === 'map'}>
+                  <Options>Map</Options>
+                </SidebarLink>
+              </Link>
             </SideBarChoices>
           </div>
 
           <ContentWrapper>
             {/* display: grid; probably unnecessary */}
-            {/* <ResultsHeader 
-            currentSearchTerm={this.state.currentSearchTerm} 
-            currentPeriod={this.state.currentPeriod}
-            searchReset={this.searchReset}></ResultsHeader> */}
-            <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
-            <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
-            <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist={this.props.history} entries={this.state.entries.slice().reverse()} /> }} />
-            <Route path={`/dashboard/map`} render={() => { return <SimpleMap geotaggedEntries={this.state.geotaggedEntries} /> }} />
-            <Route path={`/dashboard/writeentry`} render={() => { return <WriteEntry history={this.props.history} reloadEntries={this.loadEntries} /> }} />
-            <Route path={`/dashboard/readentry/:id`} render={(props) => { return <ReadEntry {...props} history={this.props.history} /> }} />
+            <Route
+              exact
+              path={`/dashboard`}
+              render={() => {
+                return <DisplayEntries entries={this.state.entries} />;
+              }}
+            />
+            <Route
+              path={`/dashboard/entries`}
+              render={() => {
+                return <DisplayEntries entries={this.state.entries} />;
+              }}
+            />
+            <Route
+              path={`/dashboard/stats`}
+              render={() => {
+                return (
+                  <SimpleChart
+                    hist={this.props.history}
+                    entries={this.state.entries.slice().reverse()}
+                  />
+                );
+              }}
+            />
+            <Route
+              path={`/dashboard/map`}
+              render={() => {
+                return (
+                  <SimpleMap geotaggedEntries={this.state.geotaggedEntries} />
+                );
+              }}
+            />
+            <Route
+              path={`/dashboard/writeentry`}
+              render={() => {
+                return (
+                  <WriteEntry
+                    history={this.props.history}
+                    reloadEntries={this.loadEntries}
+                  />
+                );
+              }}
+            />
+            <Route
+              path={`/dashboard/readentry/:id`}
+              render={props => {
+                return <ReadEntry {...props} history={this.props.history} />;
+              }}
+            />
           </ContentWrapper>
         </MainWrapper>
-
       </div>
     );
   }
