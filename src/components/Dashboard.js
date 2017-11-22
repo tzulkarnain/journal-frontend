@@ -128,7 +128,7 @@ const ResultsHeader = props => {
       {periodAndSearchText
         ? periodAndSearchText
         : periodText ? periodText : searchText ? searchText : genericText}
-      <NavButton onClick={props.searchReset}>reset</NavButton>
+      {periodAndSearchText||periodText||searchText?<NavButton onClick={props.searchReset}>reset</NavButton>:null}
     </NavHeader>
   );
 };
@@ -281,8 +281,9 @@ class Dashboard extends Component {
             <Route
               path={`/dashboard/map`}
               render={() => {
+                let reversedGeotaggedEntries = [...this.state.geotaggedEntries].reverse()
                 return (
-                  <SimpleMap geotaggedEntries={this.state.geotaggedEntries} />
+                  <SimpleMap geotaggedEntries={reversedGeotaggedEntries} />
                 );
               }}
             />
