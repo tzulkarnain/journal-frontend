@@ -65,6 +65,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   display: grid;
   margin-top: 3.5%;
+  padding: 0 0 3rem 0;
 `;
 
 // const ContentWrapper = styled.div`

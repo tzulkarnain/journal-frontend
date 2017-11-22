@@ -18,6 +18,8 @@ padding: 6rem 0 3rem
 }
 `
 
+
+
 class DisplayEntries extends Component {
     // will need to pass the entries array as props
     //this.props.entries
@@ -32,7 +34,7 @@ class DisplayEntries extends Component {
             // <div>hello</div>
             <div style={{ 'gridTemplateColumns': 'repeat(auto-fit, 290px)', 'gridTemplateRows': 'repeat(auto-fit, 378.44px)',  'display': 'grid', 'gridGap': '1em 3%' }}>
                 <Card>
-                    <div height='226px' width='290px'/>
+                    <div />
                     <div className="card-content">
                         <ButtonPosition extra>
                         <CreateButton size="massive" as={Link} to='/dashboard/writeentry'> + </CreateButton>
@@ -56,3 +58,4 @@ class DisplayEntries extends Component {
 
 }
 export default DisplayEntries;
+//style = {{height:'226px', width: '290px'}}

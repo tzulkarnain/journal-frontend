@@ -115,10 +115,11 @@ class WriteEntry extends Component {
                 )
             })
             .then(()=>this.props.reloadEntries())
-            .then(() => this.props.history.push("/dashboard/entries"))
+            .then(() => this.props.history.push("/dashboard"))
     }
 
     render() {
+        console.log('this.props.history', this.props.history)
         return (
             <div className="write-entry">
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>

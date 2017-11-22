@@ -3,7 +3,17 @@ import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Header } from 'semantic-ui-react'
+import styled from 'styled-components';
 
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4.3em;
+  font-family: 'Sue Ellen Francisco', cursive;
+  color: rgb(55, 85, 109);
+  padding-bottom: 0.2em;
+`;
 
 class ReadEntry extends Component {
   constructor() {
@@ -40,21 +50,16 @@ class ReadEntry extends Component {
     return (
       <div>
         {!this.state.loaded ? <div>loading...</div> :
-          <Grid columns="equal" padded>
-          <Grid.Column>
-              <Grid.Row>
-                <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style= {{height: 35 + 'em'}}/>
-              </Grid.Row>
-            </Grid.Column>
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h1">{this.state.singleEntry.title}</Header>
+          <div>
+          <div>
+            <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style= {{height: 35 + 'em'}}/>
+          </div>
+          <div>
+          <Title>{this.state.singleEntry.title}</Title>
                 <p>{this.displayDate(this.state.singleEntry.createdAt)}</p>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row stretched>
-              <Grid.Column>
-                <Segment>
+          
+          </div>
+                
                   <h5>Rating: {this.state.singleEntry.mood}</h5>
                   <h5>Highlights: </h5>
                   <div>{this.state.singleEntry.q1a1}</div>
@@ -66,10 +71,8 @@ class ReadEntry extends Component {
                   <p>{this.state.singleEntry.q3}</p>
                   <h5>Today's notes</h5>
                   <p>{this.state.singleEntry.q4}</p>
-                </Segment>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+               
+          </div>
         }
       </div>
     );

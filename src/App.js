@@ -18,8 +18,8 @@ class App extends Component {
           <Route exact path="/" component={LandingPage} />
           <Route path="/createaccount" component={CreateAccount} />
           <Route path="/login" component={Login} />
-          <Route exact path="/dashboard" render={() => <Dashboard page={'entries'}/>} />
-          <Route path="/dashboard/:page" render={(routeProps) => <Dashboard page={routeProps.match.params.page}/>} />
+          <Route exact path="/dashboard" render={(props) => <Dashboard {...props} page={'entries'}/>} />
+          <Route path="/dashboard/:page" render={(routeProps) => <Dashboard {...routeProps} page={routeProps.match.params.page}/>} />
           <Route path="/writeentry" component={WriteEntry} />
           <Route path="/readentry/:id" component={ReadEntry} />
           <Route path="/testingmap" component={SimpleMap} />
