@@ -13,6 +13,8 @@ background: #fff;
 top: 0;
 transform: translate(-25%, -100%);
 border-radius: 2px;
+display:flex;
+flex-direction:column;
 `
 
 const MapPageWrapper = styled.div`
@@ -38,6 +40,13 @@ const Slider = styled.div`
 `
 
 const FontAwesome = require('react-fontawesome')
+
+const displayDate = timeStamp => {
+    let newDateArray = timeStamp.split('T');
+    let justDate = newDateArray[0];
+    return justDate;
+}
+
 const Pin = props => {
     const pinSize = props.$hover ? '4x' : '3x';
     return (
@@ -47,9 +56,17 @@ const Pin = props => {
             height: 'auto',
         }}>
             {props.data === props.entry ?
+            
                 <Preview>
-                    <Link to={`/dashboard/readentry/${props.entry.id}`}> <img src={props.entry.thumbnail_image_url} /></Link>
-                </Preview> :
+                    <Link to={`/dashboard/readentry/${props.entry.id}`}>
+                            <img 
+                            style={{"maxHeight":"80%",margin:"auto"}}
+                            src={props.entry.thumbnail_image_url} />
+                        </Link>
+                    <div style={{margin:"10px auto"}}><div>{props.entry.title}
+                        </div><div>{displayDate(props.entry.createdAt)}</div></div>
+                </Preview> 
+                :
                 null
             }
             <FontAwesome name="map-marker" size={pinSize} style={{ color: 'red' }} />
@@ -67,8 +84,8 @@ class SimpleMap extends Component {
             entryCurrentlyFocused: 0,
             sliderActivated: false,
             sliderIsPlaying: false,
-            geotaggedEntriesLoading: true
-
+            geotaggedEntriesLoading: true,
+            showSingleEntry: false
         }
     }
     componentDidMount() {
@@ -90,6 +107,11 @@ class SimpleMap extends Component {
             :
             null
     }
+
+    componentWillUnmount(){
+        clearInterval(this.state.sliderStopperID)
+        
+    }
     //awesome day-finding function we'll no longer use. sick algorithms child
     loadDaysWithEntries = (entries) => {
         let d = []
@@ -97,7 +119,7 @@ class SimpleMap extends Component {
 
         const myFunc = entry => {
             //this is grace's displayDate function which returns the date from a timestamp
-            let date = this.displayDate(entry.createdAt)
+            let date = displayDate(entry.createdAt)
 
             if (!d[counter]) {
                 d[counter] = { date: date, entries: [entry.id] }
@@ -119,11 +141,7 @@ class SimpleMap extends Component {
 
     }
 
-    displayDate = timeStamp => {
-        let newDateArray = timeStamp.split('T');
-        let justDate = newDateArray[0];
-        return justDate;
-    }
+
 
     handleSliderChange = (e) => {
         let sliderValue = parseInt(e.target.value)
@@ -133,13 +151,16 @@ class SimpleMap extends Component {
         console.log("changed entry displayed to:", this.props.geotaggedEntries[entryNumber])
         this.setState({
             center: {
-                lat: this.props.geotaggedEntries[entryNumber].lat,
+                lat: this.props.geotaggedEntries[entryNumber].lat + 0.04,
                 lng: this.props.geotaggedEntries[entryNumber].lng
             },
-            zoom:12,
-            entryCurrentlyFocused: entryNumber
+            zoom: 12,
+            entryCurrentlyFocused: entryNumber,
+            hoveredMapPoint: this.props.geotaggedEntries[entryNumber]
         })
     }
+    //we don't go to ravenholm anymore
+    //and we don't use toggleSlider... DEPRECATED!
     toggleSlider = () => {
         if (!this.state.sliderActivated) {
             this.setState({
@@ -166,31 +187,43 @@ class SimpleMap extends Component {
         else { this.playSlider() }
     }
 
-    stepLeft = () =>{
-        if(this.state.entryCurrentlyFocused>0){
-        this.changeEntryDisplayed(this.state.entryCurrentlyFocused-1)}
+    stepLeft = () => {
+        if (this.state.entryCurrentlyFocused > 0) {
+            this.changeEntryDisplayed(this.state.entryCurrentlyFocused - 1)
+        }
     }
-    stepRight=()=>{
-        if(this.state.entryCurrentlyFocused<this.props.geotaggedEntries.length)
-        this.changeEntryDisplayed(this.state.entryCurrentlyFocused+1)        
+    stepRight = () => {
+        if (this.state.entryCurrentlyFocused < this.props.geotaggedEntries.length-1)
+            this.changeEntryDisplayed(this.state.entryCurrentlyFocused + 1)
     }
     playSlider = () => {
+        this.setState({
+            //centers it over the currently focused entry, cause that's where we're gonna start.
+            //turns on "show single entry" as default behaviour
+            showSingleEntry: true,
+            center: {
+                lat: this.props.geotaggedEntries[this.state.entryCurrentlyFocused].lat + 0.04,
+                lng: this.props.geotaggedEntries[this.state.entryCurrentlyFocused].lng
+            }
+        })
         let sliderStopperID =
             setInterval(() => {
-                if (this.state.entryCurrentlyFocused >= this.props.geotaggedEntries.length-1) {
+                if (this.state.entryCurrentlyFocused >= this.props.geotaggedEntries.length - 1) {
                     //if the current entry is the last one,
                     //stop this interval function from occurring,
                     //and tell the state the slider is not playing anymore.
                     clearInterval(this.state.sliderStopperID)
                     this.setState({ sliderIsPlaying: false })
                 }
-                else{
-                //if it's not the last one, 
-                //step forward by one
-                let nextOnePlease = this.state.entryCurrentlyFocused + 1
-                this.changeEntryDisplayed(nextOnePlease);
-               }
-            }, 1000)
+                else {
+                    //if it's not the last one, 
+                    //step forward by one
+                    let nextOnePlease = this.state.entryCurrentlyFocused + 1
+                    this.changeEntryDisplayed(nextOnePlease);
+                }
+            },
+                //and do this every 3000 milliseconds
+                3000)
         this.setState({
             sliderStopperID: sliderStopperID,
             sliderIsPlaying: true
@@ -206,7 +239,22 @@ class SimpleMap extends Component {
             return <FontAwesome name="pause" />
         } else { return <FontAwesome name="play" /> }
     }
+
+    showSingleEntryToggle = () => {
+        if (this.state.showSingleEntry === false) {
+            this.setState({
+                showSingleEntry: true
+            })
+        }
+        else {
+            this.setState({
+                showSingleEntry: false
+            })
+        }
+    }
+
     renderPins = (entries) => {
+        //must take an array
         let renderedPins =
             entries.map(entry =>
                 <Pin entry={entry} lat={entry.lat} lng={entry.lng} data={this.state.hoveredMapPoint} />)
@@ -215,7 +263,15 @@ class SimpleMap extends Component {
 
     decideWhichPinsToRender = () => {
         if (this.props.geotaggedEntries.length > 0) {
-            return this.renderPins(this.props.geotaggedEntries)
+            if (this.state.showSingleEntry) {
+                //since it's got to be an array passed to renderPins, we'll make it an array
+                //with one index
+                let singleEntryArray = [this.props.geotaggedEntries[this.state.entryCurrentlyFocused]]
+                return this.renderPins(singleEntryArray)
+            }
+            else {
+                return this.renderPins(this.props.geotaggedEntries)
+            }
         }
         else { return null }
     }
@@ -257,14 +313,15 @@ class SimpleMap extends Component {
 
                     </GoogleMapReact>
 
-                
+
                 </MapWrapper>
                 <Slider>
-                <div style={{ display: "flex" }}>
-                    <Button onClick={this.stepLeft}><FontAwesome name="step-backward" /></Button>
-                    <Button onClick={this.togglePlayPause}>{this.playPauseSymbol()}</Button>
-                    <Button onClick={this.stepRight}><FontAwesome name="step-forward" /></Button>
-                </div>
+                    <div style={{ display: "flex" }}>
+                        <Button onClick={this.showSingleEntryToggle}>{this.state.showSingleEntry ? "show all entries" : "show single entry"}</Button>
+                        <Button onClick={this.stepLeft}><FontAwesome name="step-backward" /></Button>
+                        <Button onClick={this.togglePlayPause}>{this.playPauseSymbol()}</Button>
+                        <Button onClick={this.stepRight}><FontAwesome name="step-forward" /></Button>
+                    </div>
                 </Slider>
             </MapPageWrapper>
         );
