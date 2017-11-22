@@ -73,12 +73,16 @@ const ResultsHeader = props => {
   let periodAndSearchText = currentPeriod && currentSearch? `Showing entries matching "${currentSearch}" in the past ${currentPeriod}` : null
   let genericText = `Showing all entries`
   // console.log("ResultsHeader reloaded. periodText is",periodText,"searchText is",searchText,"PeriodAndSearchText is ",periodAndSearchText)
-  return <Header>{
+  return (
+  <div className="spanDiv">
+    <span>{
     periodAndSearchText? periodAndSearchText :
       periodText ? periodText :
         searchText ? searchText :
           genericText}<Button onClick={props.searchReset}>reset</Button>
-  </Header>
+  </span>
+  </div>
+  )
 }
 // 
 
@@ -187,7 +191,7 @@ class Dashboard extends Component {
             <ResultsHeader 
             currentSearchTerm={this.state.currentSearchTerm} 
             currentPeriod={this.state.currentPeriod}
-            searchReset={this.searchReset}></ResultsHeader>
+            searchReset={this.searchReset}/>
             <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist={this.props.history} entries={this.state.entries.slice().reverse()} /> }} />

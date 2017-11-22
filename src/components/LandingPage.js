@@ -29,18 +29,15 @@ padding-bottom: 0.2em;
 `;
 
 const LandingButton = styled.button`
-    margin: 9px .25em 1em 0em;
-    padding: 0.5em 1.45em;
-    font-weight: 700;
-    line-height: 1em;
-    border-radius: 0.885714rem;
-    font-size: 1.28571429rem;
-    background-color: rgb(47,67,88);
-    color: #fdfbf9;
-    font-family: 'Barlow Semi Condensed';
-    &:hover {
-      background-color: rgba(47, 67, 88, 0.9);
-    }
+        margin: 9px .25em 1em 0em;
+        padding: 0.5em 1.15em;
+        font-weight: 400;
+        line-height: 1em;
+        border-radius: 0.885714rem;
+        font-size: 1.58571429rem;
+        background-color: rgb(47,67,88);
+        color: #fdfbf9;
+        font-family: 'Barlow Semi Condensed', sans-serif;
 
 `
 
@@ -61,7 +58,7 @@ const LandingButton = styled.button`
 
 const Div = styled.div`
   position: absolute;
-  bottom: 8%;
+  bottom: 4%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;

@@ -16,7 +16,14 @@ border-radius: 2px;
 `
 
 const MapPageWrapper = styled.div`
-    width: 70vw;
+    left: 15%;
+    position: absolute; 
+    width: 75%; 
+    height: 100%; 
+    display: grid;
+    top: 4em;
+   
+   ${'' /* width: 70vw; */}
 `
 
 const MapWrapper = styled.div`
