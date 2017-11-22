@@ -16,30 +16,25 @@ import ReadEntry from './ReadEntry';
 const MainWrapper = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 15% 60%;
+  grid-template-columns: 15% 67%;
+  font-family: Barlow Semi Condensed;
+  font-size: 1.02em;
+
 `;
+
 
 const SideBarChoices = styled.div`
   display: grid;
-  grid-row-gap: 2em;
   position: relative;
   width: 100%;
-  padding-top: 1em;
-`;
-const ContentWrapper = styled.div`
-  left: 15%;
-  position: absolute;
-  width: 75%;
-  height: 100%;
-  display: grid;
+  padding-top: 0.59em;
+  ${'' /* grid-row-gap: 2em; */}
+  align-items: center;
 `;
 
-// const ContentWrapper = styled.div`
-//   display: grid;
-// `
 const Options = styled.span`
-  padding: 2em;
-  color: black;
+  padding: 0.7rem;
+  color: rgb(47,67,88);
   display: inline-block;
   &:hover {
     display: inline-block;
@@ -47,10 +42,14 @@ const Options = styled.span`
 `;
 
 const sidebarActiveStyles = css`
-  background: lightblue;
+  background: rgba(143,159,178,.7);
   transform: scale(1.2);
+  & > span{
+    color: #fdfbf9;
+  }
 `;
 const SidebarLink = styled.div`
+  border-radius: 0.35rem;
   &:hover {
     ${sidebarActiveStyles};
   }
@@ -59,9 +58,27 @@ const SidebarLink = styled.div`
   `};
 `;
 
+const ContentWrapper = styled.div`
+  left: 18%;
+  position: absolute;
+  width: 68%;
+  height: 100%;
+  display: grid;
+  margin-top: 3.5%;
+`;
+
+// const ContentWrapper = styled.div`
+//   display: grid;
+// `
+
+
 const NavHeader = styled(Header)`
-  && {
+  &&& {
     margin: 0;
+    font-family: Barlow Semi Condensed;
+    font-size: 1.85714em;
+    font-weight: 400;
+  
   }
 `;
 const NavButton = styled(Button)`
@@ -137,7 +154,7 @@ class Dashboard extends Component {
     this.state = {
       userObj: {},
       entries: [],
-      geotaggedEntries: [{ lat: 45.5, lng: -73.56 }],
+      geotaggedEntries: [],
       //searchPeriod is the period we are going to search for, next time we click the "search" button.
       //"currentPeriod" is the period that is currently displayed ("currently showing results from the past X days")
       searchPeriod: '',
@@ -149,7 +166,6 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    //requestEntries takes arguments - the token, number of days to retrieve from, the search term and a mood limit.
     //populates this.state.geotaggedEntries by filtering for entries with a lat property.
 
     this.loadEntries();
@@ -167,19 +183,14 @@ class Dashboard extends Component {
         this.state.moodLimit
       )
       .then(reply =>
-        this.setState(
-          {
-            entries: reply.body,
-            geotaggedEntries: reply.body.filter(entry => !!entry.lat),
-            currentPeriod: this.state.searchPeriod,
-            currentSearchTerm: this.state.searchTerm
-          },
-          () =>
-            console.log(
-              "loadEntries here. since we're dispaying new results, changed currentPeriod to",
-              this.state.currentPeriod
-            )
-        )
+        this.setState({
+          //populates the state and also updates the currently displayed period and searchTerm,
+          //so the header will know what to display
+          entries: reply.body,
+          geotaggedEntries: reply.body.filter(entry => !!entry.lat),
+          currentPeriod: this.state.searchPeriod,
+          currentSearchTerm:this.state.searchTerm
+        })
       );
   };
 
@@ -219,7 +230,7 @@ class Dashboard extends Component {
         <MainWrapper>
           <div
             className="side-bar-wrapper"
-            style={{ position: 'fixed', width: 15 + '%' }}
+            style={{ position: 'fixed', width: 12 + '%', left: '3%', display:'flex', height: '400px' }}
           >
             <SideBarChoices>
               <Link to="/dashboard/entries" style={{ textDecoration: 'none' }}>
