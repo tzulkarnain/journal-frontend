@@ -58,11 +58,11 @@ class SimpleMap extends Component {
             zoom: props.zoom,
             hoveredMapPoint: null,
             // daysWhichContainEntries: {},
-            entryCurrentlyDisplayed: 0,
+            entryCurrentlyFocused: 0,
             sliderActivated: false,
-            geotaggedEntriesLoading: true,
-            sliderButtonText:"activate slider",
-            sliderPlayPosition:0
+            sliderIsPlaying: false,
+            geotaggedEntriesLoading: true
+
         }
     }
     componentDidMount() {
@@ -119,7 +119,7 @@ class SimpleMap extends Component {
         return justDate;
     }
 
-    handleSliderChange = (e)=>{
+    handleSliderChange = (e) => {
         let sliderValue = parseInt(e.target.value)
         this.changeEntryDisplayed(sliderValue)
     }
@@ -130,37 +130,75 @@ class SimpleMap extends Component {
                 lat: this.props.geotaggedEntries[entryNumber].lat,
                 lng: this.props.geotaggedEntries[entryNumber].lng
             },
-
-            entryCurrentlyDisplayed: entryNumber
+            zoom:12,
+            entryCurrentlyFocused: entryNumber
         })
     }
     toggleSlider = () => {
-        if (!this.state.sliderActivated){
-        this.setState({
-            sliderButtonText:"deactivate Slider",
-            center: {
-                lat: this.props.geotaggedEntries[0].lat,
-                lng: this.props.geotaggedEntries[0].lng
-            },
-            sliderActivated: true
-        })}
-        if (this.state.sliderActivated){
+        if (!this.state.sliderActivated) {
             this.setState({
-            sliderButtonText:"activate Slider",
-            center:this.props.center,            
-            sliderActivated:false
-        })}
+                sliderButtonText: "deactivate Slider",
+                center: {
+                    lat: this.props.geotaggedEntries[0].lat,
+                    lng: this.props.geotaggedEntries[0].lng
+                },
+                sliderActivated: true
+            })
+        }
+        if (this.state.sliderActivated) {
+            this.setState({
+                sliderButtonText: "activate Slider",
+                center: this.props.center,
+                sliderActivated: false
+            })
+        }
     }
-    playSlider=()=>{
-        
-        setInterval(()=>{
-            console.log(this.state.sliderPlayPosition)
-            this.changeEntryDisplayed(this.state.sliderPlayPosition);
-            this.setState(st=> {
-                return {sliderPlayPosition:(st.sliderPlayPosition + 1)}
-            },
-            ()=>console.log("changed play pos to",this.state.sliderPlayPosition))
-        },1000)
+    togglePlayPause = () => {
+        if (this.state.sliderIsPlaying) {
+            this.pauseSlider()
+        }
+        else { this.playSlider() }
+    }
+
+    stepLeft = () =>{
+        if(this.state.entryCurrentlyFocused>0){
+        this.changeEntryDisplayed(this.state.entryCurrentlyFocused-1)}
+    }
+    stepRight=()=>{
+        if(this.state.entryCurrentlyFocused<this.props.geotaggedEntries.length)
+        this.changeEntryDisplayed(this.state.entryCurrentlyFocused+1)        
+    }
+    playSlider = () => {
+        let sliderStopperID =
+            setInterval(() => {
+                if (this.state.entryCurrentlyFocused >= this.props.geotaggedEntries.length-1) {
+                    //if the current entry is the last one,
+                    //stop this interval function from occurring,
+                    //and tell the state the slider is not playing anymore.
+                    clearInterval(this.state.sliderStopperID)
+                    this.setState({ sliderIsPlaying: false })
+                }
+                else{
+                //if it's not the last one, 
+                //step forward by one
+                let nextOnePlease = this.state.entryCurrentlyFocused + 1
+                this.changeEntryDisplayed(nextOnePlease);
+               }
+            }, 1000)
+        this.setState({
+            sliderStopperID: sliderStopperID,
+            sliderIsPlaying: true
+        })
+    }
+
+    pauseSlider = () => {
+        clearInterval(this.state.sliderStopperID)
+        this.setState({ sliderIsPlaying: false })
+    }
+    playPauseSymbol = () => {
+        if (this.state.sliderIsPlaying) {
+            return <FontAwesome name="pause" />
+        } else { return <FontAwesome name="play" /> }
     }
     renderPins = (entries) => {
         let renderedPins =
@@ -171,15 +209,9 @@ class SimpleMap extends Component {
 
     decideWhichPinsToRender = () => {
         if (this.props.geotaggedEntries.length > 0) {
-            if (this.state.sliderActivated === false) {
-                return this.renderPins(this.props.geotaggedEntries)
-            }
-
-            else {
-                return this.renderPins([this.props.geotaggedEntries[this.state.entryCurrentlyDisplayed]])
-            }
+            return this.renderPins(this.props.geotaggedEntries)
         }
-        else { console.log("still no entries loaded") }
+        else { return null }
     }
 
     static defaultProps = {
@@ -219,12 +251,10 @@ class SimpleMap extends Component {
 
                     </GoogleMapReact>
                 </MapWrapper>
-                <Button onClick={this.toggleSlider}>{this.state.sliderButtonText}</Button>
-                <div style={{display:"flex"}}>
-                <Button onClick={this.playSlider}> 
-                    <FontAwesome name="play" />
-</Button>
-                <Input onChange={this.handleSliderChange} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
+                <div style={{ display: "flex" }}>
+                    <Button onClick={this.stepLeft}><FontAwesome name="step-backward" /></Button>
+                    <Button onClick={this.togglePlayPause}>{this.playPauseSymbol()}</Button>
+                    <Button onClick={this.stepRight}><FontAwesome name="step-forward" /></Button>
                 </div>
             </MapPageWrapper>
 
