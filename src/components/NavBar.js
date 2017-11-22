@@ -135,7 +135,7 @@ class NavBar extends Component {
                 <option value="365">1 year</option>
                 <option value="">all time</option>
               </select>
-              <SearchButton>Search</SearchButton>
+              <SearchButton onClick={this.toggleSearch}>Search</SearchButton>
             </NavContent>
           </Form>
         </SearchBar>
