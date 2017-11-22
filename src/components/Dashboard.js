@@ -66,8 +66,10 @@ const NavHeader = styled(Header)`
 `;
 const NavButton = styled(Button)`
   && {
-    padding: 10px;
-    margin-left: 8px;
+  padding: 10px;
+  margin-left: 8px;
+  background-color: #7e7c88;
+  color: rgb(246, 244, 244);
   }
 `;
 
