@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
 import { Button, Form, Grid, Header } from 'semantic-ui-react'
-/*
-logic: 
-1. createNewUser needs to be a function that takes as its arguements first name, 
-last night, email, and password and sends them to the database to 1) make sure they don't exist and then 2) store them
+import styled from 'styled-components'
 
-2. checkThatMatches needs to be a function that takes two inputs and checks that they match and returns the input if 
-matched or renders a warning to the user if they dont match. 
-
-3. there should be a check on both pw and email, and then another one also createNewUser should only run if both pw and email pass their checks
-
-
-*/
+const Wrapper = styled.div`
+min-height: 100vh;
+width: 100%;
+background: url('/static/media/bluebeige.dd97c287.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+height: 100%;
+verticalAlign: center;
+${'' /* min-height: 100vh;
+width: 100%;
+background: black;
+color: #fff; */}
+`;
 
 class CreateAccount extends Component {
   constructor() {
@@ -45,14 +49,15 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div className='login-form'>
+      <Wrapper>
         <style>{`
         body > div,
         body > div > div,
-        body > div > div > div.login-form {
+        body > div > div > Wrapper{
           height: 100%;
         }
       `}</style>
+      
         <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h1" textAlign="center">Create Account</Header>
@@ -69,9 +74,14 @@ class CreateAccount extends Component {
           </Grid.Column>
         </Grid>
 
-      </div>
+      </Wrapper>
     );
   }
 }
 
 export default CreateAccount;
+
+
+/*
+
+*/
