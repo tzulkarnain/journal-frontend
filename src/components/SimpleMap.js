@@ -54,13 +54,15 @@ class SimpleMap extends Component {
     constructor(props) {
         super()
         this.state = {
-            center:props.center,
-            zoom:props.zoom,
+            center: props.center,
+            zoom: props.zoom,
             hoveredMapPoint: null,
             // daysWhichContainEntries: {},
-            entryCurrentlyDisplayed: 0,
+            entryCurrentlyFocused: 0,
             sliderActivated: false,
+            sliderIsPlaying: false,
             geotaggedEntriesLoading: true
+
         }
     }
     componentDidMount() {
@@ -117,22 +119,87 @@ class SimpleMap extends Component {
         return justDate;
     }
 
-    changeEntryDisplayed = (e) => {
+    handleSliderChange = (e) => {
         let sliderValue = parseInt(e.target.value)
-        console.log("changed entry displayed to:",this.props.geotaggedEntries[sliderValue])
+        this.changeEntryDisplayed(sliderValue)
+    }
+    changeEntryDisplayed = (entryNumber) => {
+        console.log("changed entry displayed to:", this.props.geotaggedEntries[entryNumber])
         this.setState({
             center: {
-                lat:this.props.geotaggedEntries[sliderValue].lat,
-                lng:this.props.geotaggedEntries[sliderValue].lng
-                    },
-            
-            entryCurrentlyDisplayed: sliderValue
+                lat: this.props.geotaggedEntries[entryNumber].lat,
+                lng: this.props.geotaggedEntries[entryNumber].lng
+            },
+            zoom:12,
+            entryCurrentlyFocused: entryNumber
         })
     }
-    activateSlider = () => {
-        this.setState({ sliderActivated: true })
+    toggleSlider = () => {
+        if (!this.state.sliderActivated) {
+            this.setState({
+                sliderButtonText: "deactivate Slider",
+                center: {
+                    lat: this.props.geotaggedEntries[0].lat,
+                    lng: this.props.geotaggedEntries[0].lng
+                },
+                sliderActivated: true
+            })
+        }
+        if (this.state.sliderActivated) {
+            this.setState({
+                sliderButtonText: "activate Slider",
+                center: this.props.center,
+                sliderActivated: false
+            })
+        }
+    }
+    togglePlayPause = () => {
+        if (this.state.sliderIsPlaying) {
+            this.pauseSlider()
+        }
+        else { this.playSlider() }
     }
 
+    stepLeft = () =>{
+        if(this.state.entryCurrentlyFocused>0){
+        this.changeEntryDisplayed(this.state.entryCurrentlyFocused-1)}
+    }
+    stepRight=()=>{
+        if(this.state.entryCurrentlyFocused<this.props.geotaggedEntries.length)
+        this.changeEntryDisplayed(this.state.entryCurrentlyFocused+1)        
+    }
+    playSlider = () => {
+        let sliderStopperID =
+            setInterval(() => {
+                if (this.state.entryCurrentlyFocused >= this.props.geotaggedEntries.length-1) {
+                    //if the current entry is the last one,
+                    //stop this interval function from occurring,
+                    //and tell the state the slider is not playing anymore.
+                    clearInterval(this.state.sliderStopperID)
+                    this.setState({ sliderIsPlaying: false })
+                }
+                else{
+                //if it's not the last one, 
+                //step forward by one
+                let nextOnePlease = this.state.entryCurrentlyFocused + 1
+                this.changeEntryDisplayed(nextOnePlease);
+               }
+            }, 1000)
+        this.setState({
+            sliderStopperID: sliderStopperID,
+            sliderIsPlaying: true
+        })
+    }
+
+    pauseSlider = () => {
+        clearInterval(this.state.sliderStopperID)
+        this.setState({ sliderIsPlaying: false })
+    }
+    playPauseSymbol = () => {
+        if (this.state.sliderIsPlaying) {
+            return <FontAwesome name="pause" />
+        } else { return <FontAwesome name="play" /> }
+    }
     renderPins = (entries) => {
         let renderedPins =
             entries.map(entry =>
@@ -142,15 +209,9 @@ class SimpleMap extends Component {
 
     decideWhichPinsToRender = () => {
         if (this.props.geotaggedEntries.length > 0) {
-            if (this.state.sliderActivated === false) {
-                return this.renderPins(this.props.geotaggedEntries)
-            }
-
-            else {
-                return this.renderPins([this.props.geotaggedEntries[this.state.entryCurrentlyDisplayed]])
-            }
+            return this.renderPins(this.props.geotaggedEntries)
         }
-        else { console.log("still no entries loaded") }
+        else { return null }
     }
 
     static defaultProps = {
@@ -160,7 +221,7 @@ class SimpleMap extends Component {
 
     render() {
         return (
-            // <MapPageWrapper>
+            <MapPageWrapper>
                 <MapWrapper>
                     <GoogleMapReact
                         bootstrapURLKeys={{
@@ -189,10 +250,13 @@ class SimpleMap extends Component {
                         }
 
                     </GoogleMapReact>
-                
-                <Button onClick={this.activateSlider}>activate slider</Button>
-                <Input onChange={this.changeEntryDisplayed} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
                 </MapWrapper>
+                <div style={{ display: "flex" }}>
+                    <Button onClick={this.stepLeft}><FontAwesome name="step-backward" /></Button>
+                    <Button onClick={this.togglePlayPause}>{this.playPauseSymbol()}</Button>
+                    <Button onClick={this.stepRight}><FontAwesome name="step-forward" /></Button>
+                </div>
+            </MapPageWrapper>
 
         );
     }
