@@ -48,6 +48,12 @@ const SearchButton = styled.button`
   color: rgb(246, 244, 244);
 `;
 
+const Title = styled.div`
+font-family: 'Sue Ellen Francisco', cursive;
+color: #7e7c88;
+font-size: 2.2rem
+`
+
 /*
 logic:
 1.if there's no user signed in, don't display
@@ -81,7 +87,7 @@ class NavBar extends Component {
     return (
       <Menu stackable position="right">
         <Menu.Item>
-          <Icon name="moon" size="big" />
+        <Title>Noctjournal</Title>
         </Menu.Item>
         <SearchBar>
           <Form style={{ width: '100%' }} onSubmit={this.handleSubmit}>
