@@ -16,12 +16,14 @@ border-radius: 2px;
 `
 
 const MapPageWrapper = styled.div`
-    left: 15%;
+   width: 100%; 
+    height: 100%
+    ${'' /* left: 15%;
     position: absolute; 
     width: 75%; 
     height: 100%; 
     display: grid;
-    top: 4em;
+    top: 4em; */}
    
    ${'' /* width: 70vw; */}
 `
@@ -29,6 +31,10 @@ const MapPageWrapper = styled.div`
 const MapWrapper = styled.div`
     width: 100%; 
     height: 60%
+`
+
+const Slider = styled.div`
+
 `
 
 const FontAwesome = require('react-fontawesome')
@@ -160,7 +166,7 @@ class SimpleMap extends Component {
 
     render() {
         return (
-            // <MapPageWrapper>
+            <MapPageWrapper>
                 <MapWrapper>
                     <GoogleMapReact
                         bootstrapURLKeys={{
@@ -190,10 +196,12 @@ class SimpleMap extends Component {
 
                     </GoogleMapReact>
                 
-                <Button onClick={this.activateSlider}>activate slider</Button>
-                <Input onChange={this.changeEntryDisplayed} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
                 </MapWrapper>
-
+                <Slider>
+                    <Button onClick={this.activateSlider}>activate slider</Button>
+                    <Input onChange={this.changeEntryDisplayed} value={this.state.entryCurrentlyDisplayed} min={0} max={this.props.geotaggedEntries.length - 1} style={{ width: "100%" }} type="range" />
+                </Slider>
+            </MapPageWrapper>
         );
     }
 }
