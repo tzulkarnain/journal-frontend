@@ -8,7 +8,7 @@ import auth from '../auth.js';
 import SimpleChart from './SimpleChart'
 import WriteEntry from './WriteEntry';
 import styled from 'styled-components';
-import { Header, Input } from 'semantic-ui-react'
+import { Header, Input,Button } from 'semantic-ui-react'
 import ReadEntry from './ReadEntry';
 
 // import { Grid, Button } from 'react-bootstrap';
@@ -77,7 +77,7 @@ const ResultsHeader = props => {
     periodAndSearchText? periodAndSearchText :
       periodText ? periodText :
         searchText ? searchText :
-          genericText}
+          genericText}<Button onClick={props.searchReset}>reset</Button>
   </Header>
 }
 // 
@@ -108,7 +108,7 @@ class Dashboard extends Component {
       ],
       //searchPeriod is the period we are going to search for, next time we click the "search" button.
       //"currentPeriod" is the period that is currently displayed ("currently showing results from the past X days")
-      searchPeriod: 7,
+      searchPeriod: "",
       currentPeriod: 7,
       searchTerm: "",
       currentSearchTerm: "",
@@ -145,7 +145,12 @@ class Dashboard extends Component {
     //consider adding previous function here
 
   }
-
+  searchReset=()=>{
+    this.setState({
+      searchPeriod:"",
+      searchTerm:""
+    },this.loadEntries)
+  }
 
 
   render() {
@@ -179,7 +184,10 @@ class Dashboard extends Component {
 
           <ContentWrapper>
             {/* display: grid; probably unnecessary */}
-            <ResultsHeader currentSearchTerm={this.state.currentSearchTerm} currentPeriod={this.state.currentPeriod}></ResultsHeader>
+            <ResultsHeader 
+            currentSearchTerm={this.state.currentSearchTerm} 
+            currentPeriod={this.state.currentPeriod}
+            searchReset={this.searchReset}></ResultsHeader>
             <Route exact path={`/dashboard`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/entries`} render={() => { return <DisplayEntries entries={this.state.entries} /> }} />
             <Route path={`/dashboard/stats`} render={() => { return <SimpleChart hist={this.props.history} entries={this.state.entries.slice().reverse()} /> }} />
