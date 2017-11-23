@@ -101,7 +101,7 @@ class WriteEntryOLD extends Component {
     };
     //this whole function prepares the entry.
     //p1 sets the lat and lng according to the user-entered address
-    const p1 = api.requestLatLong(this.state.place).then(object => {
+    const p1 = api.requestLatLong(this.state.placeFormatted).then(object => {
       entryDataObj.lat = object.lat;
       entryDataObj.lng = object.lng;
     });
@@ -155,7 +155,6 @@ class WriteEntryOLD extends Component {
   }
 
   render() {
-    console.log('this.props.history', this.props.history);
     return (
       <div className="write-entry">
         <Grid
@@ -241,10 +240,12 @@ class WriteEntryOLD extends Component {
                 <Autocomplete
                   style={{ width: '90%' }}
                   onPlaceSelected={place => {
-                    this.setState({ place: place.formatted_address });
+                    this.setState({ place: place.name,
+                        placeFormatted:place.formatted_address});
                     console.log(
                       'we formatted the user submitted address to:',
                       place.formatted_address
+
                     );
                   }}
                   types={[]}
