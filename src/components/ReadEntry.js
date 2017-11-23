@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
 import { Grid, Segment, Header } from 'semantic-ui-react'

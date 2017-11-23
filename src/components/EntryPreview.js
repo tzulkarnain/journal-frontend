@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Card, Icon, Image, Button } from 'semantic-ui-react'
+import { Grid, Card, Image, Button } from 'semantic-ui-react'
 import auth from '../auth.js';
 import api from '../api.js';
 import nineTen from '../images/best.png'

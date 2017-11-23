@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import blueBeige from '../images/bluebeige.jpg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-import { Button } from 'semantic-ui-react'
+
 
 
 const Wrapper = styled.div`

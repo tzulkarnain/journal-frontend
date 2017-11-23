@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import auth from '../auth.js';
-import { Button, Form, Grid, Header } from 'semantic-ui-react'
+import { Form, Grid, Header } from 'semantic-ui-react'
 import styled from 'styled-components'
-import blueBeige from '../images/bluebeige.jpg';
+
 
 const Wrapper = styled.div`
 min-height: 100vh;
