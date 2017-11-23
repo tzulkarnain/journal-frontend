@@ -93,9 +93,12 @@ class SimpleMap extends Component {
     }
     componentDidMount() {
         if (this.props.geotaggedEntries.length >0){
-            // this.loadDaysWithEntries(this.props.geotaggedEntries),
+            let entryList = this.props.geotaggedEntries
             this.setState({
-                geotaggedEntriesLoading: false
+                center:{lat:entryList[entryList.length-1].lat,lng:entryList[entryList.length-1].lng},              
+                geotaggedEntriesLoading: false,
+                hoveredMapPoint:entryList[entryList.length-1]
+                
             })}
             
     }
@@ -104,8 +107,12 @@ class SimpleMap extends Component {
         console.log("the simplemap props are:", nextProps)
 
         if (nextProps.geotaggedEntries.length > 0){
-            // this.loadDaysWithEntries(nextProps.geotaggedEntries),
-            this.setState({ geotaggedEntriesLoading: false })
+            let entryList=nextProps.geotaggedEntries
+            this.setState({ 
+                center:{lat:entryList[entryList.length-1].lat,lng:entryList[entryList.length-1].lng},              
+                geotaggedEntriesLoading: false,
+                hoveredMapPoint:entryList[entryList.length-1]
+            })
         }
     }
 
@@ -152,10 +159,10 @@ class SimpleMap extends Component {
         console.log("changed entry displayed to:", this.props.geotaggedEntries[entryNumber])
         this.setState({
             center: {
-                lat: this.props.geotaggedEntries[entryNumber].lat + 0.04,
+                lat: this.props.geotaggedEntries[entryNumber].lat + 0.05,
                 lng: this.props.geotaggedEntries[entryNumber].lng
             },
-            zoom: 12,
+            zoom: 10,
             entryCurrentlyFocused: entryNumber,
             hoveredMapPoint: this.props.geotaggedEntries[entryNumber]
         })
@@ -198,14 +205,20 @@ class SimpleMap extends Component {
             this.changeEntryDisplayed(this.state.entryCurrentlyFocused + 1)
     }
     playSlider = () => {
+        //
+        //centers it over the currently focused entry, cause that's where we're gonna start.
+        //also hovers it.
+        // this.changeEntryDisplayed[this.state.entryCurrentlyFocused]
         this.setState({
-            //centers it over the currently focused entry, cause that's where we're gonna start.
             //turns on "show single entry" as default behaviour
             showSingleEntry: true,
             center: {
-                lat: this.props.geotaggedEntries[this.state.entryCurrentlyFocused].lat + 0.04,
+                lat: this.props.geotaggedEntries[this.state.entryCurrentlyFocused].lat + 0.05,
                 lng: this.props.geotaggedEntries[this.state.entryCurrentlyFocused].lng
-            }
+            },
+            zoom: 10,
+            hoveredMapPoint: this.props.geotaggedEntries[this.state.entryCurrentlyFocused]
+            
         })
         let sliderStopperID =
             setInterval(() => {

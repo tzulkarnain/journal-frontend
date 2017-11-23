@@ -129,10 +129,10 @@ class EditEntry extends Component {
         //and if not, they will be null, to avoid making new API calls to Google or firebase storage (respectively).
 
         //p1 sets the lat and lng according to the user-entered address.
-        //in EditEntry, this ONLY happens if this.state.lat is null, which happens
-        //if the user has chosen a new place from the "location" box
+        //in EditEntry, this ONLY happens if this.state.placeFormatted exists,
+        //which only happens if the user has selected a new place from our AutoComplete input field.
 
-        const p1 = !this.state.lat ? api.requestLatLong(this.state.place)
+        const p1 = !!this.state.placeFormatted ? api.requestLatLong(this.state.placeFormatted)
             .then(object => {
                 entryDataObj.lat = object.lat; entryDataObj.lng = object.lng
             }
@@ -219,7 +219,8 @@ class EditEntry extends Component {
                                             //a new lat and lng when user clicks submit. 
                                             lat: null,
                                             lng: null,
-                                            place: place.formatted_address
+                                            place:place.name,
+                                            placeFormatted: place.formatted_address
                                         });
                                         console.log("we formatted the user submitted address to:", place.formatted_address);
                                     }}
