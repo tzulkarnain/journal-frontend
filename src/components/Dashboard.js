@@ -10,6 +10,7 @@ import WriteEntry from './WriteEntry';
 import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './ReadEntry';
+import EditEntry from './EditEntry';
 
 // import { Grid, Button } from 'react-bootstrap';
 
@@ -267,6 +268,7 @@ class Dashboard extends Component {
                 return <DisplayEntries entries={this.state.entries} />;
               }}
             />
+            
             <Route
               path={`/dashboard/stats`}
               render={() => {
@@ -296,6 +298,13 @@ class Dashboard extends Component {
                     reloadEntries={this.loadEntries}
                   />
                 );
+              }}
+            />
+
+            <Route
+              path={`/dashboard/editentry/:id`}
+              render={props => {
+                return <EditEntry {...props} reloadEntries={this.loadEntries} history={this.props.history} />;
               }}
             />
             <Route

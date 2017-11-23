@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import api from '../api.js'
 import auth from '../auth.js';
-import { Grid, Segment, Header } from 'semantic-ui-react'
+import { Grid, Segment, Header,Button } from 'semantic-ui-react'
 import styled from 'styled-components';
+
 import nineTen from '../images/best.png'
 import sevenEight from '../images/happy.png'
 import fiveSix from '../images/ok.png'
 import threeFour from '../images/bad.png'
 import oneTwo from '../images/verybad.png'
+
+import {Link} from 'react-router-dom'
+
+
+const FontAwesome = require('react-fontawesome')
 
 const Title = styled.h1`
   display: flex;
@@ -19,9 +25,19 @@ const Title = styled.h1`
   padding-bottom: 0.2em;
 `;
 
+
+
+const CreateButton = styled(Button)`
+  && {
+    background-color: #7e7c88;
+    color: rgb(246, 244, 244);
+    padding: 3px 9px;
+    margin-top: 7%;
+    }
+`;
 const PageWrapper = styled.div`
   width: 53.45rem;
-  padding-bottom: 20%;
+  padding-bottom: 10%;
 `
 
 const TitleWrapper = styled.div`
@@ -128,6 +144,7 @@ class ReadEntry extends Component {
       <div style={{display: 'flex', 'align-content': 'center', 'justify-content': 'center'}} >    
         {!this.state.loaded ? <div>loading...</div> :
           <PageWrapper>
+
             <img alt="unsplash-or-chosen" src={this.state.singleEntry.full_image_url} style={{ width: '53.45rem' }} />
             <TitleWrapper>
               <Title>{this.state.singleEntry.title}</Title>
@@ -189,10 +206,15 @@ class ReadEntry extends Component {
               <p>{this.state.singleEntry.place}</p>
               </AnswerWrapper>
             </ContentWrapper> */}
+              <CreateButton size="massive" as={Link} to={`/dashboard/editentry/${this.state.singleEntry.id}`}>
+                   <FontAwesome name="pencil"/> 
+              </CreateButton>
             
              </MainContent>
 
           </PageWrapper>
+
+            
         }
       </div>
     );

@@ -6,6 +6,9 @@ import { Button } from 'semantic-ui-react';
 import EntryPreview from './EntryPreview';
 import styled from 'styled-components';
 
+const FontAwesome = require('react-fontawesome')
+
+
 const Preview = styled.div` 
 position: absolute;
 padding: 5px;
@@ -39,7 +42,6 @@ const Slider = styled.div`
 
 `
 
-const FontAwesome = require('react-fontawesome')
 
 const displayDate = timeStamp => {
     let newDateArray = timeStamp.split('T');
@@ -89,23 +91,21 @@ class SimpleMap extends Component {
         }
     }
     componentDidMount() {
-        this.props.geotaggedEntries.length > 0 ? (
+        if (this.props.geotaggedEntries.length >0){
             // this.loadDaysWithEntries(this.props.geotaggedEntries),
             this.setState({
                 geotaggedEntriesLoading: false
-            }))
-            :
-            null
+            })}
+            
     }
 
     componentWillReceiveProps(nextProps) {
         console.log("the simplemap props are:", nextProps)
 
-        nextProps.geotaggedEntries.length > 0 ? (
+        if (nextProps.geotaggedEntries.length > 0){
             // this.loadDaysWithEntries(nextProps.geotaggedEntries),
-            this.setState({ geotaggedEntriesLoading: false }))
-            :
-            null
+            this.setState({ geotaggedEntriesLoading: false })
+        }
     }
 
     componentWillUnmount(){
