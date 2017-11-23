@@ -163,7 +163,7 @@ class ReadEntry extends Component {
           {/* 2 */}
             <ContentWrapper>
               <QuestionWrapper>
-              <Question>highlights </Question>
+              <Question>What were the highlights of your day?</Question>
               </QuestionWrapper>
               <AnswerWrapper>
               <p>{this.state.singleEntry.q1a1}</p>
@@ -174,7 +174,7 @@ class ReadEntry extends Component {
             {/* //3 */}
             <ContentWrapper>
               <QuestionWrapper>
-              <Question>could have done better</Question>
+              <Question>What could you have done to make today better?</Question>
               </QuestionWrapper>
               <AnswerWrapper>
               <p>{this.state.singleEntry.q2}</p>
@@ -183,7 +183,7 @@ class ReadEntry extends Component {
             {/* //4 */}
             <ContentWrapper>
               <QuestionWrapper>
-              <Question>always wanted to</Question>
+              <Question>{this.state.singleEntry.special_question}</Question>
               </QuestionWrapper>
               <AnswerWrapper>
               <p>{this.state.singleEntry.q3}</p>

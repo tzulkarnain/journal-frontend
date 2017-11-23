@@ -10,6 +10,7 @@ const FontAwesome = require('react-fontawesome')
 
 
 const Preview = styled.div` 
+width:200px;
 position: absolute;
 padding: 5px;
 background: #fff;
@@ -62,7 +63,7 @@ const Pin = props => {
                 <Preview>
                     <Link to={`/dashboard/readentry/${props.entry.id}`}>
                             <img 
-                            style={{"maxHeight":"80%",margin:"auto"}}
+                            style={{"maxWidth":"100%",margin:"auto"}}
                             src={props.entry.thumbnail_image_url} />
                         </Link>
                     <div style={{margin:"10px auto"}}><div>{props.entry.title}

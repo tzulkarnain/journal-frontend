@@ -36,6 +36,7 @@ class EditEntry extends Component {
             q4: "",
             lat: "",
             lng: "",
+            place:"",
             special_question:"",
             chosenPhoto: {
                 fromOriginalEntryToEdit: null,
@@ -67,6 +68,7 @@ class EditEntry extends Component {
                         q3: reply.body.q3,
                         q4: reply.body.q4,
                         special_question:reply.body.special_question,
+                        place:reply.body.place,
                         lat: reply.body.lat,
                         lng: reply.body.lng,
                         chosenPhoto: {
@@ -118,7 +120,8 @@ class EditEntry extends Component {
             q2: this.state.q2,
             q3: this.state.q3,
             q4: this.state.q4,
-            special_question:this.state.special_question
+            special_question:this.state.special_question,
+            place:this.state.place
         }
 
         //this whole function prepares the entry.
@@ -129,7 +132,7 @@ class EditEntry extends Component {
         //in EditEntry, this ONLY happens if this.state.lat hasn't already been wiped out,
         //which happens if the user selects a new place.
 
-        const p1 = this.state.lat ? api.requestLatLong(this.state.place)
+        const p1 = !this.state.lat ? api.requestLatLong(this.state.place)
             .then(object => {
                 entryDataObj.lat = object.lat; entryDataObj.lng = object.lng
             }
