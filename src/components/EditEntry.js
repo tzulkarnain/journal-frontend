@@ -36,6 +36,7 @@ class EditEntry extends Component {
             q4: "",
             lat: "",
             lng: "",
+            special_question:"",
             chosenPhoto: {
                 fromOriginalEntryToEdit: null,
                 //it wasn't userUploaded but this makes it easier and only affects the "alt" property
@@ -65,6 +66,7 @@ class EditEntry extends Component {
                         q2: reply.body.q2,
                         q3: reply.body.q3,
                         q4: reply.body.q4,
+                        special_question:reply.body.special_question,
                         lat: reply.body.lat,
                         lng: reply.body.lng,
                         chosenPhoto: {
@@ -116,6 +118,7 @@ class EditEntry extends Component {
             q2: this.state.q2,
             q3: this.state.q3,
             q4: this.state.q4,
+            special_question:this.state.special_question
         }
 
         //this whole function prepares the entry.

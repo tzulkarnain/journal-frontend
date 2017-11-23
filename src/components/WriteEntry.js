@@ -11,7 +11,7 @@ import fiveSix from '../images/ok.png'
 import threeFour from '../images/bad.png'
 import oneTwo from '../images/verybad.png'
 import styled from 'styled-components'
-
+import questions from '../questions.js'
 
 const config = {
   apiKey: 'AIzaSyDdAR2czNdvvLDrkr1MoSvz8wcGuKDj_0I',
@@ -54,8 +54,15 @@ class WriteEntry extends Component {
       q4: '',
       place: '',
       lat: null,
-      lng: null
+      lng: null,
+      special_question:""
     };
+  }
+
+  componentDidMount(){
+    this.setState({
+      special_question:questions[Math.floor(Math.random()*17)]
+    })
   }
   moodChange = e => {
     this.setState({ mood: e.target.value });
@@ -89,7 +96,8 @@ class WriteEntry extends Component {
       q1a3: this.state.q1a3,
       q2: this.state.q2,
       q3: this.state.q3,
-      q4: this.state.q4
+      q4: this.state.q4,
+      special_question:this.state.special_question
     };
 
     //this whole function prepares the entry.
@@ -214,7 +222,7 @@ class WriteEntry extends Component {
                 />
               </Form.Field>
               <Form.Field>
-                <label>What is something you've always wanted to do?</label>
+                <label>{this.state.special_question}</label>
                 <Input
                   type="text"
                   value={this.state.q3}

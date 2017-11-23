@@ -90,7 +90,7 @@ class ReadEntry extends Component {
                 <div>{this.state.singleEntry.q1a3}</div>
                 <h5>Could have done better:</h5>
                 <p>{this.state.singleEntry.q2}</p>
-                <h5>Always wanted to:</h5>
+                <h5>{this.state.singleEntry.special_question}</h5>
                 <p>{this.state.singleEntry.q3}</p>
                 <h5>Today's notes</h5>
                 <p>{this.state.singleEntry.q4}</p>
