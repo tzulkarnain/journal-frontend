@@ -17,7 +17,13 @@ const ButtonPosition = styled(Card.Content)`
 padding: 6rem 0 3rem 
 }
 `
-
+const CardWrapper = styled.div `
+grid-template-columns : repeat(auto-fit, 290px);
+grid-template-rows: repeat(auto-fit, 408.44px);
+display: grid; 
+grid-gap: 1em 3%;
+width: 76vw;
+`
 
 
 class DisplayEntries extends Component {
@@ -32,7 +38,7 @@ class DisplayEntries extends Component {
     render() {
         return (
             // <div>hello</div>
-            <div style={{ 'gridTemplateColumns': 'repeat(auto-fit, 290px)', 'gridTemplateRows': 'repeat(auto-fit, 378.44px)',  'display': 'grid', 'gridGap': '1em 3%' }}>
+            <CardWrapper>
                 <Card>
                     <div />
                     <div className="card-content">
@@ -48,7 +54,7 @@ class DisplayEntries extends Component {
                 {this.props.entries.length ?
                     this.props.entries.map(this.displayEntryPreview) :
                     null}
-            </div>
+            </CardWrapper>
 
         )
 
