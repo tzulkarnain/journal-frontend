@@ -198,14 +198,14 @@ class ReadEntry extends Component {
               <p>{this.state.singleEntry.q4}</p>
               </AnswerWrapper>
             </ContentWrapper>
-            {/* <ContentWrapper>
+            <ContentWrapper>
               <QuestionWrapper>
-              <Question>visted</Question>
+              <Question>visited</Question>
               </QuestionWrapper>
               <AnswerWrapper>
               <p>{this.state.singleEntry.place}</p>
               </AnswerWrapper>
-            </ContentWrapper> */}
+            </ContentWrapper>
               <CreateButton size="massive" as={Link} to={`/dashboard/editentry/${this.state.singleEntry.id}`}>
                    <FontAwesome name="pencil"/> 
               </CreateButton>

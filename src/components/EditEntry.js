@@ -129,8 +129,8 @@ class EditEntry extends Component {
         //and if not, they will be null, to avoid making new API calls to Google or firebase storage (respectively).
 
         //p1 sets the lat and lng according to the user-entered address.
-        //in EditEntry, this ONLY happens if this.state.lat hasn't already been wiped out,
-        //which happens if the user selects a new place.
+        //in EditEntry, this ONLY happens if this.state.lat is null, which happens
+        //if the user has chosen a new place from the "location" box
 
         const p1 = !this.state.lat ? api.requestLatLong(this.state.place)
             .then(object => {
@@ -211,7 +211,7 @@ class EditEntry extends Component {
                             </Form.Field>
                             <Form.Field >
                                 <label>Where did you go today?</label>
-                                <Autocomplete
+                                <Autocomplete placeholder={`${this.state.place}`}
                                     style={{ width: '90%' }} onPlaceSelected={(place) => {
                                         this.setState({
                                             //if they chose a new place, then that's it: we null the old lat and lng
