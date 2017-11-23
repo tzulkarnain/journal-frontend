@@ -121,7 +121,7 @@ class WriteEntry extends Component {
     render() {
         console.log('this.props.history', this.props.history)
         return (
-            <div className="write-entry">
+            <div className="write-entry" style={{padding:'0 0 2% 0'}} >
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 700 }}>
                         <PickImage mood={this.state.mood}

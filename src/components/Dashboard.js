@@ -61,7 +61,7 @@ const SidebarLink = styled.div`
 const ContentWrapper = styled.div`
   left: 18%;
   position: absolute;
-  width: 68%;
+  width: 69%;
   height: 100%;
   display: grid;
   margin-top: 3.5%;
@@ -306,6 +306,7 @@ class Dashboard extends Component {
             />
           </ContentWrapper>
         </MainWrapper>
+
       </div>
     );
   }

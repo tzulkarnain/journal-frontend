@@ -316,7 +316,7 @@ class SimpleMap extends Component {
 
                 </MapWrapper>
                 <Slider>
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", padding: '2rem 0' }}>
                         <Button onClick={this.showSingleEntryToggle}>{this.state.showSingleEntry ? "show all entries" : "show single entry"}</Button>
                         <Button onClick={this.stepLeft}><FontAwesome name="step-backward" /></Button>
                         <Button onClick={this.togglePlayPause}>{this.playPauseSymbol()}</Button>

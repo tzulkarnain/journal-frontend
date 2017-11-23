@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/readentry/:id" component={ReadEntry} />
           <Route path="/testingmap" component={SimpleMap} />
           <Route path="/styled" component={StyledTesting} />
-          <footer style={{display: 'block', position: 'fixed', bottom: '5px', left: '1%'}} >Curious Rose™</footer>
+          <footer style={{display: 'block', position: 'fixed', bottom: '5px', left: '1%', 'font-family': 'Barlow Semi Condensed', 'font-size': '1.2rem' }}>Curious Rose</footer>
         </div>
       </BrowserRouter>
     );
