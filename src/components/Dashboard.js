@@ -6,7 +6,7 @@ import SimpleMap from './SimpleMap';
 import api from '../api.js';
 import auth from '../auth.js';
 import SimpleChart from './SimpleChart';
-import WriteEntry from './WriteEntry';
+import WriteEntryNew from './WriteEntryNew';
 import styled, { css } from 'styled-components';
 import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './ReadEntry';
@@ -293,7 +293,7 @@ class Dashboard extends Component {
               path={`/dashboard/writeentry`}
               render={() => {
                 return (
-                  <WriteEntry
+                  <WriteEntryNew
                     history={this.props.history}
                     reloadEntries={this.loadEntries}
                   />

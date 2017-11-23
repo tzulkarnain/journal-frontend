@@ -5,7 +5,7 @@ import LandingPage from './components/LandingPage';
 import CreateAccount from './components/CreateAccount';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import WriteEntry from './components/WriteEntry';
+import WriteEntryNew from './components/WriteEntryNew';
 import ReadEntry from './components/ReadEntry';
 import SimpleMap from './components/SimpleMap';
 import StyledTesting from './components/StyledTesting';
@@ -20,7 +20,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route exact path="/dashboard" render={(props) => <Dashboard {...props} page={'entries'}/>} />
           <Route path="/dashboard/:page" render={(routeProps) => <Dashboard {...routeProps} page={routeProps.match.params.page}/>} />
-          <Route path="/writeentry" component={WriteEntry} />
+          <Route path="/writeentry" component={WriteEntryNew} />
           <Route path="/readentry/:id" component={ReadEntry} />
           <Route path="/testingmap" component={SimpleMap} />
           <Route path="/styled" component={StyledTesting} />

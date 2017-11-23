@@ -39,7 +39,7 @@ height: 5rem;
 `
 
 
-class WriteEntry extends Component {
+class WriteEntryOLD extends Component {
   constructor() {
     super();
     this.state = {
@@ -97,8 +97,7 @@ class WriteEntry extends Component {
       q2: this.state.q2,
       q3: this.state.q3,
       q4: this.state.q4,
-      special_question:this.state.special_question,
-      place:this.state.place
+      special_question:this.state.special_question
     };
     //this whole function prepares the entry.
     //p1 sets the lat and lng according to the user-entered address
@@ -265,7 +264,7 @@ class WriteEntry extends Component {
   }
 }
 
-export default WriteEntry;
+export default WriteEntryOLD;
 
 
 /*just in case

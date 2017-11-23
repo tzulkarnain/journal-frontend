@@ -87,8 +87,11 @@ class PickImage extends Component {
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />
                                 </button>)}
+                                <div>
                                 <Button onClick={this.unsplashGet}>Search Again</Button>
                                 <Button onClick={this.unSplashRemove}>Back</Button>
+                                </div>
+                                
 
                     </div>
 
