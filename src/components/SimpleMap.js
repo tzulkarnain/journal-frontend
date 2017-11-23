@@ -237,7 +237,7 @@ class SimpleMap extends Component {
                 }
             },
                 //and do this every 3000 milliseconds
-                3000)
+                2000)
         this.setState({
             sliderStopperID: sliderStopperID,
             sliderIsPlaying: true

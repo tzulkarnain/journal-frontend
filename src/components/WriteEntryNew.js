@@ -124,7 +124,8 @@ class WriteEntryNew extends Component {
 
       componentDidMount(){
         this.setState({
-          special_question:questions[Math.floor(Math.random()*17)]
+          special_question:questions[14]
+            // Math.floor(Math.random()*17)
         })
       }
       moodChange = e => {

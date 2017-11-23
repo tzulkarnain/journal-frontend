@@ -62,7 +62,7 @@ const SidebarLink = styled.div`
 const ContentWrapper = styled.div`
   left: 18%;
   position: absolute;
-  width: 69%;
+  width: 77%;
   height: 100%;
   display: grid;
   margin-top: 3.5%;

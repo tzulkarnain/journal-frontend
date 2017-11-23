@@ -36,6 +36,7 @@ class EditEntry extends Component {
             q4: "",
             lat: "",
             lng: "",
+            id: '',
             place:"",
             special_question:"",
             chosenPhoto: {
@@ -68,6 +69,7 @@ class EditEntry extends Component {
                         q3: reply.body.q3,
                         q4: reply.body.q4,
                         special_question:reply.body.special_question,
+                        id: reply.body.id,
                         place:reply.body.place,
                         lat: reply.body.lat,
                         lng: reply.body.lng,
@@ -167,10 +169,11 @@ class EditEntry extends Component {
                 )
             })
             .then(() => this.props.reloadEntries())
-            .then(() => this.props.history.push("/dashboard/entries"))
+            .then(() => this.props.history.push(`/dashboard/readentry/${this.state.id}`))
     }
 
     render() {
+        console.log('edit entry state ', this.state)
         return (
             <div className="write-entry">
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
