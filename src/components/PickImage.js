@@ -81,8 +81,8 @@ class PickImage extends Component {
 
                     <div style={{ border: "2px dashed #d6d6d6", borderRadius: "25px", padding: '1rem 0'  }}>
                         {this.state.photoChoicesArray.map(
-                            (photo) =>
-                                <button style={{"maxHeight": "100%", border:'none', 'margin-bottom': '1rem' }}
+                            (photo, index) =>
+                                <button key={index} style={{"maxHeight": "100%", border:'none', 'marginBottom': '1rem' }}
                                     onClick={() => this.props.selectImage(photo)}>
                                     <img style={{"maxHeight": "100%"}}
                                         src={photo.urls.thumb} alt={photo.links.html} />

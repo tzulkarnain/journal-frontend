@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Link } from 'react-router-dom';
 import { MAPS_API_KEY } from '../config/config.js';
-import { Icon, Input, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import EntryPreview from './EntryPreview';
 import styled from 'styled-components';
 

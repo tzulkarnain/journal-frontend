@@ -8,7 +8,7 @@ import auth from '../auth.js';
 import SimpleChart from './SimpleChart';
 import WriteEntry from './WriteEntry';
 import styled, { css } from 'styled-components';
-import { Header, Input, Button } from 'semantic-ui-react';
+import { Header, Button } from 'semantic-ui-react';
 import ReadEntry from './ReadEntry';
 import EditEntry from './EditEntry';
 
@@ -66,6 +66,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   display: grid;
   margin-top: 3.5%;
+  padding: 0 0 3rem 0;
 `;
 
 // const ContentWrapper = styled.div`
