@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import NavBar from './NavBar'
 import api from '../api.js'
 import auth from '../auth.js';
-import { Grid, Segment, Header } from 'semantic-ui-react'
+import { Grid, Segment, Header,Button } from 'semantic-ui-react'
+import styled from 'styled-components';
+import {Link} from 'react-router-dom'
 
+
+const FontAwesome = require('react-fontawesome')
+
+const CreateButton = styled(Button)`
+&& {
+background-color: #7e7c88;
+color: rgb(246, 244, 244);
+}
+`;
 
 class ReadEntry extends Component {
   constructor() {
@@ -48,7 +59,16 @@ class ReadEntry extends Component {
             </Grid.Column>
             <Grid.Row>
               <Grid.Column>
-                <Header as="h1">{this.state.singleEntry.title}</Header>
+                <div>
+                  <Header as="h1">{this.state.singleEntry.title}</Header>
+                  BUTTON HERE
+                  <CreateButton size="massive" as={Link} to={`/dashboard/editentry/${this.state.singleEntry.id}`}>
+                   <FontAwesome name="pencil"/> 
+                   </CreateButton>
+
+                  
+                  </div>
+                
                 <p>{this.displayDate(this.state.singleEntry.createdAt)}</p>
               </Grid.Column>
             </Grid.Row>

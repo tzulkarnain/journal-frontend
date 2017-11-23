@@ -66,6 +66,12 @@ class Api {
             .set('authorisation', token)
             .send(entryDataObj)
     }
+    editSingleEntry = (entryDataObj, token, entry_id) => {
+        return superagent
+            .post(`${apiHost}/api/entries/${entry_id}`)
+            .set('authorisation', token)
+            .send(entryDataObj)
+    }
     getUnsplashImage = (searchQuery) => {
         console.log("searching for images with query:", searchQuery)
         return superagent

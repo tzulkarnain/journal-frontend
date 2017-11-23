@@ -50,6 +50,8 @@ class PickImage extends Component {
         return searchQuery;
     }
 
+    
+
     render() {
         return (<div>
             <input
@@ -68,6 +70,7 @@ class PickImage extends Component {
                         "maxHeight": "100%"
                     }}
                     src={this.props.chosenPhoto.urls.regular}
+                    
                     alt={this.props.chosenPhoto.userUploaded ? "user uploaded photo":this.props.chosenPhoto.links.html} />
                    <Button onClick={this.props.deleteChosenPhoto}
                    style={{position:"absolute",bottom:10,right:10}}>X</Button>
