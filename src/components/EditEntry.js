@@ -183,7 +183,7 @@ class EditEntry extends Component {
                             selectImage={this.selectImage}
                             deleteChosenPhoto={this.deleteChosenPhoto}
                         />
-                        <Header as="h2" textAlign="center">Write a new entry</Header>
+                        <Header as="h2" textAlign="center">Edit your entry</Header>
                         <Form size="big" widths="equal" onKeyPress={this.handleKeyPress}>
                             <Form.Field>
                                 <label>Give today a title</label>
@@ -205,7 +205,7 @@ class EditEntry extends Component {
                                 <Input type='text' value={this.state.q2} onChange={(e) => this.setState({ q2: e.target.value })} />
                             </Form.Field>
                             <Form.Field>
-                                <label>What is something you've always wanted to do?</label>
+                                <label>{this.state.special_question}</label>
                                 <Input type='text' value={this.state.q3} onChange={(e) => this.setState({ q3: e.target.value })} />
                             </Form.Field>
                             <Form.Field >

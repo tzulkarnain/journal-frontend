@@ -87,7 +87,6 @@ class SimpleMap extends Component {
             entryCurrentlyFocused: 0,
             sliderActivated: false,
             sliderIsPlaying: false,
-            geotaggedEntriesLoading: true,
             showSingleEntry: false
         }
     }
@@ -96,7 +95,6 @@ class SimpleMap extends Component {
             let entryList = this.props.geotaggedEntries
             this.setState({
                 center:{lat:entryList[entryList.length-1].lat,lng:entryList[entryList.length-1].lng},              
-                geotaggedEntriesLoading: false,
                 hoveredMapPoint:entryList[entryList.length-1]
                 
             })}
@@ -109,9 +107,8 @@ class SimpleMap extends Component {
         if (nextProps.geotaggedEntries.length > 0){
             let entryList=nextProps.geotaggedEntries
             this.setState({ 
-                center:{lat:entryList[entryList.length-1].lat,lng:entryList[entryList.length-1].lng},              
-                geotaggedEntriesLoading: false,
-                hoveredMapPoint:entryList[entryList.length-1]
+                center:{lat:entryList[entryList.length-1].lat+0.05,lng:entryList[entryList.length-1].lng},           
+               hoveredMapPoint:entryList[entryList.length-1]
             })
         }
     }
