@@ -94,7 +94,7 @@ class SimpleMap extends Component {
         if (this.props.geotaggedEntries.length >0){
             let entryList = this.props.geotaggedEntries
             this.setState({
-                center:{lat:entryList[entryList.length-1].lat,lng:entryList[entryList.length-1].lng},              
+                center:{lat:entryList[entryList.length-1].lat+0.05,lng:entryList[entryList.length-1].lng},              
                 hoveredMapPoint:entryList[entryList.length-1]
                 
             })}
@@ -156,7 +156,7 @@ class SimpleMap extends Component {
         console.log("changed entry displayed to:", this.props.geotaggedEntries[entryNumber])
         this.setState({
             center: {
-                lat: this.props.geotaggedEntries[entryNumber].lat + 0.05,
+                lat: this.props.geotaggedEntries[entryNumber].lat + 0.06,
                 lng: this.props.geotaggedEntries[entryNumber].lng
             },
             zoom: 10,
